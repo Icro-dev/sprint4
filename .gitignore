@@ -48,3 +48,6 @@ Thumbs.db
 *.mov
 *.wmv
 
+# bin
+cinema/cinema/bin/
+cinema/cinema/obj/
