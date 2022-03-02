@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema\\cinema.csproj": {}
+    "/home/jeroen/Development/School/macrohard/macrohard-code/cinema/cinema/cinema.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema\\cinema.csproj": {
+    "/home/jeroen/Development/School/macrohard/macrohard-code/cinema/cinema/cinema.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema\\cinema.csproj",
+        "projectUniqueName": "/home/jeroen/Development/School/macrohard/macrohard-code/cinema/cinema/cinema.csproj",
         "projectName": "cinema",
-        "projectPath": "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema\\cinema.csproj",
-        "packagesPath": "C:\\Users\\Icrolux\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema\\obj\\",
+        "projectPath": "/home/jeroen/Development/School/macrohard/macrohard-code/cinema/cinema/cinema.csproj",
+        "packagesPath": "/home/jeroen/.nuget/packages/",
+        "outputPath": "/home/jeroen/Development/School/macrohard/macrohard-code/cinema/cinema/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Icrolux\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/jeroen/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -81,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/jeroen/.dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
         }
       }
     }
