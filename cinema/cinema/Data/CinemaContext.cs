@@ -12,6 +12,11 @@ namespace cinema.Data
             
         }
         public DbSet<Theatre>? Theatres { get; set; }
-
+        public DbSet<Movie>? Movies { get; set; }
+        public DbSet<Room>? Rooms { get; set; }
+        public DbSet<RoomTemplate>? RoomTemplates { get; set; }
+        public DbSet<Show>? Shows { get; set; }
+        public DbSet<Ticket>? Tickets { get; set; }
+        
     }
 }

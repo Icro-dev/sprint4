@@ -22,6 +22,119 @@ namespace cinema.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("cinema.Models.Movie", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AdvisedAge")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Length")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Poster")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ThreeD")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("cinema.Models.Room", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("RoomNr")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TemplateId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TheatreId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ThreeD")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Wheelchair")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TemplateId");
+
+                    b.HasIndex("TheatreId");
+
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("cinema.Models.RoomTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Setting")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoomTemplates");
+                });
+
+            modelBuilder.Entity("cinema.Models.Show", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("Break")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MovieName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ThreeD")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieName");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Shows");
+                });
+
             modelBuilder.Entity("cinema.Models.Theatre", b =>
                 {
                     b.Property<int>("Id")
@@ -36,6 +149,48 @@ namespace cinema.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Theatres");
+                });
+
+            modelBuilder.Entity("cinema.Models.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("ChildDiscount")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("CodeUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Popcorn")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SeatNr")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatRow")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("SeniorDiscount")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("StudentDiscount")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("showId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("showId");
+
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -234,6 +389,53 @@ namespace cinema.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("cinema.Models.Room", b =>
+                {
+                    b.HasOne("cinema.Models.RoomTemplate", "Template")
+                        .WithMany()
+                        .HasForeignKey("TemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("cinema.Models.Theatre", "Theatre")
+                        .WithMany()
+                        .HasForeignKey("TheatreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Template");
+
+                    b.Navigation("Theatre");
+                });
+
+            modelBuilder.Entity("cinema.Models.Show", b =>
+                {
+                    b.HasOne("cinema.Models.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieName");
+
+                    b.HasOne("cinema.Models.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("cinema.Models.Ticket", b =>
+                {
+                    b.HasOne("cinema.Models.Show", "show")
+                        .WithMany()
+                        .HasForeignKey("showId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("show");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
