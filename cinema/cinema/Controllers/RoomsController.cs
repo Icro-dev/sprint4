@@ -11,85 +11,85 @@ using cinema.Models;
 
 namespace cinema.Controllers
 {
-    public class MoviesController : Controller
+    public class RoomsController : Controller
     {
         private readonly CinemaContext _context;
 
-        public MoviesController(CinemaContext context)
+        public RoomsController(CinemaContext context)
         {
             _context = context;
         }
 
-        // GET: Movies
+        // GET: Rooms
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Movies.ToListAsync());
+            return View(await _context.Rooms.ToListAsync());
         }
 
-        // GET: Movies/Details/5
-        public async Task<IActionResult> Details(string id)
+        // GET: Rooms/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movies
-                .FirstOrDefaultAsync(m => m.Name == id);
-            if (movie == null)
+            var room = await _context.Rooms
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (room == null)
             {
                 return NotFound();
             }
 
-            return View(movie);
+            return View(room);
         }
 
-        // GET: Movies/Create
+        // GET: Rooms/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Movies/Create
+        // POST: Rooms/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,Director,Cast,ReleaseYear,CountryOfOrigin,Length,Genre,Poster,Language,ThreeD")] Movie movie)
+        public async Task<IActionResult> Create([Bind("Id,RoomNr,Wheelchair,ThreeD")] Room room)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(movie);
+                _context.Add(room);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(movie);
+            return View(room);
         }
 
-        // GET: Movies/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        // GET: Rooms/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movies.FindAsync(id);
-            if (movie == null)
+            var room = await _context.Rooms.FindAsync(id);
+            if (room == null)
             {
                 return NotFound();
             }
-            return View(movie);
+            return View(room);
         }
 
-        // POST: Movies/Edit/5
+        // POST: Rooms/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Name,Description,Director,Cast,ReleaseYear,CountryOfOrigin,Length,Genre,Poster,Language,ThreeD")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RoomNr,Wheelchair,ThreeD")] Room room)
         {
-            if (id != movie.Name)
+            if (id != room.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace cinema.Controllers
             {
                 try
                 {
-                    _context.Update(movie);
+                    _context.Update(room);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MovieExists(movie.Name))
+                    if (!RoomExists(room.Id))
                     {
                         return NotFound();
                     }
@@ -114,41 +114,41 @@ namespace cinema.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(movie);
+            return View(room);
         }
 
-        // GET: Movies/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        // GET: Rooms/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movies
-                .FirstOrDefaultAsync(m => m.Name == id);
-            if (movie == null)
+            var room = await _context.Rooms
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (room == null)
             {
                 return NotFound();
             }
 
-            return View(movie);
+            return View(room);
         }
 
-        // POST: Movies/Delete/5
+        // POST: Rooms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
-            _context.Movies.Remove(movie);
+            var room = await _context.Rooms.FindAsync(id);
+            _context.Rooms.Remove(room);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MovieExists(string id)
+        private bool RoomExists(int id)
         {
-            return _context.Movies.Any(e => e.Name == id);
+            return _context.Rooms.Any(e => e.Id == id);
         }
     }
 }

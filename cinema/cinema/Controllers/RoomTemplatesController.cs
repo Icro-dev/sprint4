@@ -11,85 +11,85 @@ using cinema.Models;
 
 namespace cinema.Controllers
 {
-    public class MoviesController : Controller
+    public class RoomTemplatesController : Controller
     {
         private readonly CinemaContext _context;
 
-        public MoviesController(CinemaContext context)
+        public RoomTemplatesController(CinemaContext context)
         {
             _context = context;
         }
 
-        // GET: Movies
+        // GET: RoomTemplates
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Movies.ToListAsync());
+            return View(await _context.RoomTemplates.ToListAsync());
         }
 
-        // GET: Movies/Details/5
-        public async Task<IActionResult> Details(string id)
+        // GET: RoomTemplates/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movies
-                .FirstOrDefaultAsync(m => m.Name == id);
-            if (movie == null)
+            var roomTemplate = await _context.RoomTemplates
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (roomTemplate == null)
             {
                 return NotFound();
             }
 
-            return View(movie);
+            return View(roomTemplate);
         }
 
-        // GET: Movies/Create
+        // GET: RoomTemplates/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Movies/Create
+        // POST: RoomTemplates/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,Director,Cast,ReleaseYear,CountryOfOrigin,Length,Genre,Poster,Language,ThreeD")] Movie movie)
+        public async Task<IActionResult> Create([Bind("Id,Setting")] RoomTemplate roomTemplate)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(movie);
+                _context.Add(roomTemplate);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(movie);
+            return View(roomTemplate);
         }
 
-        // GET: Movies/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        // GET: RoomTemplates/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movies.FindAsync(id);
-            if (movie == null)
+            var roomTemplate = await _context.RoomTemplates.FindAsync(id);
+            if (roomTemplate == null)
             {
                 return NotFound();
             }
-            return View(movie);
+            return View(roomTemplate);
         }
 
-        // POST: Movies/Edit/5
+        // POST: RoomTemplates/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Name,Description,Director,Cast,ReleaseYear,CountryOfOrigin,Length,Genre,Poster,Language,ThreeD")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Setting")] RoomTemplate roomTemplate)
         {
-            if (id != movie.Name)
+            if (id != roomTemplate.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace cinema.Controllers
             {
                 try
                 {
-                    _context.Update(movie);
+                    _context.Update(roomTemplate);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MovieExists(movie.Name))
+                    if (!RoomTemplateExists(roomTemplate.Id))
                     {
                         return NotFound();
                     }
@@ -114,41 +114,41 @@ namespace cinema.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(movie);
+            return View(roomTemplate);
         }
 
-        // GET: Movies/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        // GET: RoomTemplates/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movies
-                .FirstOrDefaultAsync(m => m.Name == id);
-            if (movie == null)
+            var roomTemplate = await _context.RoomTemplates
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (roomTemplate == null)
             {
                 return NotFound();
             }
 
-            return View(movie);
+            return View(roomTemplate);
         }
 
-        // POST: Movies/Delete/5
+        // POST: RoomTemplates/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
-            _context.Movies.Remove(movie);
+            var roomTemplate = await _context.RoomTemplates.FindAsync(id);
+            _context.RoomTemplates.Remove(roomTemplate);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MovieExists(string id)
+        private bool RoomTemplateExists(int id)
         {
-            return _context.Movies.Any(e => e.Name == id);
+            return _context.RoomTemplates.Any(e => e.Id == id);
         }
     }
 }

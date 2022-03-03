@@ -43,4 +43,16 @@ app.MapControllerRoute(
     name: "Movies",
     pattern: "{controller=Movies}/{action=Index}/{id?}");
 
+app.MapControllerRoute(
+    name: "RoomTemplates",
+    pattern: "{controller=RoomTemplates}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "Room",
+    pattern: "{controller=Rooms}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "Shows",
+    pattern: "{controller=Shows}/{action=Index}/{id?}");
+
 app.Run();
