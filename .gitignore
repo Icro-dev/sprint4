@@ -51,3 +51,6 @@ Thumbs.db
 # bin
 cinema/cinema/bin/
 cinema/cinema/obj/
+
+# appsettings
+cinema/cinema/appsettings.Development.json
