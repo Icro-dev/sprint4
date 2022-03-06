@@ -1,13 +1,9 @@
 ﻿#nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cinema.Data;
 using cinema.Models;
+using cinema.Services;
 
 namespace cinema.Controllers
 {
@@ -15,9 +11,12 @@ namespace cinema.Controllers
     {
         private readonly CinemaContext _context;
 
-        public TicketsController(CinemaContext context)
+        private readonly ITicketService _ticketService;
+        
+        public TicketsController(CinemaContext context, ITicketService ticketService)
         {
             _context = context;
+            _ticketService = ticketService;
         }
 
         [HttpGet]
@@ -55,39 +54,14 @@ namespace cinema.Controllers
             [FromForm] int studentDiscount,
             [FromForm] int popcorn)
         {
-            for (int i = 0; i < quantity; i++)
-            {
-                Ticket ticket = new Ticket();
-                ticket.SeatRow = 2;
-                ticket.SeatNr = 3;
-                
-                if(childDiscount >= (i + 1))
-                {
-                    ticket.ChildDiscount = true;
-                }
-
-                if (seniorDiscount >= (i + 1))
-                {
-                    ticket.SeniorDiscount = true;
-                }
-
-                if (studentDiscount >= (i + 1))
-                {
-                    ticket.StudentDiscount = true;
-                }
-
-                if (popcorn >= (i + 1))
-                {
-                    ticket.Popcorn = true;
-                }
-
-                ticket.show = _context.Shows.Find(show);
-                ticket.Code = new Random().Next(1, 100000);
-                ticket.CodeUsed = false;
-                _context.Tickets.Add(ticket);
-                _context.SaveChanges();
-            }
-
+            _ticketService.CreateTickets(
+                show,
+                quantity,
+                childDiscount,
+                seniorDiscount,
+                studentDiscount,
+                popcorn);
+            
             return RedirectToAction(nameof(Index));
         }
 
