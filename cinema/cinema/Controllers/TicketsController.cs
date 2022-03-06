@@ -38,7 +38,7 @@ namespace cinema.Controllers
 
         [HttpGet]
         [Route("/tickets/create")]
-        public IActionResult Create([FromQuery] string show,[FromQuery] string quantity)
+        public IActionResult Create([FromQuery] string show, [FromQuery] string quantity)
         {
             ViewBag.show = show;
             ViewBag.quantity = quantity;
@@ -47,7 +47,13 @@ namespace cinema.Controllers
 
         [HttpPost]
         [Route("/tickets/create")]
-        public IActionResult Create([FromQuery] int show, [FromQuery] int quantity)
+        public IActionResult Create(
+            [FromQuery] int show,
+            [FromQuery] int quantity,
+            [FromForm] int childDiscount,
+            [FromForm] int seniorDiscount,
+            [FromForm] int studentDiscount,
+            [FromForm] int popcorn)
         {
             for (int i = 0; i < quantity; i++)
             {
@@ -55,18 +61,33 @@ namespace cinema.Controllers
                 ticket.SeatRow = 2;
                 ticket.SeatNr = 3;
                 
-                ticket.ChildDiscount = true;
-                ticket.SeniorDiscount = true;
-                ticket.StudentDiscount = true;
-                ticket.Popcorn = true;
-                
+                if(childDiscount >= (i + 1))
+                {
+                    ticket.ChildDiscount = true;
+                }
+
+                if (seniorDiscount >= (i + 1))
+                {
+                    ticket.SeniorDiscount = true;
+                }
+
+                if (studentDiscount >= (i + 1))
+                {
+                    ticket.StudentDiscount = true;
+                }
+
+                if (popcorn >= (i + 1))
+                {
+                    ticket.Popcorn = true;
+                }
+
                 ticket.show = _context.Shows.Find(show);
                 ticket.Code = new Random().Next(1, 100000);
                 ticket.CodeUsed = false;
                 _context.Tickets.Add(ticket);
                 _context.SaveChanges();
             }
-         
+
             return RedirectToAction(nameof(Index));
         }
 
