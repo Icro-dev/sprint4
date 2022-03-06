@@ -17,4 +17,5 @@ public class Movie
     public string Poster { get; set; }
     public string Language { get; set; }
     public bool ThreeD { get; set; }
+    public string Kijkwijzer { get; set; } 
 }

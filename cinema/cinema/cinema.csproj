@@ -22,4 +22,19 @@
     <Folder Include="wwwroot\lib\bootstrap\dist" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\imagesKijkwijzer\12.png" />
+    <None Include="wwwroot\imagesKijkwijzer\16.png" />
+    <None Include="wwwroot\imagesKijkwijzer\18.png" />
+    <None Include="wwwroot\imagesKijkwijzer\6.png" />
+    <None Include="wwwroot\imagesKijkwijzer\AL.png" />
+    <None Include="wwwroot\imagesKijkwijzer\angst.png" />
+    <None Include="wwwroot\imagesKijkwijzer\D.png" />
+    <None Include="wwwroot\imagesKijkwijzer\Discr.png" />
+    <None Include="wwwroot\imagesKijkwijzer\G.png" />
+    <None Include="wwwroot\imagesKijkwijzer\GTG.png" />
+    <None Include="wwwroot\imagesKijkwijzer\mg6.png" />
+    <None Include="wwwroot\imagesKijkwijzer\S.png" />
+  </ItemGroup>
+
 </Project>

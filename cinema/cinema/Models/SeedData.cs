@@ -170,7 +170,8 @@ namespace cinema.Models
                             Genre = "Comedy, Drama, Romance",
                             Poster = "https://m.media-amazon.com/images/M/MV5BMjE0ODEwNjM2NF5BMl5BanBnXkFtZTcwMjU2Mzg3NA@@._V1_FMjpg_UX682_.jpg",
                             Language = "English",
-                            ThreeD = false
+                            ThreeD = false,
+                            Kijkwijzer = "AL GT"
                         },
 
                         new Movie
@@ -185,7 +186,8 @@ namespace cinema.Models
                             Genre = "Action, Adventure, Drama, Fantasy",
                             Poster = "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_FMjpg_UY720_.jpg",
                             Language = "English",
-                            ThreeD = false
+                            ThreeD = false,
+                            Kijkwijzer =  "12 G A" 
                         },
 
                         new Movie
@@ -200,7 +202,8 @@ namespace cinema.Models
                             Genre = "Action, Adventure, Sci-Fi, Fantasy",
                             Poster = "https://m.media-amazon.com/images/M/MV5BMTYwOTEwNjAzMl5BMl5BanBnXkFtZTcwODc5MTUwMw@@._V1_FMjpg_UX510_.jpg",
                             Language = "English",
-                            ThreeD = true
+                            ThreeD = true,
+                            Kijkwijzer = "12 G A" 
                         },
 
                         new Movie
@@ -215,7 +218,8 @@ namespace cinema.Models
                             Genre = "Crime, Drama, Thriller",
                             Poster = "https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UY720_.jpg",
                             Language = "English",
-                            ThreeD = false
+                            ThreeD = false,
+                            Kijkwijzer = "16 G GT" 
                         },
 
                         new Movie
@@ -230,7 +234,8 @@ namespace cinema.Models
                             Genre = "Action, Drama, Sci-Fi",
                             Poster = "https://m.media-amazon.com/images/M/MV5BNjE5MzYwMzYxMF5BMl5BanBnXkFtZTcwOTk4MTk0OQ@@._V1_FMjpg_UX680_.jpg",
                             Language = "English",
-                            ThreeD = true
+                            ThreeD = true,
+                            Kijkwijzer = "12 A GT" 
                         },
 
                        new Movie
@@ -245,7 +250,8 @@ namespace cinema.Models
                            Genre = "Action, Drama, Crime",
                            Poster = "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UY720_.jpg",
                            Language = "English",
-                           ThreeD = false
+                           ThreeD = false,
+                           Kijkwijzer = "16 G A"
                        }
 
                         );
