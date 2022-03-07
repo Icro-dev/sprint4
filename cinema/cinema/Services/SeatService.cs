@@ -21,16 +21,16 @@ public class SeatService : ISeatService
         }
 
         var template = from t in _context.RoomTemplates
-            where t.Id == show.Room.Template.Id
+            where t == show.Room.Template
             select t;
         
         string[] response = new string[quantity];
 
         var tickets = from t in _context.Tickets
             select t;
-        tickets = tickets.Where(t => t.show.Id.Equals(showId));
-        
-        
+        tickets = tickets.Where(t => t.show.Equals(show));
+
+
         return response;
     }
 }
