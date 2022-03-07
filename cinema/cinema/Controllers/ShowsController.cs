@@ -55,12 +55,13 @@ namespace cinema.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ThreeD,StartTime,Break")] Show show)
+        public async Task<IActionResult> Create([Bind("Id,ThreeD,Room,StartTime,Break")] Show show)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(show);
                 await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             return View(show);
@@ -87,7 +88,7 @@ namespace cinema.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ThreeD,StartTime,Break")] Show show)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ThreeD,Room,StartTime,Break")] Show show)
         {
             if (id != show.Id)
             {

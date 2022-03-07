@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Create";
 }
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
 
 <h1>Create</h1>
 
@@ -18,13 +19,23 @@
                 </label>
             </div>
             <div class="form-group">
+                <label asp-for="Room" class="control-label"></label>
+                <input asp-for="Room" class="form-control" />  @Html.DisplayNameFor(model => model.Room)
+                <span asp-validation-for="Room" class="text-danger"></span> 
+            </div>
+            <div class="form-group">
                 <label asp-for="StartTime" class="control-label"></label>
-                <input asp-for="StartTime" class="form-control" />
+                <input asp-for="StartTime" class="form-control" />  @Html.DisplayNameFor(model => model.StartTime)
                 <span asp-validation-for="StartTime" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Break" /> @Html.DisplayNameFor(model => model.Break)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Movie" /> @Html.DisplayNameFor(model => model.Movie)
                 </label>
             </div>
             <div class="form-group">
@@ -35,7 +46,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Index", "Index")
 </div>
 
 @section Scripts {
