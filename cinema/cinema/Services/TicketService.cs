@@ -1,3 +1,4 @@
+using System.Collections;
 using cinema.Data;
 using cinema.Models;
 
@@ -12,6 +13,11 @@ public class TicketService : ITicketService
         _context = context;
     }
 
+    public IEnumerable<Ticket>? GetAllTickets()
+    {
+        return _context.Tickets;
+    }
+    
     public void CreateTickets(
         int show,
         int quantity,

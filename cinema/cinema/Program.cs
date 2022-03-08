@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<IPriceCalculatingService, PriceCalculatingService>();
 
 // Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("CinemaDbContext");

@@ -1,3 +1,5 @@
+using cinema.Models;
+
 namespace cinema.Services;
 
 public interface ITicketService
@@ -8,4 +10,7 @@ public interface ITicketService
         int seniorDiscount,
         int studentDiscount,
         int popcorn);
+
+    public IEnumerable<Ticket>? GetAllTickets();
+
 }

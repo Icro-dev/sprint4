@@ -1,7 +1,5 @@
 ﻿#nullable disable
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using cinema.Data;
 using cinema.Models;
 using cinema.Services;
 
@@ -9,14 +7,15 @@ namespace cinema.Controllers
 {
     public class TicketsController : Controller
     {
-        private readonly CinemaContext _context;
 
         private readonly ITicketService _ticketService;
-        
-        public TicketsController(CinemaContext context, ITicketService ticketService)
+
+        private readonly IPriceCalculatingService _priceCalculatingService;
+
+        public TicketsController(IPriceCalculatingService priceCalculatingService, ITicketService ticketService)
         {
-            _context = context;
             _ticketService = ticketService;
+            _priceCalculatingService = priceCalculatingService;
         }
 
         [HttpGet]
@@ -24,8 +23,7 @@ namespace cinema.Controllers
         [Route("/tickets/index")]
         public IActionResult Index()
         {
-            IEnumerable<Ticket> tickets = _context.Tickets;
-            return View(tickets);
+            return View(_ticketService.GetAllTickets());
         }
 
         [HttpGet]
@@ -37,9 +35,11 @@ namespace cinema.Controllers
 
         [HttpGet]
         [Route("/tickets/create")]
-        public IActionResult Create([FromQuery] string show, [FromQuery] string quantity)
+        public IActionResult Create([FromQuery] int show, [FromQuery] int quantity)
         {
             ViewBag.show = show;
+            ViewBag.price = _priceCalculatingService.pricePerTicket();
+            ViewBag.totalPrice = _priceCalculatingService.totalPrice(quantity);
             ViewBag.quantity = quantity;
             return View();
         }
@@ -65,9 +65,9 @@ namespace cinema.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TicketExists(int id)
-        {
-            return _context.Tickets.Any(e => e.Id == id);
-        }
+        // private bool TicketExists(int id)
+        // {
+        //     return _context.Tickets.Any(e => e.Id == id);
+        // }
     }
 }
