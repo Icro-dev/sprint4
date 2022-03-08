@@ -13,24 +13,29 @@ public class SeatService : ISeatService
         _context = context;
     }
 
-    public Array GetSeats(Show show, int quantity)
+    public string GetSeats(Show show, int quantity)
     {
         if (show == null || !(quantity > 0) )
         {
             throw new MissingFieldException();
         }
 
-        var template = from t in _context.RoomTemplates
-            where t == show.Room.Template
-            select t;
-        
+        string template = null;
+        if (_context.RoomTemplates != null && _context.RoomTemplates.Any())
+        {
+            template = _context.RoomTemplates.First(t => t.Id == 1).Setting;
+        }
+
         string[] response = new string[quantity];
 
         var tickets = from t in _context.Tickets
             select t;
         tickets = tickets.Where(t => t.show.Equals(show));
 
-
-        return response;
+        if (template != null)
+        {
+            return template;
+        }
+        else return "Not Found";
     }
 }
