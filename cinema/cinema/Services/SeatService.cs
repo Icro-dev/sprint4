@@ -1,4 +1,4 @@
-using System.Linq;
+using System.Text.Json;
 using cinema.Data;
 using cinema.Models;
 
@@ -13,29 +13,20 @@ public class SeatService : ISeatService
         _context = context;
     }
 
-    public string GetSeats(Show show, int quantity)
+    public string? GetSeats(Show show, int quantity)
     {
-        if (show == null || !(quantity > 0) )
-        {
-            throw new MissingFieldException();
-        }
+        if (show == null || !(quantity > 0)) throw new MissingFieldException();
 
-        string template = null;
+        string? template = null;
         if (_context.RoomTemplates != null && _context.RoomTemplates.Any())
-        {
             template = _context.RoomTemplates.First(t => t.Id == 1).Setting;
-        }
 
-        string[] response = new string[quantity];
+        var response = new string[quantity];
+        var tickets = _context.Tickets.Where(t => t.show.Equals(show));
 
-        var tickets = from t in _context.Tickets
-            select t;
-        tickets = tickets.Where(t => t.show.Equals(show));
+        var templateArray = JsonSerializer.Deserialize<int[]>(template);
 
-        if (template != null)
-        {
-            return template;
-        }
-        else return "Not Found";
+
+        return templateArray[0].ToString() ?? "Not Found";
     }
 }
