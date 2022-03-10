@@ -27,14 +27,27 @@ namespace cinema.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AdvisedAge")
-                        .HasColumnType("int");
+                    b.Property<string>("Cast")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountryOfOrigin")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Director")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Genre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Kijkwijzer")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -48,6 +61,9 @@ namespace cinema.Migrations
                     b.Property<string>("Poster")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReleaseYear")
+                        .HasColumnType("int");
 
                     b.Property<bool>("ThreeD")
                         .HasColumnType("bit");
@@ -120,8 +136,11 @@ namespace cinema.Migrations
                     b.Property<string>("MovieName")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("RoomId")
+                    b.Property<int>("Room")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("ThreeD")
                         .HasColumnType("bit");
@@ -129,8 +148,6 @@ namespace cinema.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("MovieName");
-
-                    b.HasIndex("RoomId");
 
                     b.ToTable("Shows");
                 });
@@ -416,15 +433,7 @@ namespace cinema.Migrations
                         .WithMany()
                         .HasForeignKey("MovieName");
 
-                    b.HasOne("cinema.Models.Room", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Movie");
-
-                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("cinema.Models.Ticket", b =>
