@@ -17,7 +17,11 @@ public class SeatService : ISeatService
 
     public int[,]? GetSeats(Show show, int quantity)
     {
-        if (show == null || !(quantity > 0)) throw new MissingFieldException();
+        if (show == null || !(quantity > 0))
+        {
+            string error = show == null ? "No show selected" : "Zero tickets selected";
+            throw new MissingFieldException(error);
+        }
 
         string? template = null;
         //get the roomtemplate for the show
@@ -27,7 +31,12 @@ public class SeatService : ISeatService
 
         // get the sold tickets for the show
         var tickets = _context.Tickets.Where(t => t.show.Equals(show));
-        
+        //if show is sold out, throw exception
+        if (!(tickets.Count() < quantity))
+        {
+            throw new Exception("Show is sold out");
+        }
+
         // create a seatmap from the template
         var seatMap = new List<int[]>();
         if (templateArray != null)
@@ -42,6 +51,7 @@ public class SeatService : ISeatService
         {
             seatMap[ticket.SeatRow][ticket.SeatNr] = 1;
         }
+        //TODO create real algorithm to find seats
         // call the random number goddess to find a seat for these poor souls
         bool seatFound = false;
         int luckyRow = 0;
@@ -55,15 +65,13 @@ public class SeatService : ISeatService
             counter++;
         }
 
-        //create a list with seats
+        //create an array with seats and return it 
         int[,] theSeats = new int[quantity,2];
         for (int i = 0; i < quantity; i++)
         {
             theSeats[i, 0] = luckyRow;
             theSeats[i, 1] = luckySeat + i;
         }
-
-
         return theSeats;
     }
 

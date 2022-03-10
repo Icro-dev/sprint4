@@ -13,18 +13,18 @@ public static class SeedData
 
         if (!context.RoomTemplates.Any())
             context.RoomTemplates.AddRange(
+                new RoomTemplate(
+                
+                    JsonSerializer.Serialize(new List<int> {15, 15, 15, 15, 15, 15, 15, 15})
+                ),
                 new RoomTemplate
-                {
-                    Setting = JsonSerializer.Serialize(new List<int> {15, 15, 15, 15, 15, 15, 15, 15})
-                },
+                (
+                    JsonSerializer.Serialize(new List<int> {10, 10, 10, 10, 10, 10})
+                ),
                 new RoomTemplate
-                {
-                    Setting = JsonSerializer.Serialize(new List<int> {10, 10, 10, 10, 10, 10})
-                },
-                new RoomTemplate
-                {
-                    Setting = JsonSerializer.Serialize(new List<int> {10, 10, 15, 15})
-                }
+                (
+                    JsonSerializer.Serialize(new List<int> {10, 10, 15, 15})
+                )
             );
         if (!context.Theatres.Any())
             context.Theatres.AddRange(
