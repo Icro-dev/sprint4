@@ -1,0 +1,76 @@
+﻿@using cinema.Models
+@model cinema.Models.Ticket
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    int quantity = Int32.Parse(ViewBag.quantity);
+}
+
+<h1>Create</h1>
+
+<h4>Ticket</h4>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="create" asp-route-show="@ViewBag.show" asp-route-quantity="@quantity">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    @Html.DisplayNameFor(model => model.ChildDiscount)
+                    <select name="childDiscount" id="childDiscount">
+                        @for (int discount = 0; discount < @quantity + 1; discount++)
+                        {
+                            <option value="@discount">@discount</option>
+                        }
+                    </select>
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    @Html.DisplayNameFor(model => model.StudentDiscount)
+                    <select name="studentDiscount" id="studentDiscount">
+                        @for (int discount = 0; discount < @quantity + 1; discount++)
+                        {
+                            <option value="@discount">@discount</option>
+                        }
+                    </select>
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+
+                    @Html.DisplayNameFor(model => model.SeniorDiscount)
+                    <select name="seniorDiscount" id="seniorDiscount">
+                        @for (int discount = 0; discount < @quantity + 1; discount++)
+                        {
+                            <option value="@discount">@discount</option>
+                        }
+                    </select>
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    @Html.DisplayNameFor(model => model.Popcorn)
+                    <select name="popcorn" id="popcorn">
+                        @for (int discount = 0; discount < @quantity + 1; discount++)
+                        {
+                            <option value="@discount">@discount</option>
+                        }
+                    </select>
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
