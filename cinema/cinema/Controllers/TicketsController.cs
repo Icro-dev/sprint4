@@ -12,9 +12,13 @@ namespace cinema.Controllers
 
         private readonly IPriceCalculatingService _priceCalculatingService;
 
-        public TicketsController(IPriceCalculatingService priceCalculatingService, ITicketService ticketService)
+        private readonly IPaymentAdapter _paymentAdapter;
+        
+
+        public TicketsController(IPriceCalculatingService priceCalculatingService, ITicketService ticketService, IPaymentAdapter paymentAdapter)
         {
             _ticketService = ticketService;
+            _paymentAdapter = paymentAdapter;
             _priceCalculatingService = priceCalculatingService;
         }
 
@@ -35,12 +39,31 @@ namespace cinema.Controllers
 
         [HttpGet]
         [Route("/tickets/create")]
-        public IActionResult Create([FromQuery] int show, [FromQuery] int quantity)
+        public IActionResult Create([FromQuery] int showId, [FromQuery] int quantity)
         {
-            ViewBag.show = show;
-            ViewBag.price = _priceCalculatingService.pricePerTicket();
-            ViewBag.totalPrice = _priceCalculatingService.totalPrice(quantity);
+            ViewBag.show = showId;
+            ViewBag.price = _priceCalculatingService.pricePerTicket(showId);
+            ViewBag.totalPrice = _priceCalculatingService.totalPrice(showId, quantity);
             ViewBag.quantity = quantity;
+            return View();
+        }
+        
+        [HttpGet]
+        [Route("/tickets/payment")]
+        public IActionResult Payment(
+            [FromQuery] int show,
+            [FromQuery] int quantity,
+            [FromQuery] bool childDiscount,
+            [FromQuery] bool studentDiscount,
+            [FromQuery] bool seniorDiscount,
+            [FromQuery] bool popcorn)
+        {
+            // ViewBag.show = ;
+            ViewBag.quantity = quantity;
+            ViewBag.childDiscount = childDiscount;
+            ViewBag.studentDiscount = studentDiscount;
+            ViewBag.seniorDiscount = seniorDiscount;
+            ViewBag.popcorn = popcorn;
             return View();
         }
 

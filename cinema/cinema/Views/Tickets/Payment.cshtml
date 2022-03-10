@@ -1,0 +1,25 @@
+@model dynamic
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Betalings overzicht:</h2>
+
+<div>Voorstelling: </div>
+<div>Aantal kaartjes</div>
+<div>Kinder korting</div>
+<div>Student korting</div>
+<div>Senioren korting</div>
+
+
+<h3>Betalen</h3>
+<form method="get" asp-action="create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+    <div class="form-group">
+        <input type="submit" value="Betalen" class="btn btn-primary"/>
+    </div>
+</form>

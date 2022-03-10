@@ -10,6 +10,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<IPriceCalculatingService, PriceCalculatingService>();
+builder.Services.AddScoped<IPaymentAdapter, PaymentAdapter>();
 
 // Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("CinemaDbContext");
