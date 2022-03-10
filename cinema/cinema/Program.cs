@@ -11,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<IPriceCalculatingService, PriceCalculatingService>();
 builder.Services.AddScoped<IPaymentAdapter, PaymentAdapter>();
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 // Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("CinemaDbContext");
