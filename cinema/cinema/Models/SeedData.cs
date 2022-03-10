@@ -107,7 +107,7 @@ namespace cinema.Models
                         {
                             ThreeD = false,
                             Room = 3,
-                            StartTime = new DateTime(2022, 7, 3, 19, 00, 00),
+                            StartTime = new DateTime(2022, 10, 3, 19, 00, 00),
                             Break = false,
                             Movie = context.Movies.Find("Joker")
 
@@ -116,7 +116,7 @@ namespace cinema.Models
                        {
                            ThreeD = true,
                            Room = 1,
-                           StartTime = new DateTime(2022, 7, 3, 19, 15, 00),
+                           StartTime = new DateTime(2022, 10, 3, 19, 15, 00),
                            Break = false,
                            Movie = context.Movies.Find("Avatar")
                        },
@@ -124,7 +124,7 @@ namespace cinema.Models
                       {
                           ThreeD = true,
                           Room = 2,
-                          StartTime = new DateTime(2022, 7, 3, 17, 00, 00),
+                          StartTime = new DateTime(2022, 10, 3, 17, 00, 00),
                           Break = false,
                           Movie = context.Movies.Find("Gravity")
                       },
@@ -132,7 +132,7 @@ namespace cinema.Models
                        {
                            ThreeD = false,
                            Room = 4,
-                           StartTime = new DateTime(2022, 7, 3, 20, 00, 00),
+                           StartTime = new DateTime(2022, 10, 3, 20, 00, 00),
                            Break = false,
                            Movie = context.Movies.Find("When Harry Met Sally")
                        },
@@ -140,7 +140,7 @@ namespace cinema.Models
                      {
                          ThreeD = false,
                          Room = 5,
-                         StartTime = new DateTime(2022, 7, 3, 18, 00, 00),
+                         StartTime = new DateTime(2022, 10, 3, 18, 00, 00),
                          Break = false,
                          Movie = context.Movies.Find("The Lord of the Rings: The Fellowship of the Ring")
 
@@ -149,7 +149,7 @@ namespace cinema.Models
                        {
                            ThreeD = false,
                            Room = 6,
-                           StartTime = new DateTime(2022, 7, 3, 21, 00, 00),
+                           StartTime = new DateTime(2022, 10, 3, 21, 00, 00),
                            Break = false,
                            Movie = (Movie)context.Movies.Where(b => b.Name == "The Dark Knight")
                        }
