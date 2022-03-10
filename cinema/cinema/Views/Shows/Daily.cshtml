@@ -1,0 +1,45 @@
+﻿@using cinema.Models
+@model IEnumerable<cinema.Models.Show>
+
+@{
+    ViewData["Title"] = "Films";
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<h1></h1>
+
+@* Date picker *@
+
+
+@* Left bar with all movies that day *@
+@{
+    List<Movie> Movies = new List<Movie>();
+    foreach(Show show in Model){
+        if(!Movies.Contains(show.Movie))
+            Movies.Add(show.Movie);
+    }
+}
+
+<ul style="list-style-type:none;">
+@foreach(Movie movie in Movies){
+    <li>@Html.DisplayFor(Movie => movie.Name)</li>;
+}
+</ul>
+
+
+@* Main screen with all shows per movie for selected date *@
+@foreach(Movie movie in Movies){
+    <div>
+        <h1>@Html.DisplayFor(Movie => movie.Name)</h1>
+        <ul style="list-style-type:none;">
+            @{
+                foreach(var show in Model){
+                    if(show.Movie == movie)
+                    {
+                        <li>@show.StartTime.ToString("HH:mm")</li>
+                    }
+                }
+            }
+        </ul>
+    </div>
+}
