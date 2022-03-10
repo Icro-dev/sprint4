@@ -116,7 +116,7 @@ namespace cinema.Models
                             CountryOfOrigin = "United States",
                             Length = 1.35,
                             Genre = "Comedy, Drama, Romance",
-                            Poster = "https:m.media-amazon.com/images/M/MV5BMjE0ODEwNjM2NF5BMl5BanBnXkFtZTcwMjU2Mzg3NA@@._V1_FMjpg_UX682_.jpg",
+                            Poster = "https://m.media-amazon.com/images/M/MV5BMjE0ODEwNjM2NF5BMl5BanBnXkFtZTcwMjU2Mzg3NA@@._V1_FMjpg_UX682_.jpg",
                             Language = "English",
                             ThreeD = false,
                             Kijkwijzer = "AL GT"
@@ -132,7 +132,7 @@ namespace cinema.Models
                             CountryOfOrigin = "United States, New Zealand",
                             Length = 2.58,
                             Genre = "Action, Adventure, Drama, Fantasy",
-                            Poster = "https:m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_FMjpg_UY720_.jpg",
+                            Poster = "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_FMjpg_UY720_.jpg",
                             Language = "English",
                             ThreeD = false,
                             Kijkwijzer =  "12 G A" 
@@ -148,7 +148,7 @@ namespace cinema.Models
                             CountryOfOrigin = "United States",
                             Length = 2.42,
                             Genre = "Action, Adventure, Sci-Fi, Fantasy",
-                            Poster = "https:m.media-amazon.com/images/M/MV5BMTYwOTEwNjAzMl5BMl5BanBnXkFtZTcwODc5MTUwMw@@._V1_FMjpg_UX510_.jpg",
+                            Poster = "https://m.media-amazon.com/images/M/MV5BMTYwOTEwNjAzMl5BMl5BanBnXkFtZTcwODc5MTUwMw@@._V1_FMjpg_UX510_.jpg",
                             Language = "English",
                             ThreeD = true,
                             Kijkwijzer = "12 G A" 
@@ -164,7 +164,7 @@ namespace cinema.Models
                             ReleaseYear = 2019,
                             CountryOfOrigin = "United States",
                             Genre = "Crime, Drama, Thriller",
-                            Poster = "https:m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UY720_.jpg",
+                            Poster = "https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UY720_.jpg",
                             Language = "English",
                             ThreeD = false,
                             Kijkwijzer = "16 G GT" 
@@ -180,7 +180,7 @@ namespace cinema.Models
                             ReleaseYear = 2013,
                             CountryOfOrigin = "United States, United Kingdom",
                             Genre = "Action, Drama, Sci-Fi",
-                            Poster = "https:m.media-amazon.com/images/M/MV5BNjE5MzYwMzYxMF5BMl5BanBnXkFtZTcwOTk4MTk0OQ@@._V1_FMjpg_UX680_.jpg",
+                            Poster = "https://m.media-amazon.com/images/M/MV5BNjE5MzYwMzYxMF5BMl5BanBnXkFtZTcwOTk4MTk0OQ@@._V1_FMjpg_UX680_.jpg",
                             Language = "English",
                             ThreeD = true,
                             Kijkwijzer = "12 A GT" 
@@ -196,7 +196,7 @@ namespace cinema.Models
                            CountryOfOrigin = "United States, United Kingdom",
                            Length = 2.32,
                            Genre = "Action, Drama, Crime",
-                           Poster = "https:m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UY720_.jpg",
+                           Poster = "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UY720_.jpg",
                            Language = "English",
                            ThreeD = false,
                            Kijkwijzer = "16 G A"
@@ -249,8 +249,8 @@ namespace cinema.Models
                          StartTime = new DateTime(2022, 10, 3, 18, 00, 00),
                          Break = false,
                          Movie = (Movie)context.Movies.First(b => b.Name == "The Lord of the Rings: The Fellowship of the Ring")
-
                      },
+                     
                        new Show
                        {
                            ThreeD = false,
@@ -258,7 +258,58 @@ namespace cinema.Models
                            StartTime = new DateTime(2022, 10, 3, 21, 00, 00),
                            Break = false,
                            Movie = (Movie)context.Movies.First(b => b.Name == "The Dark Knight")
-                       }
+                       },
+                           new Show
+                        {
+                            ThreeD = false,
+                            Room = 1,
+                            StartTime = new DateTime(2022, 3, 310, 19, 00, 00),
+                            Break = false,
+                            Movie = (Movie)context.Movies.First(b => b.Name == "The Lord of the Rings: The Fellowship of the Ring")
+                        },
+                        new Show
+                        {
+                            ThreeD = false,
+                            Room = 2,
+                            StartTime = new DateTime(2022, 3, 310, 19, 00, 00),
+                            Break = false,
+                            Movie = (Movie)context.Movies.First(b => b.Name == "The Lord of the Rings: The Fellowship of the Ring")
+                        },
+                        new Show
+                        {
+                            ThreeD = false,
+                            Room = 3,
+                            StartTime = new DateTime(2022, 3, 310, 19, 00, 00),
+                            Break = false,
+                            Movie = (Movie)context.Movies.First(b => b.Name == "The Lord of the Rings: The Fellowship of the Ring")
+                        },
+                        new Show
+                        {
+                            ThreeD = false,
+                            Room = 4,
+                            StartTime = new DateTime(2022, 3, 310, 19, 00, 00),
+                            Break = false,
+                            Movie = (Movie)context.Movies.First(b => b.Name == "The Lord of the Rings: The Fellowship of the Ring")
+                        },
+                        new Show
+                        {
+                            ThreeD = false,
+                            Room = 5,
+                            StartTime = new DateTime(2022, 3, 310, 19, 00, 00),
+                            Break = false,
+                            Movie = (Movie)context.Movies.First(b => b.Name == "The Lord of the Rings: The Fellowship of the Ring")
+                        },
+                        new Show
+                        {
+                            ThreeD = false,
+                            Room = 6,
+                            StartTime = new DateTime(2022, 3, 310, 19, 00, 00),
+                            Break = false,
+                            Movie = (Movie)context.Movies.First(b => b.Name == "The Lord of the Rings: The Fellowship of the Ring")
+                        }
+                        
+                        
+                        
                         );
                 }
                 context.SaveChanges();

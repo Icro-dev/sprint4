@@ -23,7 +23,7 @@ namespace cinema.Controllers
         // GET: Shows
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Shows.ToListAsync());
+            return View(await _context.Shows.Include(s => s.Movie).ToListAsync());
         }
 
         // GET: Shows/Details/5
