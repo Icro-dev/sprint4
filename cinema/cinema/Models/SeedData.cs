@@ -100,61 +100,7 @@ namespace cinema.Models
                 //        );
                 //}
                 
-                if (!context.Shows.Any())
-                {
-                    context.Shows.AddRange(
-                        new Show
-                        {
-                            ThreeD = false,
-                            Room = 3,
-                            StartTime = new DateTime(2022, 10, 3, 19, 00, 00),
-                            Break = false,
-                            Movie = context.Movies.Find("Joker")
 
-                        },
-                       new Show
-                       {
-                           ThreeD = true,
-                           Room = 1,
-                           StartTime = new DateTime(2022, 10, 3, 19, 15, 00),
-                           Break = false,
-                           Movie = context.Movies.Find("Avatar")
-                       },
-                      new Show
-                      {
-                          ThreeD = true,
-                          Room = 2,
-                          StartTime = new DateTime(2022, 10, 3, 17, 00, 00),
-                          Break = false,
-                          Movie = context.Movies.Find("Gravity")
-                      },
-                       new Show
-                       {
-                           ThreeD = false,
-                           Room = 4,
-                           StartTime = new DateTime(2022, 10, 3, 20, 00, 00),
-                           Break = false,
-                           Movie = context.Movies.Find("When Harry Met Sally")
-                       },
-                     new Show
-                     {
-                         ThreeD = false,
-                         Room = 5,
-                         StartTime = new DateTime(2022, 10, 3, 18, 00, 00),
-                         Break = false,
-                         Movie = context.Movies.Find("The Lord of the Rings: The Fellowship of the Ring")
-
-                     },
-                       new Show
-                       {
-                           ThreeD = false,
-                           Room = 6,
-                           StartTime = new DateTime(2022, 10, 3, 21, 00, 00),
-                           Break = false,
-                           Movie = (Movie)context.Movies.Where(b => b.Name == "The Dark Knight")
-                       }
-                        );
-                }
 
                 if (!context.Movies.Any())
                 {
@@ -256,6 +202,63 @@ namespace cinema.Models
                            Kijkwijzer = "16 G A"
                        }
 
+                        );
+                }
+                context.SaveChanges();
+
+                if (!context.Shows.Any())
+                {
+                    context.Shows.AddRange(
+                        new Show
+                        {
+                            ThreeD = false,
+                            Room = 3,
+                            StartTime = new DateTime(2022, 10, 3, 19, 00, 00),
+                            Break = false,
+                            Movie = (Movie)context.Movies.First(b => b.Name == "Joker")
+
+                        },
+                       new Show
+                       {
+                           ThreeD = true,
+                           Room = 1,
+                           StartTime = new DateTime(2022, 10, 3, 19, 15, 00),
+                           Break = false,
+                           Movie = (Movie)context.Movies.First(b => b.Name == "Avatar")
+                       },
+                      new Show
+                      {
+                          ThreeD = true,
+                          Room = 2,
+                          StartTime = new DateTime(2022, 10, 3, 17, 00, 00),
+                          Break = false,
+                          Movie = (Movie)context.Movies.First(b => b.Name == "Gravity")
+                      },
+                       new Show
+                       {
+                           ThreeD = false,
+                           Room = 4,
+                           StartTime = new DateTime(2022, 10, 3, 20, 00, 00),
+                           Break = false,
+                           Movie = (Movie)context.Movies.First(b => b.Name == "When Harry Met Sally")
+                       },
+                     new Show
+                     {
+                         ThreeD = false,
+                         Room = 5,
+                         StartTime = new DateTime(2022, 10, 3, 18, 00, 00),
+                         Break = false,
+                         Movie = (Movie)context.Movies.First(b => b.Name == "The Lord of the Rings: The Fellowship of the Ring")
+
+                     },
+                       new Show
+                       {
+                           ThreeD = false,
+                           Room = 6,
+                           StartTime = new DateTime(2022, 10, 3, 21, 00, 00),
+                           Break = false,
+                           Movie = (Movie)context.Movies.First(b => b.Name == "The Dark Knight")
+                       }
                         );
                 }
                 context.SaveChanges();
