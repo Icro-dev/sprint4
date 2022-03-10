@@ -155,7 +155,7 @@ namespace cinema.Controllers
         //GET: Shows/Daily
         public IActionResult Daily()
         {
-            return View(_context.Shows.Include(s => s.Movie).ToList());
+            return View(_context.Shows.Include(s => s.Movie).Where(s => s.StartTime > DateTime.Now).Where(s => s.StartTime.Date == DateTime.Today.Date).ToList());
         }
     }
 }

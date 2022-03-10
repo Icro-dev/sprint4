@@ -36,7 +36,7 @@
                 foreach(var show in Model){
                     if(show.Movie == movie)
                     {
-                        <li>@show.StartTime.ToString("HH:mm")</li>
+                        <li><a asp-controller="Tickets" asp-action="Quantity" asp-route-id="@show.Id">@show.StartTime.ToString("HH:mm")</a></li>
                     }
                 }
             }
