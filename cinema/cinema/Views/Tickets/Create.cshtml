@@ -4,12 +4,15 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Pages/Shared/_Layout.cshtml";
-    int quantity = Int32.Parse(ViewBag.quantity);
+    int quantity = ViewBag.quantity;
 }
 
-<h1>Create</h1>
-
-<h4>Ticket</h4>
+<h1>Tickets</h1>
+<div>Er zijn @quantity tickets geselecteerd. </div>
+<div>Prijs per ticket  <strong>€ @ViewBag.price </strong></div>
+<div>Prijs zonder kortingen: <strong> € @ViewBag.totalPrice</strong> 
+</div>
+<h4>Kortingen</h4>
 <hr/>
 <div class="row">
     <div class="col-md-4">

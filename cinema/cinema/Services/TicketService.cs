@@ -1,3 +1,4 @@
+using System.Collections;
 using cinema.Data;
 using cinema.Models;
 
@@ -13,12 +14,19 @@ public class TicketService : ITicketService
         _seatService = seatService;
     }
 
-    public void CreateTickets(int show,
+    public IEnumerable<Ticket>? GetAllTickets()
+    {
+        return _context.Tickets;
+    }
+    
+    public void CreateTickets(
+        int show,
         int quantity,
         int childDiscount,
         int seniorDiscount,
         int studentDiscount,
-        int popcorn)
+        int popcorn
+    )
     {
         Show theShow = _context.Shows.First(s => s.Id == show);
         var theSeats = _seatService.GetSeats(theShow, quantity);

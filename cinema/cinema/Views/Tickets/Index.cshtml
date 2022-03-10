@@ -1,0 +1,77 @@
+﻿@model IEnumerable<cinema.Models.Ticket>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1 class="h1">Mijn Tickets</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SeatRow)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeatNr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChildDiscount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudentDiscount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SeniorDiscount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodeUsed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Popcorn)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatRow)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatNr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChildDiscount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentDiscount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeniorDiscount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodeUsed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Popcorn)
+            </td>
+            <td>
+                <a asp-controller="Ticket" asp-action="create" asp-route-id="@item.Id">Nieuw ticket</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,4 +1,6 @@
 using cinema.Data;
+using cinema.Models;
+using cinema.Services;
 using Microsoft.EntityFrameworkCore;
 using cinema.Models;
 
@@ -6,10 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-
+builder.Services.AddControllers();
+builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<IPriceCalculatingService, PriceCalculatingService>();
 
 // Add DbContext
-var connectionString = builder.Configuration.GetConnectionString("cinemaContext");
+var connectionString = builder.Configuration.GetConnectionString("CinemaDbContext");
 builder.Services
     .AddDbContext<CinemaContext>(options => options.UseSqlServer(connectionString));
 
@@ -22,12 +26,12 @@ using (var scope = app.Services.CreateScope())
     SeedData.Initialize(services);
 }
 
-    // Configure the HTTP request pipeline.
-    if (!app.Environment.IsDevelopment())
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    // app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -36,6 +40,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.MapControllers();
 
 app.MapRazorPages();
 
