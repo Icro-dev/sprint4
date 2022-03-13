@@ -12,9 +12,10 @@ public class MovieService : IMovieService
     {
         _context = context;
     }
-    
+
     public Movie GetMovieFromShow(int showId)
     {
-        return _context.Shows.Include(s => s.Movie).First(s => s.Id == showId).Movie;
+        var show = _context.Shows.Include(s => s.Movie).FirstOrDefault(s => s.Id == showId);
+        return show.Movie;
     }
 }

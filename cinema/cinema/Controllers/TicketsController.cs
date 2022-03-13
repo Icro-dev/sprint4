@@ -1,24 +1,34 @@
 ﻿#nullable disable
+using System.Linq;
+using cinema.Data;
 using Microsoft.AspNetCore.Mvc;
 using cinema.Models;
 using cinema.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace cinema.Controllers
 {
+
+   
     public class TicketsController : Controller
     {
+        private readonly CinemaContext _context;
 
         private readonly ITicketService _ticketService;
 
         private readonly IPriceCalculatingService _priceCalculatingService;
 
         private readonly IPaymentAdapter _paymentAdapter;
+
+        private readonly IMovieService _movieService;
         
 
-        public TicketsController(IPriceCalculatingService priceCalculatingService, ITicketService ticketService, IPaymentAdapter paymentAdapter)
+        public TicketsController(IPriceCalculatingService priceCalculatingService, ITicketService ticketService, IPaymentAdapter paymentAdapter, IMovieService movieService, CinemaContext context)
         {
             _ticketService = ticketService;
             _paymentAdapter = paymentAdapter;
+            _movieService = movieService;
+            _context = context;
             _priceCalculatingService = priceCalculatingService;
         }
 
@@ -51,19 +61,15 @@ namespace cinema.Controllers
         [HttpGet]
         [Route("/tickets/payment")]
         public IActionResult Payment(
-            [FromQuery] int show,
+            [FromQuery] int showId,
             [FromQuery] int quantity,
             [FromQuery] bool childDiscount,
             [FromQuery] bool studentDiscount,
             [FromQuery] bool seniorDiscount,
             [FromQuery] bool popcorn)
         {
-            // ViewBag.show = ;
+            
             ViewBag.quantity = quantity;
-            ViewBag.childDiscount = childDiscount;
-            ViewBag.studentDiscount = studentDiscount;
-            ViewBag.seniorDiscount = seniorDiscount;
-            ViewBag.popcorn = popcorn;
             return View();
         }
 
@@ -72,10 +78,10 @@ namespace cinema.Controllers
         public IActionResult Create(
             [FromQuery] int show,
             [FromQuery] int quantity,
-            [FromForm] int childDiscount,
-            [FromForm] int seniorDiscount,
-            [FromForm] int studentDiscount,
-            [FromForm] int popcorn)
+            [FromQuery] int childDiscount,
+            [FromQuery] int seniorDiscount,
+            [FromQuery] int studentDiscount,
+            [FromQuery] int popcorn)
         {
             _ticketService.CreateTickets(
                 show,
