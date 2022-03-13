@@ -25,7 +25,28 @@ namespace cinema.Controllers
         {
             var showList = await _context.Shows.Include(s => s.Movie).ToListAsync();
             showList.Sort((a,b) => DateTime.Compare(a.StartTime,b.StartTime));
-            return View(showList);
+            var dateList = new List<DateOnly>();
+            var showDict = new Dictionary<DateOnly, List<Show>>();
+            foreach (Show show in showList)
+            {
+                var date = DateOnly.FromDateTime(show.StartTime);
+                if(!(dateList.Contains(date)))
+                {
+                    dateList.Add(date);
+                }
+            }
+            dateList.Sort((a, b) => (a.CompareTo(b)));
+            foreach (var date in dateList)
+            {
+                showDict.Add(date,new List<Show>());
+            }
+
+            foreach (Show show in showList)
+            {
+                var date = DateOnly.FromDateTime(show.StartTime);
+                showDict[date].Add(show);
+            }
+            return View(showDict);
         }
 
         // GET: Shows/Details/5

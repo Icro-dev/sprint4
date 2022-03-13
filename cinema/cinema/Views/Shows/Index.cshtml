@@ -1,4 +1,5 @@
-﻿@model IEnumerable<cinema.Models.Show>
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model Dictionary<DateOnly, List<cinema.Models.Show>>
 
 @{
     ViewData["Title"] = "Voorstellingen";
@@ -9,34 +10,38 @@
 
 <div class="container-fluid">
     <div class="row">
-        @foreach (var show in Model)
+         @foreach (var date in Model.Keys)
         {
-            <div class="col-2">
-
-                <div class="card show my-3">
-                    <img class="card-img-top" src="@show.Movie.Poster">
-                    <div class="card-body">
-                        <p>Begintijd: @TimeOnly.FromDateTime(show.StartTime)</p>
-                        <p>Zaal: @show.Room</p>
-                        @if (@show.Break)
-                        {
-                            <p>Pauze</p>
-                        }
-                        else
-                        {
-                            <p>Geen pauze</p>
-                        }
-                    </div>
-                    <div class="card-footer">
-                        <form method="get">
-                            <button class="btn btn-primary w-100" asp-controller="Tickets" asp-action="Quantity" asp-route-id="@show.Id">Naar kaartjes</button>
-                        </form>
-                        <form method="get">
-                        <button class="btn btn-secondary w-100" asp-controller="Movies" asp-action="index" asp-route-id="@show.Movie.Name">Film-info</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+             <h2>@date</h2> 
+            @foreach (var show in Model[@date])
+            {
+                          <div class="col-2"> 
+        
+                 <div class="card show my-3"> 
+                     <img class="card-img-top" src="@show.Movie.Poster"> 
+                     <div class="card-body"> 
+                         <p>Begintijd: @TimeOnly.FromDateTime(show.StartTime)</p> 
+                         <p>Zaal: @show.Room</p> 
+                         @if (@show.Break) 
+                         { 
+                             <p>Pauze</p> 
+                         } 
+                         else 
+                         { 
+                             <p>Geen pauze</p> 
+                         } 
+                     </div> 
+                     <div class="card-footer"> 
+                         <form method="get"> 
+                             <button class="btn btn-primary w-100" asp-controller="Tickets" asp-action="Quantity" asp-route-id="@show.Id">Naar kaartjes</button> 
+                         </form> 
+                         <form method="get"> 
+                         <button class="btn btn-secondary w-100" asp-controller="Movies" asp-action="index" asp-route-id="@show.Movie.Name">Film-info</button> 
+                         </form> 
+                     </div> 
+                 </div>
+             </div> 
+            }
         }
     </div>
 </div>
