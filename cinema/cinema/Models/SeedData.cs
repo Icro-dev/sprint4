@@ -46,59 +46,59 @@ namespace cinema.Models
                         );
                 }
 
-                //if (!context.Rooms.Any())
-                //{
-                //    context.Rooms.AddRange(
-                //        new Room
-                //        {
-                //            RoomNr = 1,
-                //            Template = new RoomTemplate{ Id = 1},
-                //            Wheelchair = true,
-                //            ThreeD = true,
-                //            Theatre = new Theatre { Id = 1}
-                //        },
-                //         new Room
-                //         {
-                //             RoomNr = 2,
-                //             Template = new RoomTemplate { Id = 1 },
-                //             Wheelchair = true,
-                //             ThreeD = true,
-                //             Theatre = new Theatre { Id = 1 }
-                //         },
-                //         new Room
-                //         {
-                //             RoomNr = 3,
-                //             Template = new RoomTemplate { Id = 1 },
-                //             Wheelchair = true,
-                //             ThreeD = false,
-                //             Theatre = new Theatre { Id = 1 }
-                //         },
-                //         new Room
-                //         {
-                //             RoomNr = 4,
-                //             Template = new RoomTemplate { Id = 2 },
-                //             Wheelchair = true,
-                //             ThreeD = false,
-                //             Theatre = new Theatre { Id = 1 }
-                //         },
-                //         new Room
-                //         {
-                //             RoomNr = 5,
-                //             Template = new RoomTemplate { Id = 3 },
-                //             Wheelchair = false,
-                //             ThreeD = false,
-                //             Theatre = new Theatre { Id = 1 }
-                //         },
-                //         new Room
-                //         {
-                //             RoomNr = 6,
-                //             Template = new RoomTemplate { Id = 3 },
-                //             Wheelchair = false,
-                //             ThreeD = false,
-                //             Theatre = new Theatre { Id = 1 }
-                //         }
-                //        );
-                //}
+                if (!context.Rooms.Any())
+                {
+                    context.Rooms.AddRange(
+                        new Room
+                        {
+                            RoomNr = 1,
+                            Template = new RoomTemplate{ Id = 1},
+                            Wheelchair = true,
+                            ThreeD = true,
+                            Theatre = new Theatre { Id = 1}
+                        },
+                         new Room
+                         {
+                             RoomNr = 2,
+                             Template = new RoomTemplate { Id = 1 },
+                             Wheelchair = true,
+                             ThreeD = true,
+                             Theatre = new Theatre { Id = 1 }
+                         },
+                         new Room
+                         {
+                             RoomNr = 3,
+                             Template = new RoomTemplate { Id = 1 },
+                             Wheelchair = true,
+                             ThreeD = false,
+                             Theatre = new Theatre { Id = 1 }
+                         },
+                         new Room
+                         {
+                             RoomNr = 4,
+                             Template = new RoomTemplate { Id = 2 },
+                             Wheelchair = true,
+                             ThreeD = false,
+                             Theatre = new Theatre { Id = 1 }
+                         },
+                         new Room
+                         {
+                             RoomNr = 5,
+                             Template = new RoomTemplate { Id = 3 },
+                             Wheelchair = false,
+                             ThreeD = false,
+                             Theatre = new Theatre { Id = 1 }
+                         },
+                         new Room
+                         {
+                             RoomNr = 6,
+                             Template = new RoomTemplate { Id = 3 },
+                             Wheelchair = false,
+                             ThreeD = false,
+                             Theatre = new Theatre { Id = 1 }
+                         }
+                        );
+                }
                 
 
 
