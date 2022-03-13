@@ -2,24 +2,25 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Voorstellingen</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <div class="container-fluid">
     @foreach (var show in Model)
     {
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-4">
                 <a asp-controller="Tickets" asp-action="Quantity" asp-route-id="@show.Id">
                     <img class="img-fluid" src="@show.Movie.Poster"/>
                 </a>
             </div>
-            <div class="col-md-8">
+            <div class="col-8">
                 <h1>@show.Movie.Name</h1>
+                <p>Begintijd: @show.StartTime</p>
+                <p>Zaal: @show.Room</p>
+                @if (@show.Break) {<p>Pauze</p>} else {<p>Geen pauze</p>}
             </div>
         </div>
 
