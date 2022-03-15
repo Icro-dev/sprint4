@@ -1,0 +1,53 @@
+@model IEnumerable<cinema.Models.Show>
+
+@{
+    Layout = "../Shared/_Layout";
+    ViewData["Title"] = "Homepagina";
+}
+<div>
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+    <h1 class="mb-3">Films van deze week</h1>
+
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            @foreach (var show in Model)
+            {
+                <div class="swiper-slide">
+                    <a asp-controller="Tickets" asp-action="Quantity" asp-route-id="@show.Id">
+                        <img class="img-fluid" style="width: 100%; object-fit: cover;" alt="@show.Movie.Name" src="@show.Movie.Poster">
+                    </a>
+                    <div class="carousel-caption bg-white text-start p-3 mb-4 rounded">
+                        <h5 class="text-black">@show.Movie.Name</h5>
+                        <p class="text-black">Datum: @show.StartTime.</p>
+                        <p class="text-black">Lengte: @show.Movie.Length uur</p>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+          var swiper = new Swiper(".mySwiper", {
+            cssMode: true,
+            slidesPerView: 4,
+            spaceBetween: 30,
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+              el: ".swiper-pagination",
+            },
+            mousewheel: true,
+            keyboard: true,
+          });
+        </script>
+</div>
