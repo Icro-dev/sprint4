@@ -1,9 +1,9 @@
-@model IEnumerable<cinema.Models.Show>
 
 @{
     Layout = "../Shared/_Layout";
     ViewData["Title"] = "Homepagina";
 }
+
 <div>
     <link
         rel="stylesheet"
@@ -12,16 +12,16 @@
 
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-            @foreach (var show in Model)
+            @foreach (var movie in @ViewBag.movies)
             {
                 <div class="swiper-slide">
-                    <a asp-controller="Tickets" asp-action="Quantity" asp-route-id="@show.Id">
-                        <img class="img-fluid" style="width: 100%; object-fit: cover;" alt="@show.Movie.Name" src="@show.Movie.Poster">
+                    <a asp-controller="Tickets" asp-action="Quantity" asp-route-id="@movie.Name">
+                        <img class="img-fluid" style="width: 100%; object-fit: cover;" alt="@movie.Name" src="@movie.Poster">
                     </a>
                     <div class="carousel-caption bg-white text-start p-3 mb-4 rounded">
-                        <h5 class="text-black">@show.Movie.Name</h5>
-                        <p class="text-black">Datum: @show.StartTime.</p>
-                        <p class="text-black">Lengte: @show.Movie.Length uur</p>
+                        <h4 class="text-black">@movie.Name</h4>
+                        <p class="text-black">Lengte: @movie.Length uur</p>
+                        <p class="text-black">Genre: @movie.Genre</p>
                     </div>
                 </div>
             }
