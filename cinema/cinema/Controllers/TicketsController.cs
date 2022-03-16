@@ -65,28 +65,33 @@ namespace cinema.Controllers
         public IActionResult Payment(
             [FromQuery] int showId,
             [FromQuery] int quantity,
-            [FromQuery] bool childDiscount,
-            [FromQuery] bool studentDiscount,
-            [FromQuery] bool seniorDiscount,
-            [FromQuery] bool popcorn)
+            [FromQuery] int childDiscount,
+            [FromQuery] int studentDiscount,
+            [FromQuery] int seniorDiscount,
+            [FromQuery] int popcorn)
         {
             
             ViewBag.quantity = quantity;
+            ViewBag.showId = showId;
+            ViewBag.childDiscount = childDiscount;
+            ViewBag.studentDiscount = studentDiscount;
+            ViewBag.seniorDiscount = seniorDiscount;
+            ViewBag.popcorn = popcorn;
             return View();
         }
 
         [HttpPost]
         [Route("/tickets/create")]
         public IActionResult Create(
-            [FromQuery] int show,
-            [FromQuery] int quantity,
-            [FromQuery] int childDiscount,
-            [FromQuery] int seniorDiscount,
-            [FromQuery] int studentDiscount,
-            [FromQuery] int popcorn)
+            [FromForm] int showId,
+            [FromForm] int quantity,
+            [FromForm] int childDiscount,
+            [FromForm] int seniorDiscount,
+            [FromForm] int studentDiscount,
+            [FromForm] int popcorn)
         {
             _ticketService.CreateTickets(
-                show,
+                showId,
                 quantity,
                 childDiscount,
                 seniorDiscount,
