@@ -8,61 +8,29 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cinema.Data;
 using cinema.Models;
+using cinema.Services;
 
 namespace cinema.Controllers
 {
     public class ShowsController : Controller
     {
         private readonly CinemaContext _context;
+        private readonly ShowService _showService;
 
-        public ShowsController(CinemaContext context)
+        public ShowsController(CinemaContext context, IShowService service)
         {
+            
             _context = context;
+            _showService = (ShowService) service;
         }
 
         // GET: Shows
         public async Task<IActionResult> Index()
         {
-            var showList = await _context.Shows.Include(s => s.Movie).ToListAsync();
-            showList.Sort((a,b) => DateTime.Compare(a.StartTime,b.StartTime));
-            var dateList = new List<DateOnly>();
-            var showDict = new Dictionary<DateOnly, List<Show>>();
-            var showPerMoviePerDateDict = new Dictionary<DateOnly, Dictionary<Movie, List<Show>>>();
-            foreach (Show show in showList)
-            {
-                var date = DateOnly.FromDateTime(show.StartTime);
-                if(!(dateList.Contains(date)))
-                {
-                    dateList.Add(date);
-                }
-            }
-            dateList.Sort((a, b) => (a.CompareTo(b)));
-            foreach (var date in dateList)
-            {
-                showDict.Add(date,new List<Show>());
-            }
-
-            foreach (Show show in showList)
-            {
-                var date = DateOnly.FromDateTime(show.StartTime);
-                showDict[date].Add(show);
-            }
-
-
-            foreach (var date in showDict.Keys)
-            {
-                var showsPerMovieDict = new Dictionary<Movie, List<Show>>();
-                var showsPerDate = showDict[date];
-                foreach (var show in showsPerDate)
-                {
-                    if (!showsPerMovieDict.ContainsKey(show.Movie))
-                    {
-                        showsPerMovieDict.Add(show.Movie,new List<Show>());
-                    }
-                    showsPerMovieDict[show.Movie].Add(show);
-                }
-                showPerMoviePerDateDict[date] = showsPerMovieDict;
-            }
+            
+            var showList =  _context.Shows.Include(s => s.Movie).ToList();
+            var showPerMoviePerDateDict = _showService.GetShowsPerMoviePerDay(showList);
+           
             return View(showPerMoviePerDateDict);
         }
 
