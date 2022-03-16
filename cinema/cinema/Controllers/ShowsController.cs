@@ -27,6 +27,7 @@ namespace cinema.Controllers
             showList.Sort((a,b) => DateTime.Compare(a.StartTime,b.StartTime));
             var dateList = new List<DateOnly>();
             var showDict = new Dictionary<DateOnly, List<Show>>();
+            var showPerMoviePerDateDict = new Dictionary<DateOnly, Dictionary<Movie, List<Show>>>();
             foreach (Show show in showList)
             {
                 var date = DateOnly.FromDateTime(show.StartTime);
@@ -46,7 +47,23 @@ namespace cinema.Controllers
                 var date = DateOnly.FromDateTime(show.StartTime);
                 showDict[date].Add(show);
             }
-            return View(showDict);
+
+
+            foreach (var date in showDict.Keys)
+            {
+                var showsPerMovieDict = new Dictionary<Movie, List<Show>>();
+                var showsPerDate = showDict[date];
+                foreach (var show in showsPerDate)
+                {
+                    if (!showsPerMovieDict.ContainsKey(show.Movie))
+                    {
+                        showsPerMovieDict.Add(show.Movie,new List<Show>());
+                    }
+                    showsPerMovieDict[show.Movie].Add(show);
+                }
+                showPerMoviePerDateDict[date] = showsPerMovieDict;
+            }
+            return View(showPerMoviePerDateDict);
         }
 
         // GET: Shows/Details/5

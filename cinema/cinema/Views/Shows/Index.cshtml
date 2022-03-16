@@ -1,47 +1,43 @@
 ﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
-@model Dictionary<DateOnly, List<cinema.Models.Show>>
+@model Dictionary<DateOnly, Dictionary<cinema.Models.Movie, List<cinema.Models.Show>>>
 
 @{
     ViewData["Title"] = "Voorstellingen";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/shows.css" asp-append-version="true"/>
+}
+
 <h1>Voorstellingen</h1>
 
 <div class="container-fluid">
-    <div class="row">
-         @foreach (var date in Model.Keys)
-        {
-             <h2>@date</h2> 
-            @foreach (var show in Model[@date])
-            {
-                          <div class="col-2"> 
-        
-                 <div class="card show my-3"> 
-                     <img class="card-img-top" src="@show.Movie.Poster"> 
-                     <div class="card-body"> 
-                         <p>Begintijd: @TimeOnly.FromDateTime(show.StartTime)</p> 
-                         <p>Zaal: @show.Room</p> 
-                         @if (@show.Break) 
-                         { 
-                             <p>Pauze</p> 
-                         } 
-                         else 
-                         { 
-                             <p>Geen pauze</p> 
-                         } 
-                     </div> 
-                     <div class="card-footer"> 
-                         <form method="get"> 
-                             <button class="btn btn-primary w-100" asp-controller="Tickets" asp-action="Quantity" asp-route-id="@show.Id">Naar kaartjes</button> 
-                         </form> 
-                         <form method="get"> 
-                         <button class="btn btn-secondary w-100" asp-controller="Movies" asp-action="index" asp-route-id="@show.Movie.Name">Film-info</button> 
-                         </form> 
-                     </div> 
-                 </div>
-             </div> 
-            }
-        }
-    </div>
+    @foreach (var date in Model.Keys)
+    {
+        <h2>@date</h2>
+        <div id="@date" class="carousel slide" data-ride="carousel">
+
+            <div class="carousel-inner">
+                @{ var first = "active"; }
+                @foreach (var movie in Model[@date].Keys)
+                {
+                    <div class="@first carousel-item ">
+                        @{ first = ""; }
+                        <div class="shows_page_show_card">
+                            <img class="show_image" src="@movie.Poster">
+                            <div class="show_times">
+                                <button class="btn btn-primary">TEST</button>
+                            </div>
+                        </div>
+                        <form method="get">
+                            <button class="btn btn-secondary w-100" asp-controller="Movies" asp-action="index" asp-route-id="@movie.Name">Film-info</button>
+                        </form>
+
+                    </div>
+                }
+            </div>
+        </div>
+    }
 </div>

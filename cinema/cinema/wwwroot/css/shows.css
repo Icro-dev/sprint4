@@ -1,0 +1,5 @@
+.shows_page_show_card{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width:30%;
+}
