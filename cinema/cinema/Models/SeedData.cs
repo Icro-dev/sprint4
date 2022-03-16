@@ -203,9 +203,9 @@ public static class SeedData
 
         var movies = context.Movies!.ToList();
         
-        for (var di = 0; di < 3; di++)
+        for (var di = 0; di < 14; di++)
         {
-            for (var ri = 1; ri < 2; ri++)
+            for (var ri = 1; ri < 7; ri++)
             {
                 foreach (var hour in times)
                 {
