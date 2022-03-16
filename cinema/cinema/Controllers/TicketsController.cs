@@ -42,8 +42,10 @@ namespace cinema.Controllers
 
         [HttpGet]
         [Route("/tickets/quantity")]
-        public IActionResult Quantity()
+        public IActionResult Quantity([FromQuery] int showId)
         {
+            Movie movie = _movieService.GetMovieFromShow(showId);
+            ViewBag.Movie = movie;
             return View();
         }
 

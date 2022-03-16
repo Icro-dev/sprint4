@@ -15,7 +15,7 @@ public class MovieService : IMovieService
 
     public Movie GetMovieFromShow(int showId)
     {
-        var show = _context.Shows.Include(s => s.Movie).FirstOrDefault(s => s.Id == showId);
+        var show = _context.Shows.Include(s => s.Movie).First(s => s.Id == showId);
         return show.Movie;
     }
 }
