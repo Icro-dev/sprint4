@@ -11,10 +11,14 @@
 <div>Prijs @ViewBag.Price</div>
 
 <h3>Betalen</h3>
-<form method="get" asp-action="create">
+<form method="post" asp-action="create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-
+    <input type="hidden" value="@ViewBag.showId" name="showId">
+    <input type="hidden" value="@ViewBag.quantity" name="quantity">
+    <input type="hidden" value="@ViewBag.childDiscount" name="childDiscount">
+    <input type="hidden" value="@ViewBag.studentDiscount" name="studentDiscount">
+    <input type="hidden" value="@ViewBag.seniorDiscount" name="seniorDiscount">
+    <input type="hidden" value="@ViewBag.popcorn" name="popcorn">
     <div class="form-group">
         <input type="submit" value="Betalen" class="btn btn-primary"/>
     </div>
