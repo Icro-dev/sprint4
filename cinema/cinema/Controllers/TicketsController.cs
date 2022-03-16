@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using cinema.Models;
 using cinema.Services;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace cinema.Controllers
 {
@@ -35,9 +36,10 @@ namespace cinema.Controllers
         [HttpGet]
         [Route("/tickets")]
         [Route("/tickets/index")]
-        public IActionResult Index()
+        public IActionResult Index(string serializedTickets)
         {
-            return View(_ticketService.GetAllTickets());
+            var tickets = JsonConvert.DeserializeObject<List<Ticket>>(serializedTickets);
+            return View(tickets);
         }
 
         [HttpGet]
@@ -90,15 +92,25 @@ namespace cinema.Controllers
             [FromForm] int studentDiscount,
             [FromForm] int popcorn)
         {
-            _ticketService.CreateTickets(
+           var tickets =  _ticketService.CreateTickets(
                 showId,
                 quantity,
                 childDiscount,
                 seniorDiscount,
                 studentDiscount,
                 popcorn);
-            
-            return RedirectToAction(nameof(Index));
+
+           var myTicketsId = new List<int>();
+           foreach (var ticket in tickets)
+           {
+               myTicketsId.Add(ticket.Id);
+           }
+           TempData["myTickets"] = myTicketsId;
+
+            return RedirectToAction("Index", new
+            {
+                serializedTickets = JsonConvert.SerializeObject(tickets.ToList()) 
+            });
         }
     }
 }
