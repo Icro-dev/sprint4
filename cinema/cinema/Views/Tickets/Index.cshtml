@@ -5,69 +5,65 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="h1">Mijn gekochte Tickets</h1>
 
 
-
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SeatRow)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SeatNr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ChildDiscount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StudentDiscount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SeniorDiscount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Code)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CodeUsed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Popcorn)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeatRow)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeatNr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChildDiscount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StudentDiscount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeniorDiscount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CodeUsed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Popcorn)
-            </td>
-       
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container">
+    <h1 class="h1 my-4">Mijn Tickets</h1>
+    <button class="print btn btn-primary mb-5">Print de tickets</button>
+    <div class="row tickets">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card ticket">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.show.Movie.Name</h5>
+                        <img src="@item.show.Movie.Poster" style="max-height: 600px;" alt="@item.show.Movie.Name" class="card-img-top">
+                        <br><br>
+                        <p class="card-text">Zaal: @item.show.Room</p>
+                        <p class="card-text">Datum: @item.show.StartTime</p>
+                        @if (@item.show.Break)
+                        {
+                            <p class="card-text">Pauze: Ja </p>
+                        }
+                        else
+                        {
+                            <p class="card-text">Pauze: Nee </p>
+                        }
+                        <hr>
+                        <h5>Stoelen</h5>
+                        <p class="card-text">Rij: @item.SeatRow</p>
+                        <p class="card-text">Nummer: @item.SeatNr</p>
+                        <hr>
+                        <h4 class="card-text">Code: @item.Code</h4>
+        
+                    </div>
+                </div>
+            </div>
+        }
+        
+        <script >
+        
+        
+        var tickets = document.querySelector('.tickets');
+        document.querySelector('.print').addEventListener('click', function (){
+                             var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+                                           WinPrint.document.write(tickets.innerHTML);
+                                           WinPrint.document.close();
+                                           WinPrint.focus();
+                                           WinPrint.print();
+                        })
+                      
+            document.querySelectorAll('.ticket').forEach(function (value, key, parent){
+                value.addEventListener('click', function (){
+                     var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+                                   WinPrint.document.write(value.innerHTML);
+                                   WinPrint.document.close();
+                                   WinPrint.focus();
+                                   WinPrint.print();
+                                   // WinPrint.close();
+                })
+              
+            });
+        </script>
+    </div>
+</div>
