@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cinema.Data;
 using cinema.Models;
+using cinema.Filters;
 
 namespace cinema.Controllers
 {
@@ -156,6 +157,30 @@ namespace cinema.Controllers
         public IActionResult Daily()
         {
             return View(_context.Shows.Include(s => s.Movie).Where(s => s.StartTime > DateTime.Now).Where(s => s.StartTime.Date == DateTime.Today.Date).ToList());
+        }
+
+        [HttpGet, HttpPost, ActionName("Filter")]
+        public IActionResult Filter()
+        {
+            List<Show> shows = _context.Shows.Include(s => s.Movie).Where(s => s.StartTime > DateTime.Now).ToList();
+            ShowsFilter filter = new ShowsFilter(shows);      
+            if(Request.Method == HttpMethod.Post.Method && ViewData["ShowsFilter"] != null)
+            {
+                filter = (ShowsFilter) ViewData["ShowsFilter"];
+                filter.input = Request.Form["search"];
+                filter.maxlength = Convert.ToDouble(Request.Form["len"]);
+                filter.date = Convert.ToDateTime(Request.Form["date"]);
+                filter.threed = Convert.ToBoolean(Request.Form["threed"]);
+                foreach (string language in filter.languages.Keys)
+                    filter.languages[language] = Convert.ToBoolean(Request.Form[language]);
+                foreach (string genre in filter.genres.Keys)
+                    filter.genres[genre] = Convert.ToBoolean(Request.Form[genre]);
+                foreach(string kijkwijzer in filter.kijkwijzers.Keys)
+                    filter.kijkwijzers[kijkwijzer] = Convert.ToBoolean(Request.Form[kijkwijzer]);
+            }
+            shows = filter.Apply(shows);
+            ViewData["ShowsFilter"] = filter;
+            return View(shows);
         }
     }
 }
