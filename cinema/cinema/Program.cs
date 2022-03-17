@@ -15,6 +15,8 @@ builder.Services.AddScoped<IPriceCalculatingService, PriceCalculatingService>();
 builder.Services.AddScoped<IShowService, ShowService>();
 builder.Services.AddScoped<ITimeService, TimeService>();
 
+builder.Services.AddScoped<IPaymentAdapter, PaymentAdapter>();
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 // Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("CinemaDbContext");

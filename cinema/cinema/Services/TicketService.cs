@@ -19,7 +19,7 @@ public class TicketService : ITicketService
         return _context.Tickets;
     }
     
-    public void CreateTickets(
+    public List<Ticket> CreateTickets(
         int show,
         int quantity,
         int childDiscount,
@@ -32,6 +32,8 @@ public class TicketService : ITicketService
         var theSeats = _seatService.GetSeats(theShow, quantity);
 
 
+        var tickets = new List<Ticket>();
+        
         for (int i = 0; i < quantity; i++)
         {
             Ticket ticket = new Ticket();
@@ -61,8 +63,10 @@ public class TicketService : ITicketService
             ticket.show = _context.Shows.Find(show);
             ticket.Code = new Random().Next(1, 100000);
             ticket.CodeUsed = false;
-            _context.Tickets.Add(ticket);
-            _context.SaveChanges();
+            tickets.Add(ticket);
         }
+        _context.Tickets.AddRange(tickets);
+        _context.SaveChanges();
+        return tickets;
     }
 }

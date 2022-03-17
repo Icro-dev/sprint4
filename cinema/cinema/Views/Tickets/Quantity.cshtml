@@ -4,22 +4,37 @@
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <img src="@ViewBag.Movie.Poster" alt="@ViewBag.Movie.Name" class="card-img-top">
+                <div class="card-body">
+                    <h3 class="card-title">@ViewBag.Movie.Name</h3>
+                    <p class="card-text">@ViewBag.Movie.Description</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
 
-<h2>Hoeveel kaartjes wilt u kopen?</h2>
-<form method="get" asp-action="create">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" name="show" value="4">
-    <div class="form-group form-check">
-            <select name="quantity" id="quantity">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-            </select>
+            <h2>Hoeveel kaartjes wilt u kopen?</h2>
+            <form method="get" asp-action="create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" name="showId" value="5">
+                <div class="form-group form-check">
+                    <select name="quantity" id="quantity">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary"/>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary"/>
-    </div>
-</form>
+</div>
