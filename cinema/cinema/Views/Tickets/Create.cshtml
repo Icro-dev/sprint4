@@ -16,8 +16,10 @@
 <hr/>
 <div class="row">
     <div class="col-md-4">
-        <form method="post" asp-action="create" asp-route-show="@ViewBag.show" asp-route-quantity="@quantity">
+        <form method="get" asp-action="Reservation">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="quantity" value="@quantity">
+            <input type="hidden" name="showId" value="@ViewBag.show">
             <div class="form-group form-check">
                 <label class="form-check-label">
                     @Html.DisplayNameFor(model => model.ChildDiscount)

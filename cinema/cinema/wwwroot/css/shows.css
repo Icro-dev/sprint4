@@ -31,7 +31,7 @@
 }
 .show_times{
     padding:0.5rem;
-    overflow-y:scroll;
+    overflow-y:auto;
 }
 .date-row{
     display:flex;
