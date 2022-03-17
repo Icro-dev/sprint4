@@ -31,8 +31,13 @@ public class SeatService : ISeatService
 
         // get the sold tickets for the show
         var tickets = _context.Tickets.Where(t => t.show.Equals(show));
+        var seatsNum = 0;
+        foreach ( var seats in templateArray)
+        {
+            seatsNum += seats;
+        }
         //if show is sold out, throw exception
-        if (!(tickets.Count() < quantity))
+        if (!(tickets.Count() < seatsNum))
         {
             throw new Exception("Show is sold out");
         }
