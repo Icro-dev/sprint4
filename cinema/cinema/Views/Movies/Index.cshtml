@@ -39,7 +39,7 @@
                 @Html.DisplayNameFor(model => model.Genre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Poster);
+                @Html.DisplayNameFor(model => model.Poster)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Language)
@@ -50,6 +50,7 @@
              <th>
                 @Html.DisplayNameFor(model => model.Kijkwijzer)
             </th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -151,8 +152,8 @@
                         }
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Name">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Name">Details</a> |
+                <a asp-action="Edit" asp-route-id="@item.Name">Edit</a> | 
+                <a asp-action="Details" asp-route-id="@item.Name">Details</a> | 
                 <a asp-action="Delete" asp-route-id="@item.Name">Delete</a>
             </td>
         </tr>

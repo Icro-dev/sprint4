@@ -48,6 +48,7 @@ namespace cinema.Controllers
         {
             Movie movie = _movieService.GetMovieFromShow(showId);
             ViewBag.Movie = movie;
+            ViewBag.ShowId = showId;
             return View();
         }
 

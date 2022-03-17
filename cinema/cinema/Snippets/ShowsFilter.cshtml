@@ -1,0 +1,34 @@
+﻿@page
+@using cinema.Filters
+@{
+    ShowsFilter? filter = (ShowsFilter?) ViewData["ShowsFilter"];
+    if(filter != null)
+    {
+        <form method="post" asp-controller="Shows" asp-action="Filter">
+            <label for="search">Search</label>
+            <input type="text" id="search" name="search" value="@filter.input">
+            <label for="len">Length</label>
+            <input type="range" id="len" name="len" min="0" max="@filter.maxselectablelength" value="@filter.maxlength">
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date">
+            <label for="threed">3D</label>
+            <input type="checkbox" id="threed" name="threed" checked="@filter.threed">
+            <label>Languages</label>
+            @foreach(string language in filter.languages.Keys){
+                <label for="@language">@language</label>
+                <input type="checkbox" id="@language" name="@language" checked="@filter.languages[language]">
+            }
+            <label>Genres</label>
+            @foreach(string genre in filter.genres.Keys){
+                <label for="@genre">@genre</label>
+                <input type="checkbox" id="@genre" name="@genre" checked="@filter.genres[genre]">
+            }
+            <label>Kijkwijzers</label>
+            @foreach(string kijkwijzer in filter.kijkwijzers.Keys){
+                <label for="@kijkwijzer">@kijkwijzer</label>
+                <input type="checkbox" id="@kijkwijzer" name="@kijkwijzer" checked="@filter.kijkwijzers[kijkwijzer]">
+            }
+            <input type="submit" value="Search">
+        </form>
+    }
+}
