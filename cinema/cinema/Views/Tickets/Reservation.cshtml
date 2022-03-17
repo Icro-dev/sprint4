@@ -5,7 +5,7 @@
     Layout = "_Layout";
 }
 
-<h2>Betalings overzicht:</h2>
+<h2>Kaartjes overzicht:</h2>
 
 <div>Aantal kaartjes <strong>@ViewBag.quantity</strong></div>
 <i>Korting: <strong>€@ViewBag.discount </strong></i><br/>
@@ -13,7 +13,7 @@
 <h4>Prijs <strong>€ @ViewBag.OrderCost</strong></h4>
 
 
-<h3>Betalen</h3>
+<h3>Reserveren</h3>
 <form method="post" asp-action="create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" value="@ViewBag.showId" name="showId">
@@ -23,6 +23,6 @@
     <input type="hidden" value="@ViewBag.seniorDiscount" name="seniorDiscount">
     <input type="hidden" value="@ViewBag.popcorn" name="popcorn">
     <div class="form-group">
-        <input type="submit" value="Betalen" class="btn btn-primary"/>
+        <input type="submit" value="Reserveren" class="btn btn-primary"/>
     </div>
 </form>

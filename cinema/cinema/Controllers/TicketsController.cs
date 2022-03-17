@@ -63,8 +63,8 @@ namespace cinema.Controllers
         }
         
         [HttpGet]
-        [Route("/tickets/payment")]
-        public IActionResult Payment(
+        [Route("/tickets/reservation")]
+        public IActionResult Reservation(
             [FromQuery] int showId,
             [FromQuery] int quantity,
             [FromQuery] int childDiscount,
