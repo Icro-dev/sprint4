@@ -16,7 +16,3 @@ html {
 body {
   margin-bottom: 60px;
 }
-
-.card.show h5{
-  min-height:4rem;
-}

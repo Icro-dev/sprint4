@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using cinema.Data;
 using cinema.Models;
 using cinema.Services;
+using cinema.Filters;
 
 namespace cinema.Controllers
 {
@@ -30,7 +31,10 @@ namespace cinema.Controllers
             
             var showList =  _context.Shows.Include(s => s.Movie).ToList();
             var showPerMoviePerDateDict = _showService.GetShowsPerMoviePerDay(showList);
-           
+
+            ShowsFilter filter = new ShowsFilter(showList);
+            ViewData["ShowsFilter"] = filter;
+
             return View(showPerMoviePerDateDict);
         }
 
@@ -164,6 +168,45 @@ namespace cinema.Controllers
         public IActionResult Daily()
         {
             return View(_context.Shows.Include(s => s.Movie).Where(s => s.StartTime > DateTime.Now).Where(s => s.StartTime.Date == DateTime.Today.Date).ToList());
+        }
+
+        [HttpGet, HttpPost, ActionName("Filter")]
+        public IActionResult Filter()
+        {
+            List<Show> shows = _context.Shows.Include(s => s.Movie).Where(s => s.StartTime > DateTime.Now).ToList();
+            ShowsFilter filter = new ShowsFilter(shows);      
+            if(Request.Method == HttpMethod.Post.Method)
+            {
+                if(Request.Form["search"] != "")
+                    filter.input = Request.Form["search"];
+                if (Request.Form["len"] != "")
+                    filter.maxlength = Convert.ToDouble(Request.Form["len"]);
+                if (Request.Form["date"] != "")
+                    filter.date = Convert.ToDateTime(Request.Form["date"]);
+                if (Request.Form["threed"] != "")
+                    if (Request.Form["threed"] == "on")
+                        filter.threed = true;
+                    else
+                        filter.threed = false;
+                foreach (string language in filter.languages.Keys)
+                    if (Request.Form[language] == "on")
+                        filter.languages[language] = true;
+                    else
+                        filter.languages[language] = false;
+                foreach (string genre in filter.genres.Keys)
+                    if (Request.Form[genre] == "on")
+                        filter.genres[genre] = true;
+                    else
+                        filter.genres[genre] = false;
+                foreach (string kijkwijzer in filter.kijkwijzers.Keys)
+                    if (Request.Form[kijkwijzer] == "on")
+                        filter.kijkwijzers[kijkwijzer] = true;
+                    else
+                        filter.kijkwijzers[kijkwijzer] = false;
+            }
+            shows = filter.Apply(shows);
+            ViewData["ShowsFilter"] = filter;
+            return View("Index", _showService.GetShowsPerMoviePerDay(shows));
         }
     }
 }
