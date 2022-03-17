@@ -37,11 +37,12 @@
                                 @foreach (var show in Model[@date][@movie])
                                 {
                                 
-                                <form method="get" class="show-button">
-                                <button class="btn btn-primary" asp-controller="Tickets" asp-action="quantity" asp-route-id="@show.Id">
-                                    Zaal @show.Room om @TimeOnly.FromDateTime(show.StartTime)
-                                </button>
-                                </form>
+                                    <form method="get" class="show-button" asp-controller="Tickets" asp-action="quantity" >
+                                        <input type="hidden" name="showId" value="@show.Id"/>
+                                        <button class="btn btn-primary" type="submit">
+                                            Zaal @show.Room om @TimeOnly.FromDateTime(show.StartTime)
+                                        </button>
+                                    </form>
                                 }
                             </div>
                         
