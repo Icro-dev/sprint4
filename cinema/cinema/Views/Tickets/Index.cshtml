@@ -5,11 +5,9 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1 class="h1">Mijn Tickets</h1>
+<h1 class="h1">Mijn gekochte Tickets</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 
 <table class="table table-striped">
     <thead>
@@ -68,9 +66,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Popcorn)
             </td>
-            <td>
-                <a asp-controller="Ticket" asp-action="create" asp-route-id="@item.Id">Nieuw ticket</a> |
-            </td>
+       
         </tr>
 }
     </tbody>

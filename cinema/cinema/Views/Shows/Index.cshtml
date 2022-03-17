@@ -1,96 +1,92 @@
-﻿@model IEnumerable<cinema.Models.Show>
+﻿@using cinema.Models
+@using cinema.Services
+@model Dictionary<DateOnly, Dictionary<cinema.Models.Movie, List<cinema.Models.Show>>>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Voorstellingen";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/shows.css" asp-append-version="true"/>
+}
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-@* <table class="table"> *@
-@*     <thead> *@
-@*         <tr> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.ThreeD) *@
-@*             </th> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.Room) *@
-@*             </th> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.StartTime) *@
-@*             </th> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.Break) *@
-@*             </th> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.Movie) *@
-@*             </th> *@
-@*             <th></th> *@
-@*         </tr> *@
-@*     </thead> *@
-@*     <tbody> *@
-@* @foreach (var item in Model) { *@
-@*             <tr> *@
-@*                 <td> *@
-@*                     @{ *@
-@*                         var currentTime = DateTime.Now; *@
-@*                         var startTime = item.StartTime.AddHours(-2); *@
-@*                         int result = DateTime.Compare(currentTime, startTime); *@
-@*                         if(result < 0) *@
-@*                         { *@
-@*                             var time = item.StartTime.AddHours(-2); *@
-@*                             var currentTime2 = DateTime.Now; *@
-@*                             <div> *@
-@*                     *@
-@*                             @Html.DisplayFor(modelItem => time); *@
-@*                             @Html.DisplayFor(modelItem => currentTime2);                *@
-@*                             </div> *@
-@*                         } *@
-@*                     } *@
-@*                 @Html.DisplayFor(modelItem => item.ThreeD) *@
-@*             </td> *@
-@*             <td> *@
-@*                 @Html.DisplayFor(modelItem => item.Room) *@
-@*             </td> *@
-@*             <td> *@
-@*                 @Html.DisplayFor(modelItem => item.StartTime) *@
-@*                     @{ *@
-@*                         string showTime = item.StartTime.ToString("dd:MM:yyyy:HH:mm"); *@
-@*                         <div> *@
-@*                         <h3>@showTime</h3> *@
-@*                         </div> *@
-@*                     } *@
-@*             </td> *@
-@*             <td> *@
-@*                 @Html.DisplayFor(modelItem => item.Break) *@
-@*             </td> *@
-@*             <td> *@
-@*                 @Html.DisplayFor(modelItem => item.Movie) *@
-@*                 @{ *@
-@* *@
-@*                 } *@
-@*             </td> *@
-@*             <td> *@
-@*                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> | *@
-@*                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> | *@
-@*                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
-@*             </td> *@
-@*         </tr> *@
-@* } *@
-@*     </tbody> *@
-@* </table> *@
-<div class="container-fluid">
-<div class="row">
-    @foreach (var show in Model)
+<h1>Voorstellingen</h1>
+
+@using cinema.Filters
+@{
+    ShowsFilter? filter = (ShowsFilter?) ViewData["ShowsFilter"];
+    //if (filter == null) filter = new ShowsFilter(Model.Keys.ToList());
+    if(filter != null)
     {
-        <div class="col">
-        <a asp-controller="Tickets" asp-action="Quantity" asp-route-id="@show.Id">
-         <img class="img-fluid" src="@show.Movie.Poster"/>
-        </a>
-        </div>
-
+        <form method="post" asp-controller="Shows" asp-action="Filter">
+            <label for="search">Search</label>
+            <input type="text" id="search" name="search" value="@filter.input">
+            <label for="len">Length</label>
+            <input type="range" id="len" name="len" min="0" max="@filter.maxselectablelength" value="@filter.maxlength">
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date">
+            <label for="threed">3D</label>
+            <input type="checkbox" id="threed" name="threed" checked="@filter.threed">
+            <label>Languages</label>
+            @foreach(string language in filter.languages.Keys){
+                <label for="@language">@language</label>
+                <input type="checkbox" id="@language" name="@language" checked="@filter.languages[language]">
+            }
+            <label>Genres</label>
+            @foreach(string genre in filter.genres.Keys){
+                <label for="@genre">@genre</label>
+                <input type="checkbox" id="@genre" name="@genre" checked="@filter.genres[genre]">
+            }
+            <label>Kijkwijzers</label>
+            @foreach(string kijkwijzer in filter.kijkwijzers.Keys){
+                <label for="@kijkwijzer">@kijkwijzer</label>
+                <input type="checkbox" id="@kijkwijzer" name="@kijkwijzer" checked="@filter.kijkwijzers[kijkwijzer]">
+            }
+            <input type="submit" value="Search">
+        </form>
     }
+}
+
+<div class="container-fluid">
+    
+    @foreach (var date in Model.Keys)
+    {
+        //return if the movies are older than today
+        if (date < DateOnly.FromDateTime(DateTime.Now)) continue;
+        
+        <div class="date-row"><h2 class="date-row-date">
+            
+            @date
+        </h2></div>
+        
+        <div>
+            <div class="shows_container">
+                @foreach (var movie in Model[@date].Keys)
+                {
+      
+                        <div class="shows_page_show_card">
+                            <img class="show_image" src="@movie.Poster">
+                            <div class="show_times">
+                                @foreach (var show in Model[@date][@movie])
+                                {
+                                
+                                <form method="get" class="show-button">
+                                <button class="btn btn-primary" asp-controller="Tickets" asp-action="quantity" asp-route-id="@show.Id">
+                                    Zaal @show.Room om @TimeOnly.FromDateTime(show.StartTime)
+                                </button>
+                                </form>
+                                }
+                            </div>
+                        
+                        <form method="get" class="info-button">
+                            <button class="btn btn-secondary w-100" asp-controller="Movies" asp-action="index" asp-route-id="@movie.Name">Film-info</button>
+                        </form>
 </div>
+  
+                }
+            </div>
+        </div>
+    }
 </div>

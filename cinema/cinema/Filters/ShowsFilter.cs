@@ -30,16 +30,17 @@ namespace cinema.Filters
                 if (show.Movie.Length > maxselectablelength)
                     maxselectablelength = show.Movie.Length;
             }
+            maxlength = maxselectablelength;
             date = null;
         }
 
         public List<Show> Apply(List<Show> shows)
         {
-            List<Show> filteredshows = shows;
+            List<Show> filteredshows = new List<Show>(shows);
             foreach(Show show in shows)
             {
                 if(input != null)
-                    if (!show.Movie.Name.Contains(input) || !show.Movie.Description.Contains(input) || !show.Movie.Director.Contains(input) || !show.Movie.Cast.Contains(input))
+                    if (!show.Movie.Name.Trim().ToLower().Contains(input.Trim().ToLower()) && !show.Movie.Description.Trim().ToLower().Contains(input.Trim().ToLower()) && !show.Movie.Director.Trim().ToLower().Contains(input.Trim().ToLower()) && !show.Movie.Cast.Trim().ToLower().Contains(input.Trim().ToLower()))
                         if (filteredshows.Contains(show))
                             filteredshows.Remove(show);
                 if (show.Movie.Length > maxlength)
@@ -55,7 +56,7 @@ namespace cinema.Filters
                 if(threed && !show.ThreeD)                   
                     if (filteredshows.Contains(show))
                         filteredshows.Remove(show);
-                if (languages.ContainsKey(show.Movie.Language) && !genres[show.Movie.Language])
+                if (languages.ContainsKey(show.Movie.Language) && !languages[show.Movie.Language])
                     if (filteredshows.Contains(show))
                         filteredshows.Remove(show);
                 if (genres.ContainsKey(show.Movie.Genre) && !genres[show.Movie.Genre])

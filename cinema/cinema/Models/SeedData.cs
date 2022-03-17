@@ -202,7 +202,7 @@ public static class SeedData
         var times = new int[] {13, 16, 19, 21};
 
         var movies = context.Movies!.ToList();
-        
+        var showList = new List<Show>();
         for (var di = 0; di < 14; di++)
         {
             for (var ri = 1; ri < 7; ri++)
@@ -218,7 +218,7 @@ public static class SeedData
                         Break = false,
                         Movie = movies[rnd.Next(movies.Count-1)]
                     };
-                    context.Shows.Add(show);
+                    showList.Add(show);
                 }
 
             }
