@@ -4,7 +4,7 @@
 
 @{
     ViewData["Title"] = "Voorstellingen";
-    Layout = "~/Pages/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section Styles
@@ -72,16 +72,17 @@
                                 @foreach (var show in Model[@date][@movie])
                                 {
                                 
-                                <form method="get" class="show-button">
-                                <button class="btn btn-primary" asp-controller="Tickets" asp-action="quantity" asp-route-id="@show.Id">
-                                    Zaal @show.Room om @TimeOnly.FromDateTime(show.StartTime)
-                                </button>
-                                </form>
+                                    <form method="get" class="show-button" asp-controller="Tickets" asp-action="quantity" >
+                                        <input type="hidden" name="showId" value="@show.Id"/>
+                                        <button class="btn btn-primary" type="submit">
+                                            Zaal @show.Room om @TimeOnly.FromDateTime(show.StartTime)
+                                        </button>
+                                    </form>
                                 }
                             </div>
                         
                         <form method="get" class="info-button">
-                            <button class="btn btn-secondary w-100" asp-controller="Movies" asp-action="index" asp-route-id="@movie.Name">Film-info</button>
+                            <button class="btn btn-secondary w-100" asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Name">Film-info</button>
                         </form>
 </div>
   
