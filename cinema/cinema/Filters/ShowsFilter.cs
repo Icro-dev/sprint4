@@ -21,10 +21,14 @@ namespace cinema.Filters
             maxselectablelength = 0;
             foreach (Show show in shows)
             {
-                if (!genres.ContainsKey(show.Movie.Genre))
-                    genres.Add(show.Movie.Genre, true);
-                if (!kijkwijzers.ContainsKey(show.Movie.Kijkwijzer))
-                    kijkwijzers.Add(show.Movie.Kijkwijzer, true);
+                string[] moviegenres = show.Movie.Genre.Split(", ");
+                foreach(string genre in moviegenres)
+                    if (!genres.ContainsKey(genre))
+                        genres.Add(genre, true);
+                string[] moviekijkwijzers = show.Movie.Kijkwijzer.Split(" ");
+                foreach(string kijkwijzer in moviekijkwijzers)
+                    if (!kijkwijzers.ContainsKey(kijkwijzer))
+                        kijkwijzers.Add(kijkwijzer, true);
                 if (!languages.ContainsKey(show.Movie.Language))
                     languages.Add(show.Movie.Language, true);
                 if (show.Movie.Length > maxselectablelength)
@@ -59,12 +63,16 @@ namespace cinema.Filters
                 if (languages.ContainsKey(show.Movie.Language) && !languages[show.Movie.Language])
                     if (filteredshows.Contains(show))
                         filteredshows.Remove(show);
-                if (genres.ContainsKey(show.Movie.Genre) && !genres[show.Movie.Genre])
-                    if (filteredshows.Contains(show))
-                        filteredshows.Remove(show);
-                if (kijkwijzers.ContainsKey(show.Movie.Kijkwijzer) && !kijkwijzers[show.Movie.Kijkwijzer])
-                    if (filteredshows.Contains(show))
-                        filteredshows.Remove(show);
+                string[] moviegenres = show.Movie.Genre.Split(", ");
+                foreach(string genre in moviegenres)
+                    if (genres.ContainsKey(genre) && !genres[genre])
+                        if (filteredshows.Contains(show))
+                            filteredshows.Remove(show);
+                string[] moviekijkwijzers = show.Movie.Kijkwijzer.Split(" ");
+                foreach(string kijkwijzer in moviekijkwijzers)
+                    if (kijkwijzers.ContainsKey(kijkwijzer) && !kijkwijzers[kijkwijzer])
+                        if (filteredshows.Contains(show))
+                            filteredshows.Remove(show);
             }
             return filteredshows;
         }
