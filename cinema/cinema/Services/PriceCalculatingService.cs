@@ -19,11 +19,16 @@ public class PriceCalculatingService : IPriceCalculatingService
     public double pricePerTicket(int showId)
     {
         var show = _context.Shows.Include(s => s.Movie).First(s => s.Id == showId);
+        var premium = 0.0;
+        if (show.ThreeD)
+        {
+            premium = 3.5;
+        }
         if (show.Movie.Length > 120)
         {
-            return 8.5;
+            return 9 + premium;
         }
-        return 9;
+        return 8.5 + premium;
     }
 
     public double ticketCost(int quantity, int showId)
@@ -33,7 +38,7 @@ public class PriceCalculatingService : IPriceCalculatingService
 
     public double Discount(int ChildDiscount, int StudentDiscount, int SeniorDiscount)
     {
-        return (ChildDiscount + StudentDiscount + SeniorDiscount) * 2.5;
+        return (ChildDiscount + StudentDiscount + SeniorDiscount) * 1.5;
     }
 
     public double Premium(int Popcorn)
