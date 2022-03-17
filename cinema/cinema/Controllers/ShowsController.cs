@@ -8,22 +8,30 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cinema.Data;
 using cinema.Models;
+using cinema.Services;
 
 namespace cinema.Controllers
 {
     public class ShowsController : Controller
     {
         private readonly CinemaContext _context;
+        private readonly ShowService _showService;
 
-        public ShowsController(CinemaContext context)
+        public ShowsController(CinemaContext context, IShowService service)
         {
+            
             _context = context;
+            _showService = (ShowService) service;
         }
 
         // GET: Shows
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Shows.Include(s => s.Movie).ToListAsync());
+            
+            var showList =  _context.Shows.Include(s => s.Movie).ToList();
+            var showPerMoviePerDateDict = _showService.GetShowsPerMoviePerDay(showList);
+           
+            return View(showPerMoviePerDateDict);
         }
 
         // GET: Shows/Details/5

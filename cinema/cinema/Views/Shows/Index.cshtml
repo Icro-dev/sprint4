@@ -1,96 +1,57 @@
-﻿@model IEnumerable<cinema.Models.Show>
+﻿@using cinema.Models
+@using cinema.Services
+@model Dictionary<DateOnly, Dictionary<cinema.Models.Movie, List<cinema.Models.Show>>>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Voorstellingen";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/shows.css" asp-append-version="true"/>
+}
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-@* <table class="table"> *@
-@*     <thead> *@
-@*         <tr> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.ThreeD) *@
-@*             </th> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.Room) *@
-@*             </th> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.StartTime) *@
-@*             </th> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.Break) *@
-@*             </th> *@
-@*             <th> *@
-@*                 @Html.DisplayNameFor(model => model.Movie) *@
-@*             </th> *@
-@*             <th></th> *@
-@*         </tr> *@
-@*     </thead> *@
-@*     <tbody> *@
-@* @foreach (var item in Model) { *@
-@*             <tr> *@
-@*                 <td> *@
-@*                     @{ *@
-@*                         var currentTime = DateTime.Now; *@
-@*                         var startTime = item.StartTime.AddHours(-2); *@
-@*                         int result = DateTime.Compare(currentTime, startTime); *@
-@*                         if(result < 0) *@
-@*                         { *@
-@*                             var time = item.StartTime.AddHours(-2); *@
-@*                             var currentTime2 = DateTime.Now; *@
-@*                             <div> *@
-@*                     *@
-@*                             @Html.DisplayFor(modelItem => time); *@
-@*                             @Html.DisplayFor(modelItem => currentTime2);                *@
-@*                             </div> *@
-@*                         } *@
-@*                     } *@
-@*                 @Html.DisplayFor(modelItem => item.ThreeD) *@
-@*             </td> *@
-@*             <td> *@
-@*                 @Html.DisplayFor(modelItem => item.Room) *@
-@*             </td> *@
-@*             <td> *@
-@*                 @Html.DisplayFor(modelItem => item.StartTime) *@
-@*                     @{ *@
-@*                         string showTime = item.StartTime.ToString("dd:MM:yyyy:HH:mm"); *@
-@*                         <div> *@
-@*                         <h3>@showTime</h3> *@
-@*                         </div> *@
-@*                     } *@
-@*             </td> *@
-@*             <td> *@
-@*                 @Html.DisplayFor(modelItem => item.Break) *@
-@*             </td> *@
-@*             <td> *@
-@*                 @Html.DisplayFor(modelItem => item.Movie) *@
-@*                 @{ *@
-@* *@
-@*                 } *@
-@*             </td> *@
-@*             <td> *@
-@*                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> | *@
-@*                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> | *@
-@*                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> *@
-@*             </td> *@
-@*         </tr> *@
-@* } *@
-@*     </tbody> *@
-@* </table> *@
+<h1>Voorstellingen</h1>
+
 <div class="container-fluid">
-<div class="row">
-    @foreach (var show in Model)
+    
+    @foreach (var date in Model.Keys)
     {
-        <div class="col">
-        <a asp-controller="Tickets" asp-action="Quantity" asp-route-id="@show.Id">
-         <img class="img-fluid" src="@show.Movie.Poster"/>
-        </a>
-        </div>
-
-    }
+        //return if the movies are older than today
+        if (date < DateOnly.FromDateTime(DateTime.Now)) continue;
+        
+        <div class="date-row"><h2 class="date-row-date">
+            
+            @date
+        </h2></div>
+        
+        <div>
+            <div class="shows_container">
+                @foreach (var movie in Model[@date].Keys)
+                {
+      
+                        <div class="shows_page_show_card">
+                            <img class="show_image" src="@movie.Poster">
+                            <div class="show_times">
+                                @foreach (var show in Model[@date][@movie])
+                                {
+                                
+                                <form method="get" class="show-button">
+                                <button class="btn btn-primary" asp-controller="Tickets" asp-action="quantity" asp-route-id="@show.Id">
+                                    Zaal @show.Room om @TimeOnly.FromDateTime(show.StartTime)
+                                </button>
+                                </form>
+                                }
+                            </div>
+                        
+                        <form method="get" class="info-button">
+                            <button class="btn btn-secondary w-100" asp-controller="Movies" asp-action="index" asp-route-id="@movie.Name">Film-info</button>
+                        </form>
 </div>
+  
+                }
+            </div>
+        </div>
+    }
 </div>

@@ -105,7 +105,7 @@ public static class SeedData
                     Length = 1.35,
                     Genre = "Comedy, Drama, Romance",
                     Poster =
-                        "https://m.media-amazon.com/images/M/MV5BMjE0ODEwNjM2NF5BMl5BanBnXkFtZTcwMjU2Mzg3NA@@._V1_FMjpg_UX682_.jpg",
+                        "https:m.media-amazon.com/images/M/MV5BMjE0ODEwNjM2NF5BMl5BanBnXkFtZTcwMjU2Mzg3NA@@._V1_FMjpg_UX682_.jpg",
                     Language = "English",
                     ThreeD = false,
                     Kijkwijzer = "AL GT"
@@ -122,7 +122,7 @@ public static class SeedData
                     Length = 2.58,
                     Genre = "Action, Adventure, Drama, Fantasy",
                     Poster =
-                        "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_FMjpg_UY720_.jpg",
+                        "https:m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_FMjpg_UY720_.jpg",
                     Language = "English",
                     ThreeD = false,
                     Kijkwijzer = "12 G A"
@@ -139,7 +139,7 @@ public static class SeedData
                     Length = 2.42,
                     Genre = "Action, Adventure, Sci-Fi, Fantasy",
                     Poster =
-                        "https://m.media-amazon.com/images/M/MV5BMTYwOTEwNjAzMl5BMl5BanBnXkFtZTcwODc5MTUwMw@@._V1_FMjpg_UX510_.jpg",
+                        "https:m.media-amazon.com/images/M/MV5BMTYwOTEwNjAzMl5BMl5BanBnXkFtZTcwODc5MTUwMw@@._V1_FMjpg_UX510_.jpg",
                     Language = "English",
                     ThreeD = true,
                     Kijkwijzer = "12 G A"
@@ -156,7 +156,7 @@ public static class SeedData
                     CountryOfOrigin = "United States",
                     Genre = "Crime, Drama, Thriller",
                     Poster =
-                        "https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UY720_.jpg",
+                        "https:m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UY720_.jpg",
                     Language = "English",
                     ThreeD = false,
                     Kijkwijzer = "16 G GT"
@@ -173,7 +173,7 @@ public static class SeedData
                     CountryOfOrigin = "United States, United Kingdom",
                     Genre = "Action, Drama, Sci-Fi",
                     Poster =
-                        "https://m.media-amazon.com/images/M/MV5BNjE5MzYwMzYxMF5BMl5BanBnXkFtZTcwOTk4MTk0OQ@@._V1_FMjpg_UX680_.jpg",
+                        "https:m.media-amazon.com/images/M/MV5BNjE5MzYwMzYxMF5BMl5BanBnXkFtZTcwOTk4MTk0OQ@@._V1_FMjpg_UX680_.jpg",
                     Language = "English",
                     ThreeD = true,
                     Kijkwijzer = "12 A GT"
@@ -190,7 +190,7 @@ public static class SeedData
                     Length = 2.32,
                     Genre = "Action, Drama, Crime",
                     Poster =
-                        "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UY720_.jpg",
+                        "https:m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UY720_.jpg",
                     Language = "English",
                     ThreeD = false,
                     Kijkwijzer = "16 G A"
@@ -202,7 +202,7 @@ public static class SeedData
         var times = new int[] {13, 16, 19, 21};
 
         var movies = context.Movies!.ToList();
-        
+        var showList = new List<Show>();
         for (var di = 0; di < 14; di++)
         {
             for (var ri = 1; ri < 7; ri++)
@@ -218,7 +218,7 @@ public static class SeedData
                         Break = false,
                         Movie = movies[rnd.Next(movies.Count-1)]
                     };
-                    context.Shows.Add(show);
+                    showList.Add(show);
                 }
 
             }

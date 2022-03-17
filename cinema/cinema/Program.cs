@@ -12,6 +12,9 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<ISeatService, SeatService>();
 builder.Services.AddScoped<IPriceCalculatingService, PriceCalculatingService>();
+builder.Services.AddScoped<IShowService, ShowService>();
+builder.Services.AddScoped<ITimeService, TimeService>();
+
 
 // Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("CinemaDbContext");
