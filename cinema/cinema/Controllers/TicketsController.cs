@@ -57,7 +57,7 @@ namespace cinema.Controllers
         {
             ViewBag.show = showId;
             ViewBag.price = _priceCalculatingService.pricePerTicket(showId);
-            ViewBag.totalPrice = _priceCalculatingService.totalPrice(showId, quantity);
+            ViewBag.totalPrice = _priceCalculatingService.ticketCost(showId, quantity);
             ViewBag.quantity = quantity;
             return View();
         }
@@ -79,6 +79,15 @@ namespace cinema.Controllers
             ViewBag.studentDiscount = studentDiscount;
             ViewBag.seniorDiscount = seniorDiscount;
             ViewBag.popcorn = popcorn;
+
+            var ticketCost = _priceCalculatingService.ticketCost(quantity, showId);
+            var discount = _priceCalculatingService.Discount(childDiscount, studentDiscount, seniorDiscount);
+            var premium = _priceCalculatingService.Premium(popcorn);
+
+            ViewBag.TicketCost = ticketCost;
+            ViewBag.Discount = discount;
+            ViewBag.Popcorn = premium;
+            ViewBag.OrderCost = _priceCalculatingService.OrderCost(discount, premium, ticketCost);
             return View();
         }
 

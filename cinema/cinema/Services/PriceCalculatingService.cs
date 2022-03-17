@@ -26,8 +26,25 @@ public class PriceCalculatingService : IPriceCalculatingService
         return 9;
     }
 
-    public double totalPrice(int quantity, int showId)
+    public double ticketCost(int quantity, int showId)
     {
         return pricePerTicket(showId) * quantity;
     }
+
+    public double Discount(int ChildDiscount, int StudentDiscount, int SeniorDiscount)
+    {
+        return (ChildDiscount + StudentDiscount + SeniorDiscount) * 2.5;
+    }
+
+    public double Premium(int Popcorn)
+    {
+        return Popcorn * 2.5;
+    }
+
+    public double OrderCost(double Discount, double Premium, double SubTotalCost)
+    {
+        return SubTotalCost - Discount + Premium;
+    }
+
+    
 }

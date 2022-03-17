@@ -7,8 +7,11 @@
 
 <h2>Betalings overzicht:</h2>
 
-<div>Aantal kaartjes @ViewBag.quantity</div>
-<div>Prijs @ViewBag.Price</div>
+<div>Aantal kaartjes <strong>@ViewBag.quantity</strong></div>
+<i>Korting: <strong>€@ViewBag.discount </strong></i><br/>
+<i>Popcorn: <strong>€ @ViewBag.popcorn </strong></i><br/>
+<h4>Prijs <strong>€ @ViewBag.OrderCost</strong></h4>
+
 
 <h3>Betalen</h3>
 <form method="post" asp-action="create">
