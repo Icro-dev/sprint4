@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 200px 1fr;
     grid-template-rows: auto 1fr;
-    margin: 0 1rem;
+    margin: 0 1rem 1rem 1rem;
     max-width:600px;
 }
 .show_image{
@@ -28,6 +28,7 @@
 }
 .show_times{
     padding:0.5rem;
+    overflow-y:auto;
 }
 .date-row{
     display:flex;
