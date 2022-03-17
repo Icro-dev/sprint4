@@ -1,0 +1,57 @@
+﻿@using cinema.Models
+@using cinema.Services
+@model Dictionary<DateOnly, Dictionary<cinema.Models.Movie, List<cinema.Models.Show>>>
+
+@{
+    ViewData["Title"] = "Voorstellingen";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/shows.css" asp-append-version="true"/>
+}
+
+<h1>Voorstellingen</h1>
+
+<div class="container-fluid">
+    
+    @foreach (var date in Model.Keys)
+    {
+        //return if the movies are older than today
+        if (date < DateOnly.FromDateTime(DateTime.Now)) continue;
+        
+        <div class="date-row"><h2 class="date-row-date">
+            
+            @date
+        </h2></div>
+        
+        <div>
+            <div class="shows_container">
+                @foreach (var movie in Model[@date].Keys)
+                {
+      
+                        <div class="shows_page_show_card">
+                            <img class="show_image" src="@movie.Poster">
+                            <div class="show_times">
+                                @foreach (var show in Model[@date][@movie])
+                                {
+                                
+                                <form method="get" class="show-button">
+                                <button class="btn btn-primary" asp-controller="Tickets" asp-action="quantity" asp-route-id="@show.Id">
+                                    Zaal @show.Room om @TimeOnly.FromDateTime(show.StartTime)
+                                </button>
+                                </form>
+                                }
+                            </div>
+                        
+                        <form method="get" class="info-button">
+                            <button class="btn btn-secondary w-100" asp-controller="Movies" asp-action="index" asp-route-id="@movie.Name">Film-info</button>
+                        </form>
+</div>
+  
+                }
+            </div>
+        </div>
+    }
+</div>

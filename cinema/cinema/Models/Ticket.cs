@@ -7,8 +7,6 @@ public class Ticket
 {
     [Key]
     public int Id { get; set; }
-    
-    [ForeignKey("showId")]
     public Show show { get; set; }
     public int SeatRow { get; set; }
     public int SeatNr { get; set; }
