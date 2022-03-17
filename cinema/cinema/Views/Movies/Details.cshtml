@@ -1,7 +1,10 @@
-﻿@model cinema.Models.Movie
+﻿@using cinema.Models
+@model cinema.Models.Movie
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <h1>    @Html.DisplayFor(model => model.Name) (@Html.DisplayFor(model => model.ReleaseYear))</h1>
