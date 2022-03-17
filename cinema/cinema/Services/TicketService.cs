@@ -1,6 +1,7 @@
 using System.Collections;
 using cinema.Data;
 using cinema.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace cinema.Services;
 
@@ -60,11 +61,12 @@ public class TicketService : ITicketService
                 ticket.Popcorn = true;
             }
 
-            ticket.show = _context.Shows.Find(show);
+            ticket.show = _context.Shows.Include(s => s.Movie).Where(s => s.Id == show).First();
             ticket.Code = new Random().Next(1, 100000);
             ticket.CodeUsed = false;
             tickets.Add(ticket);
         }
+       
         _context.Tickets.AddRange(tickets);
         _context.SaveChanges();
         return tickets;
