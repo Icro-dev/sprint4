@@ -60,7 +60,7 @@ public class TicketService : ITicketService
                 ticket.Popcorn = true;
             }
 
-            ticket.show = _context.Shows.Find(show);
+            ticket.show = theShow;
             ticket.Code = new Random().Next(1, 100000);
             ticket.CodeUsed = false;
             tickets.Add(ticket);
