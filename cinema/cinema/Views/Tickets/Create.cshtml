@@ -7,11 +7,6 @@
     int quantity = ViewBag.quantity;
 }
 
-<div>Er zijn @quantity @ViewBag.Arrangement tickets geselecteerd. </div>
-<div>Prijs per ticket <strong>€ @ViewBag.price </strong></div>
-<div>
-    Prijs zonder kortingen: <strong> € @ViewBag.totalPrice</strong>
-</div>
 <h2 class="mt-5">Kortingen</h2>
 <hr/>
 
@@ -22,7 +17,7 @@
     <input type="hidden" name="arrangement" value="@ViewBag.Arrangement">
     <div class="mb-4">
         <label class="form-check-label">
-            Kinder korting
+            Kinder korting (- €1.50)
             <select name="childDiscount" id="childDiscount">
                 @for (int discount = 0; discount < @quantity + 1; discount++)
                 {
@@ -33,7 +28,7 @@
     </div>
     <div class="mb-4">
         <label class="form-check-label">
-            Studenten korting
+            Studenten korting (- €1.50)
             <select name="studentDiscount" id="studentDiscount">
                 @for (int discount = 0; discount < @quantity + 1; discount++)
                 {
@@ -45,7 +40,7 @@
     <div class="mb-4">
         <label class="form-check-label">
 
-            Senioren korting
+            Senioren korting (- €1.50)
             <select name="seniorDiscount" id="seniorDiscount">
                 @for (int discount = 0; discount < @quantity + 1; discount++)
                 {
@@ -54,9 +49,11 @@
             </select>
         </label>
     </div>
+    <h3 class="mt-5">Extra opties</h3>
+    <hr>
     <div class="mb-4">
         <label class="form-check-label">
-            Popcorn
+            Popcorn (+ €2.5)
             <select name="popcorn" id="popcorn">
                 @for (int discount = 0; discount < @quantity + 1; discount++)
                 {

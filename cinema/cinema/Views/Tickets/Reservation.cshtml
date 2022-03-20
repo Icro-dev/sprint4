@@ -5,15 +5,18 @@
     Layout = "_Layout";
 }
 
-<h2>@ViewBag.Arrangement kaartjes</h2>
+<h2>Betalings overzicht</h2>
+<hr>
+<p>Film: @ViewBag.showName</p>
+<p>Type kaartje @ViewBag.Arrangement</p>
 <hr>
 
-<div>Aantal kaartjes <strong>@ViewBag.quantity</strong></div>
-<i>Korting: <strong>€@ViewBag.discount </strong></i><br/>
-<i>Popcorn: <strong>€ @ViewBag.popcorn </strong></i><br/>
+<div>Aantal kaartjes: <strong>@ViewBag.quantity</strong></div>
 <hr>
-<h5>Prijs <strong>€ @ViewBag.OrderCost</strong></h5> <br>
-
+<p>Popcorn: <strong>+ € @ViewBag.popcorn </strong></p>
+<p>Korting: <strong>- €@ViewBag.discount </strong></p>
+<hr>
+<h5>Totaal te betalen <strong>€ @ViewBag.OrderCost</strong></h5> <br>
 
 <form method="post" asp-action="create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>

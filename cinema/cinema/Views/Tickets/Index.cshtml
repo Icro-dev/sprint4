@@ -16,7 +16,11 @@
             <div class="col-md-3 mb-4">
                 <div class="card ticket">
                     <div class="card-body">
-                        @if (item.Arrangements != Arrangements.normale)
+                        @if (item.Arrangements == Arrangements.normale)
+                        {
+                            <h5>Regulier kaartje</h5>
+                        }
+                        else
                         {
                             <h4>@item.Arrangements kaartje</h4>
                         }
