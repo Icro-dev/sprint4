@@ -58,7 +58,7 @@ namespace cinema.Controllers
         {
             ViewBag.show = showId;
             ViewBag.price = _priceCalculatingService.pricePerTicket(showId);
-            ViewBag.totalPrice = _priceCalculatingService.ticketCost(showId, quantity);
+            ViewBag.totalPrice = _priceCalculatingService.ticketCost(quantity, showId);
             ViewBag.quantity = quantity;
             return View();
         }
