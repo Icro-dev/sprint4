@@ -71,7 +71,7 @@ namespace cinema.Controllers
        
         [HttpGet]
         [Route("/tickets/create")]
-        public IActionResult Create(
+        public IActionResult Discount(
             [FromQuery] int showId,
             [FromQuery] int quantity,
             [FromQuery] Arrangements arrangement)
