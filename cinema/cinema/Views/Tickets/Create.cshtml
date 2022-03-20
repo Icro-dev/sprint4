@@ -7,7 +7,7 @@
     int quantity = ViewBag.quantity;
 }
 
-<div>Er zijn @quantity tickets geselecteerd. </div>
+<div>Er zijn @quantity @ViewBag.Arrangement tickets geselecteerd. </div>
 <div>Prijs per ticket <strong>€ @ViewBag.price </strong></div>
 <div>
     Prijs zonder kortingen: <strong> € @ViewBag.totalPrice</strong>
@@ -19,6 +19,7 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" name="quantity" value="@quantity">
     <input type="hidden" name="showId" value="@ViewBag.show">
+    <input type="hidden" name="arrangement" value="@ViewBag.Arrangement">
     <div class="mb-4">
         <label class="form-check-label">
             Kinder korting
