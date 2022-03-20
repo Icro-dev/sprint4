@@ -6,7 +6,6 @@
 }
 
 
-
 <div class="container">
     <h1 class="h1 my-4">Mijn Tickets</h1>
     <button class="print btn btn-primary mb-5">Print de tickets</button>
@@ -16,15 +15,16 @@
             <div class="col-md-3 mb-4">
                 <div class="card ticket">
                     <div class="card-body">
+                        <h4 class="card-title">@item.show.Movie.Name</h4>
+
                         @if (item.Arrangements == Arrangements.normale)
                         {
                             <h5>Regulier kaartje</h5>
                         }
                         else
                         {
-                            <h4>@item.Arrangements kaartje</h4>
+                            <h5>@item.Arrangements kaartje</h5>
                         }
-                        <h5 class="card-title">@item.show.Movie.Name</h5>
                         <img src="@item.show.Movie.Poster" style="max-height: 600px;" alt="@item.show.Movie.Name" class="card-img-top">
                         <br><br>
                         <p class="card-text">Zaal: @item.show.Room</p>
@@ -48,7 +48,7 @@
                 </div>
             </div>
         }
-        
+
         <script >
         
         
