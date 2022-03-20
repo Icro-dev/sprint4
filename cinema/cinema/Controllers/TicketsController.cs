@@ -19,18 +19,18 @@ namespace cinema.Controllers
 
         private readonly IPriceCalculatingService _priceCalculatingService;
 
-        private readonly IPaymentAdapter _paymentAdapter;
-
+        private readonly IShowService _showService;
+        
         private readonly IMovieService _movieService;
 
 
 
-        public TicketsController(IPriceCalculatingService priceCalculatingService, ITicketService ticketService, IPaymentAdapter paymentAdapter, IMovieService movieService, CinemaContext context)
+        public TicketsController(IPriceCalculatingService priceCalculatingService, ITicketService ticketService, IMovieService movieService, CinemaContext context, IShowService showService)
         {
             _ticketService = ticketService;
-            _paymentAdapter = paymentAdapter;
             _movieService = movieService;
             _context = context;
+            _showService = showService;
             _priceCalculatingService = priceCalculatingService;
         }
 
@@ -99,21 +99,26 @@ namespace cinema.Controllers
             
             ViewBag.quantity = quantity;
             ViewBag.showId = showId;
+            ViewBag.movieName = _showService.getShowById(showId).Movie.Name;
+            ViewBag.threeD = _showService.getShowById(showId).ThreeD;
             ViewBag.childDiscount = childDiscount;
             ViewBag.studentDiscount = studentDiscount;
             ViewBag.seniorDiscount = seniorDiscount;
             ViewBag.popcorn = popcorn;
             
+            
             ViewBag.Arrangement = arrangement;
             
-            var ticketCost = _priceCalculatingService.ticketCost(quantity, showId);
+            var totalCost = _priceCalculatingService.ticketCost(quantity, showId);
             var discount = _priceCalculatingService.Discount(childDiscount, studentDiscount, seniorDiscount);
             var premium = _priceCalculatingService.Premium(popcorn);
+            var arrangementCost = _priceCalculatingService.ArrangementCost(arrangement);
 
-            ViewBag.TicketCost = ticketCost;
+            ViewBag.arrangementCost = arrangementCost;
+            ViewBag.totalCost = totalCost;
             ViewBag.Discount = discount;
             ViewBag.Popcorn = premium;
-            ViewBag.OrderCost = _priceCalculatingService.OrderCost(discount, premium, ticketCost);
+            ViewBag.OrderCost = _priceCalculatingService.OrderCost(discount, premium, totalCost, arrangementCost);
             return View();
         }
 
