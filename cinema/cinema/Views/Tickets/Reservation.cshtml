@@ -5,15 +5,16 @@
     Layout = "_Layout";
 }
 
-<h2>Kaartjes overzicht:</h2>
+<h2>Kaartjes</h2>
+<hr>
 
 <div>Aantal kaartjes <strong>@ViewBag.quantity</strong></div>
 <i>Korting: <strong>€@ViewBag.discount </strong></i><br/>
 <i>Popcorn: <strong>€ @ViewBag.popcorn </strong></i><br/>
-<h4>Prijs <strong>€ @ViewBag.OrderCost</strong></h4>
+<hr>
+<h5>Prijs <strong>€ @ViewBag.OrderCost</strong></h5> <br>
 
 
-<h3>Reserveren</h3>
 <form method="post" asp-action="create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" value="@ViewBag.showId" name="showId">

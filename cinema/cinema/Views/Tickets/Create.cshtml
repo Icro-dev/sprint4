@@ -7,74 +7,67 @@
     int quantity = ViewBag.quantity;
 }
 
-<h1>Tickets</h1>
 <div>Er zijn @quantity tickets geselecteerd. </div>
-<div>Prijs per ticket  <strong>€ @ViewBag.price </strong></div>
-<div>Prijs zonder kortingen: <strong> € @ViewBag.totalPrice</strong> 
-</div>
-<h4>Kortingen</h4>
-<hr/>
-<div class="row">
-    <div class="col-md-4">
-        <form method="get" asp-action="Reservation">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" name="quantity" value="@quantity">
-            <input type="hidden" name="showId" value="@ViewBag.show">
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    @Html.DisplayNameFor(model => model.ChildDiscount)
-                    <select name="childDiscount" id="childDiscount">
-                        @for (int discount = 0; discount < @quantity + 1; discount++)
-                        {
-                            <option value="@discount">@discount</option>
-                        }
-                    </select>
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    @Html.DisplayNameFor(model => model.StudentDiscount)
-                    <select name="studentDiscount" id="studentDiscount">
-                        @for (int discount = 0; discount < @quantity + 1; discount++)
-                        {
-                            <option value="@discount">@discount</option>
-                        }
-                    </select>
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-
-                    @Html.DisplayNameFor(model => model.SeniorDiscount)
-                    <select name="seniorDiscount" id="seniorDiscount">
-                        @for (int discount = 0; discount < @quantity + 1; discount++)
-                        {
-                            <option value="@discount">@discount</option>
-                        }
-                    </select>
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    @Html.DisplayNameFor(model => model.Popcorn)
-                    <select name="popcorn" id="popcorn">
-                        @for (int discount = 0; discount < @quantity + 1; discount++)
-                        {
-                            <option value="@discount">@discount</option>
-                        }
-                    </select>
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary"/>
-            </div>
-        </form>
-    </div>
-</div>
-
+<div>Prijs per ticket <strong>€ @ViewBag.price </strong></div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    Prijs zonder kortingen: <strong> € @ViewBag.totalPrice</strong>
 </div>
+<h2 class="mt-5">Kortingen</h2>
+<hr/>
+
+<form method="get" asp-action="Reservation">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" name="quantity" value="@quantity">
+    <input type="hidden" name="showId" value="@ViewBag.show">
+    <div class="mb-4">
+        <label class="form-check-label">
+            Kinder korting
+            <select name="childDiscount" id="childDiscount">
+                @for (int discount = 0; discount < @quantity + 1; discount++)
+                {
+                    <option value="@discount">@discount</option>
+                }
+            </select>
+        </label>
+    </div>
+    <div class="mb-4">
+        <label class="form-check-label">
+            Studenten korting
+            <select name="studentDiscount" id="studentDiscount">
+                @for (int discount = 0; discount < @quantity + 1; discount++)
+                {
+                    <option value="@discount">@discount</option>
+                }
+            </select>
+        </label>
+    </div>
+    <div class="mb-4">
+        <label class="form-check-label">
+
+            Senioren korting
+            <select name="seniorDiscount" id="seniorDiscount">
+                @for (int discount = 0; discount < @quantity + 1; discount++)
+                {
+                    <option value="@discount">@discount</option>
+                }
+            </select>
+        </label>
+    </div>
+    <div class="mb-4">
+        <label class="form-check-label">
+            Popcorn
+            <select name="popcorn" id="popcorn">
+                @for (int discount = 0; discount < @quantity + 1; discount++)
+                {
+                    <option value="@discount">@discount</option>
+                }
+            </select>
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Volgende" class="btn btn-primary"/>
+    </div>
+</form>
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
