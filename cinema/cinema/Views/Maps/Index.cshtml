@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+<div id="map" style="width:100%;height:500px"></div>  
+<script>  
+        function myMap() {  
+            var mapCanvas = document.getElementById("map");  
+            var myCenter = new google.maps.LatLng(51.5840, 4.7979);  
+            var mapOptions = { center: myCenter, zoom: 14 };  
+            var map = new google.maps.Map(mapCanvas, mapOptions);  
+            var marker = new google.maps.Marker({  
+                position: myCenter,  
+                animation: google.maps.Animation.BOUNCE  
+            });  
+            marker.setMap(map);  
+        }  
+    </script>  
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXagAu3PsqAZ2hW-1CA7HnMY0BjBF87GM&callback=myMap"></script>
