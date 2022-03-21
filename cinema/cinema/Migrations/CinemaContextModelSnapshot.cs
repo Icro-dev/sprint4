@@ -176,6 +176,9 @@ namespace cinema.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("Arrangements")
+                        .HasColumnType("int");
+
                     b.Property<bool>("ChildDiscount")
                         .HasColumnType("bit");
 

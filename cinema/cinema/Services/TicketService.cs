@@ -26,7 +26,8 @@ public class TicketService : ITicketService
         int childDiscount,
         int seniorDiscount,
         int studentDiscount,
-        int popcorn
+        int popcorn,
+        Arrangements arrangements
     )
     {
         Show theShow = _context.Shows.First(s => s.Id == show);
@@ -64,6 +65,7 @@ public class TicketService : ITicketService
             ticket.show = _context.Shows.Include(s => s.Movie).Where(s => s.Id == show).First();
             ticket.Code = new Random().Next(1, 100000);
             ticket.CodeUsed = false;
+            ticket.Arrangements = arrangements;
             tickets.Add(ticket);
         }
        

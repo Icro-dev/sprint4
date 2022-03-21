@@ -5,20 +5,33 @@
     Layout = "_Layout";
 }
 
-<h2>Kaartjes</h2>
+<h2>Betalings overzicht</h2>
 <hr>
-
-<div>Aantal kaartjes <strong>@ViewBag.quantity</strong></div>
-<i>Korting: <strong>€@ViewBag.discount </strong></i><br/>
-<i>Popcorn: <strong>€ @ViewBag.popcorn </strong></i><br/>
+<p>Film: <strong>@ViewBag.movieName</strong></p>
+<p>3D: 
+@if (@ViewBag.threeD)
+{
+    <strong>ja (+ €3.5 per kaartje)</strong>
+}
+else
+{
+    <strong>nee</strong>
+}
+    </p>
 <hr>
-<h5>Prijs <strong>€ @ViewBag.OrderCost</strong></h5> <br>
-
+<div>Aantal kaartjes: <strong>@ViewBag.quantity</strong></div>
+<p>Type:<strong> @ViewBag.Arrangement</strong> (+ € @ViewBag.arrangementCost per kaartje)</p>
+<hr>
+<p>Popcorn: <strong>+ € @ViewBag.popcorn </strong></p>
+<p>Korting: <strong>- €@ViewBag.discount </strong></p>
+<hr>
+<h5>Totaal te betalen <strong>€ @ViewBag.OrderCost</strong></h5> <br>
 
 <form method="post" asp-action="create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" value="@ViewBag.showId" name="showId">
     <input type="hidden" value="@ViewBag.quantity" name="quantity">
+    <input type="hidden" value="@ViewBag.Arrangement" name="arrangement">
     <input type="hidden" value="@ViewBag.childDiscount" name="childDiscount">
     <input type="hidden" value="@ViewBag.studentDiscount" name="studentDiscount">
     <input type="hidden" value="@ViewBag.seniorDiscount" name="seniorDiscount">

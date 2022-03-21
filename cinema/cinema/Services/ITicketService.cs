@@ -9,7 +9,8 @@ public interface ITicketService
         int childDiscount,
         int seniorDiscount,
         int studentDiscount,
-        int popcorn);
+        int popcorn,
+        Arrangements arrangements);
 
     public IEnumerable<Ticket>? GetAllTickets();
 
