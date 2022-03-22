@@ -7,6 +7,6 @@ public class MapsController : Controller
     public ActionResult Index()  
     {  
         return View();  
-    }  
-    
+    }
+
 }
