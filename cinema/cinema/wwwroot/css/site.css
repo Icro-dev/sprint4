@@ -1,22 +1,26 @@
 html {
   font-size: 14px;
+  color:ghostwhite;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+        color: ghostwhite;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    color: ghostwhite;
 }
 
 body {
     margin-bottom: 60px;
     background-image: url(../imagesStyling/background.jpg);
     background-size: cover;
+    color:ghostwhite;
 }
 
 .card.show h5{
@@ -38,4 +42,8 @@ footer{
 
 .footer-container{
     margin-bottom:0;
+}
+
+h1{
+    color:ghostwhite;
 }

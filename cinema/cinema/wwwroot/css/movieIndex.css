@@ -1,0 +1,8 @@
+﻿body {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.container{
+    margin:0 !important;
+}
