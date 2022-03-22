@@ -26,7 +26,11 @@ public class SeatService : ISeatService
         string? template = null;
         //get the roomtemplate for the show
         if (_context.RoomTemplates != null && _context.RoomTemplates.Any())
-            template = _context.RoomTemplates.First(t => t.Id == 1).Setting;
+        {
+            template = _context.RoomTemplates.First(t => t.Id == show.Room).Setting;
+        }
+
+        Console.WriteLine(template);
         var templateArray = JsonSerializer.Deserialize<int[]>(template);
 
         // get the sold tickets for the show
