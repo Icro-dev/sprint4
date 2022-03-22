@@ -30,7 +30,6 @@ public class SeatService : ISeatService
             template = _context.RoomTemplates.First(t => t.Id == show.Room).Setting;
         }
 
-        Console.WriteLine(template);
         var templateArray = JsonSerializer.Deserialize<int[]>(template);
 
         // get the sold tickets for the show
