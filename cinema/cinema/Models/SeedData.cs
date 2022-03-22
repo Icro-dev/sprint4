@@ -199,7 +199,7 @@ public static class SeedData
         await context.SaveChangesAsync();
 
         
-        var startDate = new DateTime(2022, 3,10);
+        var startDate = new DateTime(2022, 3,17);
         var times = new int[] {13, 16, 19, 21};
 
         var movies = context.Movies!.ToList();
