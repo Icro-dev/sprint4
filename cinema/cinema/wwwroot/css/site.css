@@ -1,6 +1,6 @@
 html {
   font-size: 14px;
-  color:ghostwhite;
+  color:ghostwhite !important;
 }
 
 @media (min-width: 768px) {
@@ -31,9 +31,9 @@ a {
     color:ghostwhite !important;
 }
 
-.logo{
-    width:75px;
-    height:56px;
+.logo {
+    width: 75px !important;
+    height: 56px !important;
 }
 
 footer{
