@@ -152,6 +152,23 @@ namespace cinema.Migrations
                     b.ToTable("Shows");
                 });
 
+            modelBuilder.Entity("cinema.Models.Subscriber", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subscribers");
+                });
+
             modelBuilder.Entity("cinema.Models.Theatre", b =>
                 {
                     b.Property<int>("Id")
