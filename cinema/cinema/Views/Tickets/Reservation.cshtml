@@ -1,3 +1,5 @@
+@using cinema.Models
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model dynamic
 
 @{
@@ -11,7 +13,7 @@
 <p>3D: 
 @if (@ViewBag.threeD)
 {
-    <strong>ja (+ €3.5 per kaartje)</strong>
+    <strong>ja (+ €3.50 per kaartje)</strong>
 }
 else
 {
@@ -36,7 +38,8 @@ else
     <input type="hidden" value="@ViewBag.studentDiscount" name="studentDiscount">
     <input type="hidden" value="@ViewBag.seniorDiscount" name="seniorDiscount">
     <input type="hidden" value="@ViewBag.popcorn" name="popcorn">
+    <input type="hidden" value="@ViewBag.OrderCost" name="orderCost">
     <div class="form-group">
-        <input type="submit" value="Reserveren" class="btn btn-primary"/>
+        <input type="submit" value="Bestellen" class="btn btn-primary"/>
     </div>
 </form>

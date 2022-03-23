@@ -25,4 +25,10 @@ public class HomeController : Controller
         ViewBag.Movies = movies;
         return View();
     }
+
+    public IActionResult Error(string error)
+    {
+        ViewBag.error = error;
+        return View();
+    }
 }
