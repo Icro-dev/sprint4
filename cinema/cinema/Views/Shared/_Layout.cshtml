@@ -35,153 +35,34 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+<div class="footer-container">
 <div id="mapssubscribe" class="container-fluid">
     <div class="row justify-content-evenly align-items-start">
         <div class="col-4">
-          <style>  
-               
-              #dvMap {  
-                  height: 40vh;
-                  width: 31.6vw;  
-              }  
-            
-              .adp-summary {
-                            color: ghostwhite;
-                            } 
-              
-              .adp-substep {
-              color: ghostwhite;
-              } 
-              
-              .adp-stepicon {
-                            background: ghostwhite;
-                            } 
-                
-              .button {  
-                  background-color: blue;  
-                  border: none;  
-                  color: white;  
-                  padding: 15px 32px;  
-                  text-align: center;  
-                  text-decoration: none;  
-                  display: inline-block;  
-                  font-size: 16px;  
-                  margin: 4px 2px;  
-                  cursor: pointer;  
-              }  
-            
-              .button4 {  
-                  border-radius: 9px;  
-              }  
-              
-              .warnbox-content {
-              display: none;
-              }
-              
-              .warnbox-c1 {
-                            display: none;
-                            }
-                            
-              .warnbox-c2 {
-                            display: none;
-                            }
-            
-              input[type=text], select {  
-                  width: 70%;  
-                  padding: 12px 20px;  
-                  margin: 10px 0;  
-                  display: inline-block;  
-                  border: 1px solid #ccc;  
-                  border-radius: 4px;  
-                  box-sizing: border-box;  
-              }  
-          </style>  
-            
-              <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXagAu3PsqAZ2hW-1CA7HnMY0BjBF87GM&libraries=places">  
-              </script>  
-          <script type="text/javascript">  
-                      var source, destination;  
-                      var directionsDisplay;  
-                      var directionsService = new google.maps.DirectionsService();  
-                      google.maps.event.addDomListener(window, 'load', function () {  
-                          new google.maps.places.SearchBox(document.getElementById('txtSource'));  
-                          directionsDisplay = new google.maps.DirectionsRenderer({ 'draggable': true });  
-                      });  
-            
-                      function GetRoute() {  
-                          var cinema = new google.maps.LatLng(51.5840, 4.7979);  
-                          var mapOptions = {  
-                              zoom: 16,  
-                              center: cinema  
-                          };  
-                          map = new google.maps.Map(document.getElementById('dvMap'), mapOptions);  
-                          directionsDisplay.setMap(map);
-                          directionsDisplay.setPanel(document.getElementById('dvPanel'));
-                          
-                          source = document.getElementById("txtSource").value;  
-                          destination = cinema;  
-                          
-                          var selectedMode = document.getElementById("mode").value;
-                          
-                          var request = {  
-                              origin: source,  
-                              destination: destination,  
-                              travelMode: google.maps.TravelMode[selectedMode] 
-                          };  
-                          directionsService.route(request, function (response, status) {  
-                              if (status === google.maps.DirectionsStatus.OK) {  
-                                  directionsDisplay.setDirections(response);  
-                              }  
-                          });  
-            
-                            
-                          var service = new google.maps.DistanceMatrixService();  
-                          service.getDistanceMatrix({  
-                              origins: [source],  
-                              destinations: [destination],  
-                              travelMode: google.maps.TravelMode[selectedMode],  
-                              unitSystem: google.maps.UnitSystem.METRIC,  
-                              avoidHighways: false,  
-                              avoidTolls: false  
-                          }, function (response, status) {  
-                              if (status === google.maps.DistanceMatrixStatus.OK && response.rows[0].elements[0].status !== "ZERO_RESULTS") {  
-                                  var distance = response.rows[0].elements[0].distance.text;  
-                                  var duration = response.rows[0].elements[0].duration.text;  
-                                  var dvDistance = document.getElementById("dvDistance");  
-                                  dvDistance.innerHTML = "";  
-                                  dvDistance.innerHTML += "Afstand is: " + distance + "<br />";  
-                                  dvDistance.innerHTML += "Tijd: " + duration;  
-                                  //alert(dvDistance.innerHTML);  
-                              } else {  
-                                  alert("Aanvraag niet beschikbaar");  
-                              }  
-                          });  
-                      }  
-                  </script>
-                    <input type="text" id="txtSource" placeholder="Vanaf" />
+            <input type="text" id="txtSource" placeholder="Vanaf" />
                                  
-                              <input type="button" value="Route" onclick="GetRoute()" class="button button4" />
-                                  <div id="Dropdown">  
-                                  <b>Ik kom: </b>  
-                                  <select id="mode">  
-                                      <option value="DRIVING">Met de auto</option>  
-                                      <option value="WALKING">Lopend</option>  
-                                      <option value="BICYCLING">Fietsend</option>  
-                                      <option value="TRANSIT">Met de OV</option>  
-                                  </select>
-                                  </div>
-                              <hr />  
-                              <div id="dvDistance" style="font-weight:bold; text-align: center">  
-                              </div>
-                              <div id="dvMap">  
-                              </div>                                 
-                              <div id="dvPanel">  
-                              </div>
+            <input type="button" value="Route" onclick="GetRoute()" class="button button4" />
+            <div id="Dropdown">  
+                <b>Ik kom: </b>  
+                <select id="mode">  
+                    <option value="DRIVING">Met de auto</option>  
+                    <option value="WALKING">Lopend</option>  
+                    <option value="BICYCLING">Fietsend</option>  
+                    <option value="TRANSIT">Met de OV</option>  
+                </select>
+            </div>
+            <hr />  
+            <div id="dvDistance" style="font-weight:bold; text-align: center">  
+            </div>
+            <div id="dvMap">  
+            </div>                                 
+            <div id="dvPanel">  
+            </div>
         </div>
         <div class="col-4">
             <div>
@@ -194,6 +75,7 @@
         </div>
     </div>
 </div>
+</div>
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2022 - cinema - <a asp-area="" asp-page="/Privacy">Privacy</a>
@@ -201,6 +83,8 @@
     </footer>
 
 <script src="~/lib/bootstrap/bootstrap.js"></script>
+              <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXagAu3PsqAZ2hW-1CA7HnMY0BjBF87GM&libraries=places">  
+              </script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
