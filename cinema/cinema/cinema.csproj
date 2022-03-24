@@ -47,6 +47,7 @@
     <_ContentIncludedByDefault Remove="Pages\_ViewStart.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\Maps\Details.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\Maps\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Maps\Index.cshtml" />
   </ItemGroup>
 
 </Project>
