@@ -10,65 +10,74 @@
     <h3 class="h1 my-4">Bedankt voor je reservering!</h3>
     <div class="row my-5">
         <p> Je kan de kaartjes hieronder terugvinden.</p>
-        <p>Als je de kaartjes wilt afrekenen, wordt er een nieuw venster geopend. De betaling wordt verwerkt in ons systeem.</p>
         <div class="mx-3 w-100 alert alert-warning">
-            <strong>Vergeet niet de kaartjes direct af te drukken, ongeacht of ze je nu direct betaald, of pas in de bioscoop</strong>
+            <strong>Vergeet niet de kaartjes af te drukken, ongeacht of ze je nu direct betaald, of pas in de bioscoop</strong>
 
         </div>
-        <button class="print btn btn-secondary mx-3 w-100"><strong>Print de tickets</strong></button>
+        <button class="print btn btn-secondary mx-3 w-100">
+            <strong>Print de tickets</strong>
+        </button>
 
     </div>
-    <div class="row my-5">
-        
-        <div class="col-md-4">
+    @if (!ViewBag.IsPayed)
+    {
 
-            <div class="card h-100 text-white">
-                <div class="card-header">
+        <div class="row my-5">
 
-                    <h2 class="card-title text-black text-center ">Betaal direct</h2>
+            <div class="col-md-4">
+
+                <div class="card h-100 text-white">
+                    <div class="card-header">
+
+                        <h2 class="card-title text-black text-center ">Betaal direct</h2>
+                    </div>
+                    <img class="card-img paycard_img" src="/images/digital_payment.jpg" alt="Pin betalen">
+                    <div class="card-body">
+                        <ul class=" text-dark">
+                            <li>
+                                Je kaartjes zijn gereserveerd
+                            </li>
+                            <li>
+                                Je kaartjes zijn <strong>wel</strong> betaald; je kan direct doorlopen
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <form asp-controller="Payment" asp-action="CreateCheckoutSession" method="POST">
+                            <input type="hidden" name="orderid" value="@ViewBag.OrderId">
+                            <div class="form-group">
+                                <input type="submit" value="Betalen" class="btn btn-primary"/>
+                            </div>
+                        </form>
+
+                    </div>
+
+
                 </div>
-                <img class="card-img paycard_img" src="/images/digital_payment.jpg" alt="Pin betalen">
-                <div class="card-img-overlay d-flex  justify-content-between align-items-center">
+            </div>
+            <div class="col-md-4">
+
+                <div class="card h-100 text-white">
+                    <div class="card-header">
+                        <h2 class="card-title text-black text-center">Pinbetaling in bios</h2>
+                    </div>
+                    <img class="card-img paycard_img" src="/images/analog_payment.jpg" alt="Pin betalen">
+
+                    <div class="card-body">
+                        <ul class=" text-dark">
+                            <li>
+                                Je kaartjes zijn gereserveerd
+                            </li>
+                            <li>
+                                Je kaartjes zijn <strong>niet</strong> betaald; daarvoor moet je nog langs de kassa
+                            </li>
+                        </ul>
+                    </div>
 
                 </div>
-                <div class="card-body">
-                    <ul class=" text-dark">
-                        <li>
-                            Je kaartjes zijn gereserveerd
-                        </li>
-                        <li>
-                            Je kaartjes zijn <strong>wel</strong> betaald; je kan direct doorlopen
-                        </li>
-                    </ul>
-                </div>
-
-
             </div>
         </div>
-        <div class="col-md-4">
-        
-                    <div class="card h-100 text-white">
-                        <div class="card-header">
-                            <h2 class="card-title text-black text-center">Pinbetaling in bios</h2>
-                        </div>
-                        <img class="card-img paycard_img" src="/images/analog_payment.jpg" alt="Pin betalen">
-                        <div class="card-img-overlay d-flex  justify-content-between align-items-center">
-        
-                        </div>
-                        <div class="card-body">
-                            <ul class=" text-dark">
-                                <li>
-                                    Je kaartjes zijn gereserveerd
-                                </li>
-                                <li>
-                                    Je kaartjes zijn <strong>niet</strong> betaald; daarvoor moet je nog langs de kassa
-                                </li>
-                            </ul>
-                        </div>
-        
-                    </div>
-                </div>
-    </div>
+    }
 
 
     <div class="row tickets">
@@ -105,6 +114,11 @@
                         <p class="card-text">Nummer: @item.SeatNr</p>
                         <hr>
                         <h4 class="card-text">Code: @item.Code</h4>
+                        @if (ViewBag.IsPayed)
+                        {
+                            
+                            <div class="alert alert-success">Betaald</div>
+                        }
 
                     </div>
                 </div>

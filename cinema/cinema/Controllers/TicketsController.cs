@@ -43,14 +43,18 @@ namespace cinema.Controllers
         public IActionResult Index(int id)
         {
             ViewBag.StripePublishKey = _config["StripePubKey"];
-            var ticketIdsString = _context.Orders.First(o => o.Id == id).SerializedTicketIds;
+            var order = _context.Orders.First(o => o.Id == id);
+            var ticketIdsString = order.SerializedTicketIds;
             var ticketIds =  JsonSerializer.Deserialize<int[]>(ticketIdsString);
             var tickets = new List<Ticket>();
             foreach (var ticketId in ticketIds)
             {
                 tickets.Add(_context.Tickets.Include(t => t.show.Movie).First(t => t.Id == ticketId));
             }
-            
+
+            ViewBag.Cost = order.Cost;
+            ViewBag.OrderId = id;
+            ViewBag.IsPayed = order.IsPayed;
             return View(tickets);
         }
 
@@ -163,7 +167,8 @@ namespace cinema.Controllers
             var order = new TicketOrder()
             {
                 Cost = orderCost,
-                SerializedTicketIds = JsonSerializer.Serialize(myTicketsId)
+                SerializedTicketIds = JsonSerializer.Serialize(myTicketsId),
+                ShowId = showId
             };
             _context.Orders.Add(order);
             _context.SaveChanges();

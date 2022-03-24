@@ -10,4 +10,5 @@ public class TicketOrder
     public string SerializedTicketIds { get; set; }
     public double Cost { get; set; }
     public bool IsPayed {get; set; }
+    public int ShowId { get; set; }
 }
