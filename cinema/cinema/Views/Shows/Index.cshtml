@@ -20,7 +20,7 @@
     //if (filter == null) filter = new ShowsFilter(Model.Keys.ToList());
     if (filter != null)
     {
-        <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion accordion-flush filter-accordion text-dark" id="accordionFlushExample">
             <div class="accordion-item">
                 <h2 class="accordion-header border-2 border-light" id="flush-headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
@@ -31,33 +31,49 @@
                     <div class="accordion-body">
 
                         <form method="post" asp-controller="Shows" asp-action="Filter">
-                            <label for="search">Zoeken</label>
-                            <input type="text" id="search" name="search" value="@filter.input">
-                            <label for="len">Lengte</label>
-                            <input type="range" id="len" name="len" min="0" max="@filter.maxselectablelength" value="@filter.maxlength">
-                            <label for="date">Datum</label>
-                            <input type="date" id="date" name="date">
-                            <label for="threed">3D</label>
-                            <input type="checkbox" id="threed" name="threed" checked="@filter.threed">
-                            <label>Talen</label>
-                            @foreach (string language in filter.languages.Keys)
-                            {
-                                <label for="@language">@language</label>
-                                <input type="checkbox" id="@language" name="@language" checked="@filter.languages[language]">
-                            }
-                            <label>Genres</label>
-                            @foreach (string genre in filter.genres.Keys)
-                            {
-                                <label for="@genre">@genre</label>
-                                <input type="checkbox" id="@genre" name="@genre" checked="@filter.genres[genre]">
-                            }
-                            <label>Kijkwijzers</label>
-                            @foreach (string kijkwijzer in filter.kijkwijzers.Keys)
-                            {
-                                <label for="@kijkwijzer">@kijkwijzer</label>
-                                <input type="checkbox" id="@kijkwijzer" name="@kijkwijzer" checked="@filter.kijkwijzers[kijkwijzer]">
-                            }
-                            <input type="submit" value="Search">
+                            <div class="container">
+                                <div class="row">
+                                    <label for="search">Zoeken</label><br/>
+                                    <input type="text" id="search" name="search" value="@filter.input">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                    <label for="len">Lengte</label>
+                                    <input type="range" id="len" name="len" min="0" max="@filter.maxselectablelength" value="@filter.maxlength">
+                                    <label for="date">Datum</label>
+                                    <input type="date" id="date" name="date">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                    <label for="threed">3D</label>
+                                    <input type="checkbox" id="threed" name="threed" checked="@filter.threed">
+                                    <label>Talen</label>
+                                    @foreach (string language in filter.languages.Keys)
+                                    {
+                                        <label for="@language">@language</label>
+                                        <input type="checkbox" id="@language" name="@language" checked="@filter.languages[language]">
+                                    }
+                                    <label>Genres</label>
+                                    @foreach (string genre in filter.genres.Keys)
+                                    {
+                                        <label for="@genre">@genre</label>
+                                        <input type="checkbox" id="@genre" name="@genre" checked="@filter.genres[genre]">
+                                    }
+                                    <label>Kijkwijzers</label>
+                                    @foreach (string kijkwijzer in filter.kijkwijzers.Keys)
+                                    {
+                                        <label for="@kijkwijzer">@kijkwijzer</label>
+                                        <input type="checkbox" id="@kijkwijzer" name="@kijkwijzer" checked="@filter.kijkwijzers[kijkwijzer]">
+                                    }
+                                    </div>
+                                </div>
+                                <row>
+                                    <div class="col-sm-12">
+                                        <input type="submit" class="btn btn-primary" value="Pas selectie aan">
+                                    </div>
+                                </row>
+                            </div>
                         </form>
                     </div>
                 </div>

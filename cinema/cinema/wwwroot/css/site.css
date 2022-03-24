@@ -109,3 +109,7 @@ input[type=text], select {
     box-sizing: border-box;
 }  
 
+
+.filter-accordion{
+    border-radius:5px;
+}
