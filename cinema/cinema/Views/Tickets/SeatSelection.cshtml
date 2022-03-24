@@ -13,6 +13,7 @@
 }
 
 @{
+    int orderid = (int)ViewData["orderid"];
     int[] roommap = (int[])ViewData["roommap"];
     List<List<int>> takenseats = (List<List<int>>)ViewData["takenseats"];
     double seatwidth = 100.0 / roommap.Max();
@@ -41,7 +42,7 @@
                 {
                     <div style="width:@seatwidth%;max-height:100%;margin:auto;">
                         <form method="post">
-                            <button style="none" asp-controller="Tickets" asp-action="SeatSelection" asp-route-serializedTickets="@ViewData["serializedTickets"]" asp-route-seatrow="@row" asp-route-seatnr="@seat"><img src="~/imagesChair/chair_wheelchair.png" style="max-width:100%;max-height:100%;"/></button>
+                            <button style="none" asp-controller="Tickets" asp-action="SeatSelection" asp-route-serializedTickets="@ViewData["serializedTickets"]" asp-route-seatrow="@row" asp-route-seatnr="@seat" asp-route-orderid="@orderid"><img src="~/imagesChair/chair_wheelchair.png" style="max-width:100%;max-height:100%;"/></button>
                         </form>
                     </div>
                 } 
@@ -65,7 +66,7 @@
                 {
                     <div style="width:@seatwidth%;max-height:100%;margin:auto;">
                     <form method="post">
-                        <button style="none" asp-controller="Tickets" asp-action="SeatSelection" asp-route-serializedTickets="@ViewData["serializedTickets"]" asp-route-seatrow="@row" asp-route-seatnr="@seat"><img src="~/imagesChair/chair_vip.png" style="max-width:100%;max-height:100%;"/></button>
+                        <button style="none" asp-controller="Tickets" asp-action="SeatSelection" asp-route-serializedTickets="@ViewData["serializedTickets"]" asp-route-seatrow="@row" asp-route-seatnr="@seat" asp-route-orderid="@orderid"><img src="~/imagesChair/chair_vip.png" style="max-width:100%;max-height:100%;"/></button>
                     </form>
                     </div>
                 } 
@@ -89,7 +90,7 @@
                 {
                     <div style="width:@seatwidth%;max-height:100%;margin:auto;">
                         <form method="post">
-                            <button style="none" asp-controller="Tickets" asp-action="SeatSelection" asp-route-serializedTickets="@ViewData["serializedTickets"]" asp-route-seatrow="@row" asp-route-seatnr="@seat"><img src="~/imagesChair/chair.png" style="max-width:100%;max-height:100%;"/></button>
+                            <button style="none" asp-controller="Tickets" asp-action="SeatSelection" asp-route-serializedTickets="@ViewData["serializedTickets"]" asp-route-seatrow="@row" asp-route-seatnr="@seat" asp-route-orderid="@orderid"><img src="~/imagesChair/chair.png" style="max-width:100%;max-height:100%;"/></button>
                         </form>
                     </div>
                 }  
@@ -100,5 +101,5 @@
 }
 
 <form method="post">
-    <button asp-controller="Tickets" asp-action="ConfirmSeatSelection" asp-route-serializedTickets="@ViewData["serializedTickets"]">Bevestigen</button>
+    <button asp-controller="Tickets" asp-action="ConfirmSeatSelection" asp-route-orderid="@orderid">Bevestigen</button>
 </form>

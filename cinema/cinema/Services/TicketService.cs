@@ -77,6 +77,8 @@ public class TicketService : ITicketService
 
     public void PushTickets(List<Ticket> tickets)
     {
+        foreach (Ticket ticket in tickets)
+            ticket.show = _context.Shows.First(s => s.Id == ticket.show.Id);
         _context.Tickets.UpdateRange(tickets);
         _context.SaveChanges();
     }

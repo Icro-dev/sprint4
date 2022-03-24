@@ -106,13 +106,14 @@ private readonly ISeatService _seatService;        public TicketsController(IPri
 
         [HttpGet]
         [Route("/tickets/seatselection")]
-        public IActionResult SeatSelection(int orderid)
+        public IActionResult SeatSelection([FromQuery] int orderid)
         {
+            ViewData["orderid"] = orderid;
             TicketOrder order = _context.Orders.Where(o => o.Id == orderid).First();
             int[] ticketids = JsonSerializer.Deserialize<int[]>(order.SerializedTicketIds);
             List<Ticket> tickets = new List<Ticket>();
             foreach (int ticketid in ticketids)
-                tickets.Add(_context.Tickets.Where(t => t.Id == ticketid).First());
+                tickets.Add(_context.Tickets.Include(t => t.show).Where(t => t.Id == ticketid).First());
             Room room = _roomService.GetShowRoom(tickets[0].show);
             int[] roomtemplate = _roomService.GetRoomTemplate(room);
             ViewData["serializedTickets"] = JsonSerializer.Serialize(tickets.ToList());
@@ -131,8 +132,9 @@ private readonly ISeatService _seatService;        public TicketsController(IPri
 
         [HttpPost]
         [Route("/tickets/seatselection")]
-        public IActionResult SeatSelection(string serializedTickets, int seatrow, int seatnr)
+        public IActionResult SeatSelection(string serializedTickets, int orderid, int seatrow, int seatnr)
         {
+            ViewData["orderid"] = orderid;
             List<Ticket> tickets = JsonSerializer.Deserialize<List<Ticket>>(serializedTickets);
             int[] distances = new int[tickets.Count()];
             for (int i = 0; i < tickets.Count(); i++)
@@ -144,6 +146,7 @@ private readonly ISeatService _seatService;        public TicketsController(IPri
             Ticket furthest = tickets[Array.IndexOf(distances, distances.Max())];
             furthest.SeatRow = seatrow;
             furthest.SeatNr = seatnr;
+            _ticketService.PushTickets(tickets);
             ViewData["serializedTickets"] = JsonSerializer.Serialize(tickets.ToList());
             Room room = _roomService.GetShowRoom(tickets[0].show);
             int[] roomtemplate = _roomService.GetRoomTemplate(room);
@@ -162,17 +165,11 @@ private readonly ISeatService _seatService;        public TicketsController(IPri
 
         [HttpPost]
         [Route("/tickets/confirmseatselection")]
-        public IActionResult ConfirmSeatSelection(string serializedTickets)
+        public IActionResult ConfirmSeatSelection(int orderid)
         {
-            List<Ticket> tickets = JsonSerializer.Deserialize<List<Ticket>>(serializedTickets);
-            foreach (Ticket ticket in tickets)
-            {
-                ticket.show = _context.Shows.Include(s => s.Movie).Where(s => s.Id == ticket.show.Id).First();
-            }
-            _ticketService.PushTickets(tickets);
             return RedirectToAction("Index", new
             {
-                serializedTickets = JsonSerializer.Serialize(tickets.ToList())
+                id = orderid
             });
         }
 

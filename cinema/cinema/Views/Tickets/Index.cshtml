@@ -17,8 +17,9 @@
         <button class="print btn btn-secondary mx-3 w-100">
             <strong>Print de tickets</strong>
         </button>
-        <form method="post" class="mx-3 w-100">
-            <button class="print btn btn-secondary" asp-controller="Tickets" asp-action="SeatSelection" asp-route-serializedTickets="@ViewBag.OrderId">Stoelkeuze</button>
+        <form method="get" class="mx-3 w-100">
+            <button class="print btn btn-secondary" asp-controller="Tickets" asp-action="SeatSelection">Stoelkeuze</button>
+            <input type="hidden" value="@ViewBag.OrderId" name="orderId">
         </form>
 
     </div>
