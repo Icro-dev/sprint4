@@ -1,0 +1,20 @@
+@model dynamic
+
+@{
+    ViewBag.Title = "Betaling";
+    Layout = "_Layout";
+}
+
+<h2>title</h2>
+<form action="/tickets/betalen" method="POST">
+    <article>
+        <label>Amount: @ViewBag.details.TotalPrice</label>
+    </article>
+    <script src="//checkout.stripe.com/v2/checkout.js"
+            class="stripe-button"
+            data-key="@ViewBag.StripePubKey"
+            data-locale="auto"
+            data-description="Sample Charge"
+            data-amount="@ViewBag.details.TotalPrice">
+    </script>
+</form>

@@ -1,6 +1,7 @@
 using System.Collections;
 using cinema.Data;
 using cinema.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace cinema.Services;
@@ -30,7 +31,8 @@ public class TicketService : ITicketService
         Arrangements arrangements
     )
     {
-        Show theShow = _context.Shows.First(s => s.Id == show);
+        if (_context.Shows == null || !_context.Shows.Any() )throw new Exception();
+        var theShow = _context.Shows.First(s => s.Id == show);
         var theSeats = _seatService.GetSeats(theShow, quantity);
 
 
