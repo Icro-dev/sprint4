@@ -1,6 +1,7 @@
 using System.Collections;
 using cinema.Data;
 using cinema.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace cinema.Services;
@@ -26,10 +27,12 @@ public class TicketService : ITicketService
         int childDiscount,
         int seniorDiscount,
         int studentDiscount,
-        int popcorn
+        int popcorn,
+        Arrangements arrangements
     )
     {
-        Show theShow = _context.Shows.First(s => s.Id == show);
+        if (_context.Shows == null || !_context.Shows.Any() )throw new Exception();
+        var theShow = _context.Shows.First(s => s.Id == show);
         var theSeats = _seatService.GetSeats(theShow, quantity);
 
 
@@ -64,6 +67,7 @@ public class TicketService : ITicketService
             ticket.show = _context.Shows.Include(s => s.Movie).Where(s => s.Id == show).First();
             ticket.Code = new Random().Next(1, 100000);
             ticket.CodeUsed = false;
+            ticket.Arrangements = arrangements;
             tickets.Add(ticket);
         }
        

@@ -6,17 +6,96 @@
 }
 
 
-
 <div class="container">
-    <h1 class="h1 my-4">Mijn Tickets</h1>
-    <button class="print btn btn-primary mb-5">Print de tickets</button>
+    <h3 class="h1 my-4">Bedankt voor je reservering!</h3>
+    <div class="row my-5">
+        <p> Je kan de kaartjes hieronder terugvinden.</p>
+        <div class="mx-3 w-100 alert alert-warning">
+            <strong>Vergeet niet de kaartjes af te drukken, ongeacht of ze je nu direct betaald, of pas in de bioscoop</strong>
+
+        </div>
+        <button class="print btn btn-secondary mx-3 w-100">
+            <strong>Print de tickets</strong>
+        </button>
+
+    </div>
+    @if (!ViewBag.IsPayed)
+    {
+
+        <div class="row my-5">
+
+            <div class="col-md-4">
+
+                <div class="card h-100 text-white">
+                    <div class="card-header">
+
+                        <h2 class="card-title text-black text-center ">Betaal direct</h2>
+                    </div>
+                    <img class="card-img paycard_img" src="/images/digital_payment.jpg" alt="Pin betalen">
+                    <div class="card-body">
+                        <ul class=" text-dark">
+                            <li>
+                                Je kaartjes zijn gereserveerd
+                            </li>
+                            <li>
+                                Je kaartjes zijn <strong>wel</strong> betaald; je kan direct doorlopen
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <form asp-controller="Payment" asp-action="CreateCheckoutSession" method="POST">
+                            <input type="hidden" name="orderid" value="@ViewBag.OrderId">
+                            <div class="form-group">
+                                <input type="submit" value="Betalen" class="btn btn-primary"/>
+                            </div>
+                        </form>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="card h-100 text-white">
+                    <div class="card-header">
+                        <h2 class="card-title text-black text-center">Pinbetaling in bios</h2>
+                    </div>
+                    <img class="card-img paycard_img" src="/images/analog_payment.jpg" alt="Pin betalen">
+
+                    <div class="card-body">
+                        <ul class=" text-dark">
+                            <li>
+                                Je kaartjes zijn gereserveerd
+                            </li>
+                            <li>
+                                Je kaartjes zijn <strong>niet</strong> betaald; daarvoor moet je nog langs de kassa
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+
+
     <div class="row tickets">
         @foreach (var item in Model)
         {
             <div class="col-md-3 mb-4">
                 <div class="card ticket">
                     <div class="card-body">
-                        <h5 class="card-title">@item.show.Movie.Name</h5>
+                        <h4 class="card-title">@item.show.Movie.Name</h4>
+
+                        @if (item.Arrangements == Arrangements.normale)
+                        {
+                            <h5>Regulier kaartje</h5>
+                        }
+                        else
+                        {
+                            <h5>@item.Arrangements kaartje</h5>
+                        }
                         <img src="@item.show.Movie.Poster" style="max-height: 600px;" alt="@item.show.Movie.Name" class="card-img-top">
                         <br><br>
                         <p class="card-text">Zaal: @item.show.Room</p>
@@ -35,12 +114,17 @@
                         <p class="card-text">Nummer: @item.SeatNr</p>
                         <hr>
                         <h4 class="card-text">Code: @item.Code</h4>
-        
+                        @if (ViewBag.IsPayed)
+                        {
+                            
+                            <div class="alert alert-success">Betaald</div>
+                        }
+
                     </div>
                 </div>
             </div>
         }
-        
+
         <script >
         
         

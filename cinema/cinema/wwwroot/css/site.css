@@ -26,6 +26,9 @@ body {
 .card.show h5{
   min-height:4rem;
 }
+.paycard_img{
+  height: 14rem;
+}
 
 a {
     color:ghostwhite !important;

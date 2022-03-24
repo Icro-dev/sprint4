@@ -61,5 +61,10 @@ public class ShowService : IShowService
 
         return showPerMoviePerDateDict;
     }
+
+    public Show getShowById(int id)
+    {
+        return _context.Shows.Include(s => s.Movie).First(s => s.Id == id);
+    }
     
 }

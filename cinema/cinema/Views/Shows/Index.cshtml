@@ -71,12 +71,13 @@
                             <div class="show_times">
                                 @foreach (var show in Model[@date][@movie])
                                 {
-                                
-                                    <form method="get" class="show-button" asp-controller="Tickets" asp-action="quantity" >
+                                    <form method="get" class="show-button" asp-controller="Tickets" asp-action="Arrangements" >
                                         <input type="hidden" name="showId" value="@show.Id"/>
-                                        <button class="btn btn-primary" type="submit">
-                                            Zaal @show.Room om @TimeOnly.FromDateTime(show.StartTime)
+                                        
+                                        <button class="btn btn-primary"  type="submit">
+                                            @TimeOnly.FromDateTime(show.StartTime).Hour.00 in zaal @show.Room
                                         </button>
+                                        
                                     </form>
                                 }
                             </div>

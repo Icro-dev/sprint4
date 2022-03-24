@@ -1,0 +1,93 @@
+@model dynamic
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>Maak een keuze uit één van onze arrangementen</h2>
+    <div class="row my-5">
+        <div class="col-md-4">
+            <div class="card h-100 text-white">
+                <a asp-action="quantity" asp-route-showId="@ViewBag.ShowId" asp-route-arrangement="@ViewBag.Normal" class="text-decoration-none">
+                    <img class="card-img" src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80" alt="Normale kaartjes">
+                    <div class="card-img-overlay d-flex  justify-content-between align-items-center">
+                        <div class="w-100">
+                            <h2 class="card-title text-white text-center shadow">Normale kaartjes</h2>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class=" text-dark">
+                            <li>
+                                comfortabele seats
+                            </li>
+                        </ul>
+                    </div>
+
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 text-white">
+                <a asp-action="quantity" asp-route-showId="@ViewBag.ShowId" asp-route-arrangement="@ViewBag.Vip" class="text-decoration-none">
+                    <img class="card-img" src="https://images.unsplash.com/photo-1513106580091-1d82408b8cd6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2376&q=80" alt="VIP">
+                    <div class="card-img-overlay d-flex  justify-content-between align-items-center">
+                        <div class="w-100">
+                            <h2 class="card-title text-white text-center shadow">VIP kaartjes</h2>
+                        </div>
+                    </div>
+                    <div class="card-body text-dark d-flex justify-content-between flex-column">
+                        <ul class=" text-dark">
+                            <li>
+                                ontvangst + welkomstdrankje
+                            </li>
+                            <li>
+                                toegang tot vip lounge
+                            </li>
+                            <li>
+                                hapje + drankje tijdens de film
+                            </li>
+
+                            <li>
+                                comfortabele vip-seats
+                            </li>
+                        </ul>
+                        <h3>
+                            + €4,-
+                        </h3>
+                    </div>
+
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white h-100">
+                <a asp-action="quantity" asp-route-showId="@ViewBag.ShowId" asp-route-arrangement="@ViewBag.ChildrenParty" class="text-decoration-none">
+                    <img class="card-img" src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80" alt="Kinderen">
+                    <div class="card-img-overlay d-flex  justify-content-between align-items-center">
+                        <div class="w-100">
+                            <h2 class="card-title text-white text-center shadow">Kinderfeestje</h2>
+                        </div>
+                    </div>
+                    <div class="card-body text-dark d-flex justify-content-between flex-column">
+                        <ul >
+                            <li>
+                                maximale leeftijd is 12
+                            </li>
+                            <li>
+                                film + popcorn (medium geen zout)
+                            </li>
+                            <li>
+                                cadeautje
+                            </li>
+
+                        </ul>
+                        <h3>+ €5,-</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,6 +9,8 @@ public interface IPriceCalculatingService
 
     public double Premium(int Popcorn);
 
-    public double OrderCost(double Discount, double Premium, double SubTotalCost);
+    public double ArrangementCost(Arrangements arrangement);
+
+    public double OrderCost(double Discount, double Premium, double SubTotalCost, double arrangementCost);
 
 }

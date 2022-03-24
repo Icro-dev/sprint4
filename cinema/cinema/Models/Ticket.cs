@@ -16,4 +16,6 @@ public class Ticket
     public int Code { get; set; }
     public bool CodeUsed { get; set; }
     public bool Popcorn { get; set; }
+
+    public Arrangements Arrangements { get; set; }
 }
