@@ -69,10 +69,19 @@ public class TicketService : ITicketService
             ticket.CodeUsed = false;
             ticket.Arrangements = arrangements;
             tickets.Add(ticket);
-        }
-       
-        _context.Tickets.AddRange(tickets);
-        _context.SaveChanges();
+        }        
         return tickets;
+    }
+
+    public void PushTickets(List<Ticket> tickets)
+    {
+        _context.Tickets.AddRange(tickets);
+        /*foreach(Ticket ticket in tickets)
+        {            
+            _context.Tickets.Add(ticket);
+            _context.Entry<Show>(ticket.show).State = EntityState.Unchanged;
+            _context.Entry<Movie>(ticket.show.Movie).State = EntityState.Unchanged;
+        }*/
+        _context.SaveChanges();
     }
 }
