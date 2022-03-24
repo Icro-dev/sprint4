@@ -13,5 +13,6 @@ public interface ITicketService
         Arrangements arrangements);
 
     public IEnumerable<Ticket>? GetAllTickets();
+    public void PushTickets(List<Ticket> tickets);
 
 }
