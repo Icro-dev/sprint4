@@ -1,0 +1,23 @@
+﻿.swiper-slide {
+    display: flex;
+}
+
+.slide-container{
+    background-color:black;
+}
+
+.poster-image{
+}
+
+.show-info {
+    background-color: black;
+    color: ghostwhite;
+    height: 150px;
+    text-align: center;
+    align-items:center;
+}
+
+h1 {
+    color:ghostwhite;
+}
+

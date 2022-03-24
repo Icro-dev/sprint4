@@ -4,24 +4,29 @@
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/ticketQuantity.css" asp-append-version="true"/>
+}
+
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <div class="card">
-                <img src="@ViewBag.Movie.Poster" alt="@ViewBag.Movie.Name" class="card-img-top">
-                <div class="card-body">
-                    <h3 class="card-title">@ViewBag.Movie.Name</h3>
-                    <p class="card-text">@ViewBag.Movie.Description</p>
-                </div>
-            </div>
+            <img src="@ViewBag.Movie.Poster" alt="@ViewBag.Movie.Name" class="img-fluid">
         </div>
         <div class="col-md-6">
 
-            <h2>Hoeveel kaartjes wilt u kopen?</h2>
-            <form method="get" asp-action="create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" name="showId" value="5">
-                <div class="form-group form-check">
+            <h3 class="card-title">@ViewBag.Movie.Name</h3>
+            <p class="card-text">@ViewBag.Movie.Description</p>
+            <hr>
+            <div>
+                <h4>Hoeveel @ViewBag.Arrangement kaartjes wilt u kopen?</h4>
+
+                <form method="get" asp-action="Discount">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" name="showId" value="@ViewBag.ShowId">
+                    <input type="hidden" name="arrangement" value="@ViewBag.Arrangement">
                     <select name="quantity" id="quantity">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -29,12 +34,19 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                         <option value="6">6</option>
+
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
                     </select>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary"/>
-                </div>
-            </form>
+                    <div class="form-group my-5">
+                        <input type="submit" value="Volgende" class="btn btn-primary"/>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>

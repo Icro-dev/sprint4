@@ -198,33 +198,40 @@ public static class SeedData
             );
         await context.SaveChangesAsync();
 
-        
-        var startDate = new DateTime(2022, 3,10);
-        var times = new int[] {13, 16, 19, 21};
-
-        var movies = context.Movies!.ToList();
-        var showList = new List<Show>();
-        for (var di = 0; di < 14; di++)
+        if (context.Shows != null && !context.Shows.Any())
         {
-            for (var ri = 1; ri < 7; ri++)
-            {
-                foreach (var hour in times)
-                {
-                    var rnd = new Random();
-                    var show = new Show
-                    {
-                        ThreeD = false,
-                        Room = ri,
-                        StartTime = new DateTime(startDate.Year, startDate.Month, startDate.Day+di, hour, 00, 00),
-                        Break = false,
-                        Movie = movies[rnd.Next(movies.Count-1)]
-                    };
-                    showList.Add(show);
-                }
+            var startDate = new DateTime(2022, 3,17);
+            var times = new int[] {13, 16, 19, 21};
 
+            var movies = context.Movies!.ToList();
+            var showList = new List<Show>();
+            for (var di = 0; di < 14; di++)
+            {
+                for (var ri = 1; ri < 7; ri++)
+                {
+                    foreach (var hour in times)
+                    {
+                        var rnd = new Random();
+                        var date = startDate.AddDays(di);
+                        var show = new Show
+                        {
+                            ThreeD = false,
+                            Room = ri,
+                            
+                            StartTime = new DateTime(date.Year, date.Month, date.Day, hour, 00, 00),
+                            Break = false,
+                            Movie = movies[rnd.Next(movies.Count-1)]
+                        };
+                        var exists = showList.Find(s =>
+                            s.StartTime.Day == show.StartTime.Day && s.StartTime.Hour == show.StartTime.Hour && s.Movie == show.Movie);
+                        if (exists == null) showList.Add(show);
+                    }
+
+                }
             }
+            context.Shows.AddRange(showList);
+            await context.SaveChangesAsync();
         }
-        context.Shows.AddRange(showList);
-        await context.SaveChangesAsync();
+        
     }
 }

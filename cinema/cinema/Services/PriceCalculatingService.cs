@@ -46,7 +46,18 @@ public class PriceCalculatingService : IPriceCalculatingService
         return Popcorn * 2.5;
     }
 
-    public double OrderCost(double Discount, double Premium, double SubTotalCost)
+    public double ArrangementCost(Arrangements arrangement)
+    {
+        return arrangement switch
+        {
+            Arrangements.kinderfeestje => 5.0,
+            Arrangements.vip => 4.0,
+            Arrangements.normale => 0,
+            _ => 0
+        };
+    }
+
+    public double OrderCost(double Discount, double Premium, double SubTotalCost, double arrangementCost)
     {
         return SubTotalCost - Discount + Premium;
     }

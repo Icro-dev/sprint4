@@ -1,78 +1,124 @@
-﻿@model cinema.Models.Movie
+﻿@using cinema.Models
+@model cinema.Models.Movie
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
-<h1>Details</h1>
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/movieDetails.css" asp-append-version="true"/>
+}
 
-<div>
-    <h4>Movie</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
+<h1>    @Html.DisplayFor(model => model.Name) (@Html.DisplayFor(model => model.ReleaseYear))</h1>
+            <div class="container">
+                <div class="poster-image">
+            <img src= "@Html.DisplayFor(model => model.Poster)" alt="Sample Image" style="height:500px;width:300px;"/>
+            </div>
+            <div class="movie-info">
+                <div class="border">
+            @Html.DisplayName("Description:")
+            <br />
             @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Director)
-        </dt>
-        <dd class = "col-sm-10">
+            </div>
+             <div class="border">
+            @Html.DisplayName("Director:")
+            <br />
             @Html.DisplayFor(model => model.Director)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cast)
-        </dt>
-        <dd class = "col-sm-10">
+            </div>
+            <div class="border">
+            @Html.DisplayName("Cast:")
+            <br />
             @Html.DisplayFor(model => model.Cast)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReleaseYear)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReleaseYear)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CountryOfOrigin)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CountryOfOrigin)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Length)
-        </dt>
-        <dd class = "col-sm-10">
+            </div>
+            <div class="border">
+            @Html.DisplayName("Length:")
+            <br />
             @Html.DisplayFor(model => model.Length)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
-        <dd class = "col-sm-10">
+            </div>
+            <div class="border">
+            @Html.DisplayName("Genre:")
+            <br />
             @Html.DisplayFor(model => model.Genre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Poster)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Poster)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Language)
-        </dt>
-        <dd class = "col-sm-10">
+             </div>
+            <div class="border">
+            @Html.DisplayName("Language:")
+            <br />
             @Html.DisplayFor(model => model.Language)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ThreeD)
-        </dt>
-        <dd class = "col-sm-10">
+            </div>
+            <div class="border">
+            @Html.DisplayName("ThreeD:")
+            <br />
             @Html.DisplayFor(model => model.ThreeD)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Name">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+            <div class="border">
+            @Html.DisplayName("Kijkwijzer")
+            <br />
+            <div class="kijkwijzer">
+            @Html.DisplayFor(model => model.Kijkwijzer)
+            </div>
+                @{
+                    var Kijkwijzer = Model.Kijkwijzer;
+                    List<string> ListKijkwijzer = new List<string>();
+                            string[] KwItems = Kijkwijzer.Split(' ');
+                            foreach (var KwItem in KwItems) {
+                                ListKijkwijzer.Add(KwItem);
+                            } 
+                      
+                            if (ListKijkwijzer.Contains("AL"))
+                            {
+                            <img src ="~/imagesKijkwijzer/AL.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("12"))
+                            {
+                            <img src ="~/imagesKijkwijzer/12.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("GT"))
+                            {
+                            <img src ="~/imagesKijkwijzer/GTG.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("G"))
+                            {
+                            <img src ="~/imagesKijkwijzer/G.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("A"))
+                            {
+                            <img src ="~/imagesKijkwijzer/angst.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("16"))
+                            {
+                            <img src ="~/imagesKijkwijzer/16.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("18"))
+                            {
+                            <img src ="~/imagesKijkwijzer/18.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("6"))
+                            {
+                            <img src ="~/imagesKijkwijzer/6.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("D"))
+                            {
+                            <img src ="~/imagesKijkwijzer/D.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("MG6"))
+                            {
+                            <img src ="~/imagesKijkwijzer/mg6.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("S"))
+                            {
+                            <img src ="~/imagesKijkwijzer/S.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("DISCR"))
+                            {
+                            <img src ="~/imagesKijkwijzer/Discr.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                        }
+                        
+            </div>
+            </div>
+            </div>
+            </div>
+            
+ 
