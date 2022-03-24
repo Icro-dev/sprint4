@@ -13,6 +13,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">>cinema</a>
                 <a class="navbar-brand logo" href="#">
               <img src="imagesStyling/logo-se.png" alt="logo" class="img-responsive"/>
               </a>
@@ -24,7 +25,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Shows" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Shows" asp-action="Index">Voorstellingen</a>
@@ -40,18 +41,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted fixed-bottom">
-        <div class="container footer-container">
+    <footer class="border-top footer text-muted">
+        <div class="container">
             &copy; 2022 - cinema - <a asp-area="" asp-page="/Privacy">Privacy</a>
-            <a class="social-media" href="https://www.facebook.com/avans/">
-              <img src="imagesStyling/fb-bw.png" alt="fb" class="img-responsive"/>
-              </a>
-               <a class="social-media" href="https://www.instagram.com/avanshogeschool/?hl=en">
-              <img src="imagesStyling/ig-bw.png" alt="ig" class="img-responsive"/>
-              </a>
-               <a class="social-media" href="https://twitter.com/avanshogeschool?lang=en">
-              <img src="imagesStyling/tw-bw.png" alt="tw" class="img-responsive"/>
-              </a>
         </div>
     </footer>
 
