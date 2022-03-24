@@ -212,12 +212,13 @@ public static class SeedData
                     foreach (var hour in times)
                     {
                         var rnd = new Random();
-
+                        var date = startDate.AddDays(di);
                         var show = new Show
                         {
                             ThreeD = false,
                             Room = ri,
-                            StartTime = new DateTime(startDate.Year, startDate.Month, startDate.Day+di, hour, 00, 00),
+                            
+                            StartTime = new DateTime(date.Year, date.Month, date.Day, hour, 00, 00),
                             Break = false,
                             Movie = movies[rnd.Next(movies.Count-1)]
                         };
