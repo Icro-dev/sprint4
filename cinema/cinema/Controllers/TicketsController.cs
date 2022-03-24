@@ -22,15 +22,21 @@ namespace cinema.Controllers
         private readonly IPaymentAdapter _paymentAdapter;
 
         private readonly IMovieService _movieService;
-        
 
-        public TicketsController(IPriceCalculatingService priceCalculatingService, ITicketService ticketService, IPaymentAdapter paymentAdapter, IMovieService movieService, CinemaContext context)
+        private readonly IRoomService _roomService;
+
+        private readonly ISeatService _seatService;
+
+
+        public TicketsController(IPriceCalculatingService priceCalculatingService, ITicketService ticketService, IPaymentAdapter paymentAdapter, IMovieService movieService, IRoomService roomService, ISeatService seatService, CinemaContext context)
         {
             _ticketService = ticketService;
             _paymentAdapter = paymentAdapter;
             _movieService = movieService;
             _context = context;
             _priceCalculatingService = priceCalculatingService;
+            _roomService = roomService;
+            _seatService = seatService;
         }
 
         [HttpGet]
@@ -62,7 +68,73 @@ namespace cinema.Controllers
             ViewBag.quantity = quantity;
             return View();
         }
-        
+
+        [HttpGet]
+        [Route("/tickets/seatselection")]
+        public IActionResult SeatSelection(string serializedTickets)
+        {
+            ViewData["serializedTickets"] = serializedTickets;
+            List<Ticket> tickets = JsonConvert.DeserializeObject<List<Ticket>>(serializedTickets);
+            Room room = _roomService.GetShowRoom(tickets[0].show);
+            int[] roomtemplate = _roomService.GetRoomTemplate(room);
+            ViewData["roommap"] = roomtemplate;
+            List<List<int>> takenseats = _seatService.GetTakenSeats(tickets[0].show);
+            foreach(Ticket ticket in tickets)
+            {
+                if (takenseats[ticket.SeatRow - 1].Contains(ticket.SeatNr))
+                {
+                    takenseats[ticket.SeatRow - 1].Remove(ticket.SeatNr);
+                }
+            }
+            ViewData["takenseats"] = takenseats;
+            return View(tickets);
+        }
+
+        [HttpPost]
+        [Route("/tickets/seatselection")]
+        public IActionResult SeatSelection(string serializedTickets, int seatrow, int seatnr)
+        {
+            List<Ticket> tickets = JsonConvert.DeserializeObject<List<Ticket>>(serializedTickets);
+            int[] distances = new int[tickets.Count()];
+            for (int i = 0; i < tickets.Count(); i++)
+            {
+                Ticket ticket = tickets[i];
+                int distance = Math.Abs(ticket.SeatRow - seatrow) + Math.Abs(ticket.SeatNr - seatnr);
+                distances[i] = distance;
+            }
+            Ticket furthest = tickets[Array.IndexOf(distances, distances.Max())];
+            furthest.SeatRow = seatrow;
+            furthest.SeatNr = seatnr;
+            ViewData["serializedTickets"] = JsonConvert.SerializeObject(tickets.ToList());
+            Room room = _roomService.GetShowRoom(tickets[0].show);
+            int[] roomtemplate = _roomService.GetRoomTemplate(room);
+            ViewData["roommap"] = roomtemplate;
+            List<List<int>> takenseats = _seatService.GetTakenSeats(tickets[0].show);
+            foreach (Ticket ticket in tickets)
+            {
+                if (takenseats[ticket.SeatRow - 1].Contains(ticket.SeatNr))
+                {
+                    takenseats[ticket.SeatRow - 1].Remove(ticket.SeatNr);
+                }
+            }
+            ViewData["takenseats"] = takenseats;
+            return View(tickets);
+        }
+
+        [HttpPost]
+        [Route("/tickets/confirmseatselection")]
+        public IActionResult ConfirmSeatSelection(string serializedTickets)
+        {
+            List<Ticket> tickets = JsonConvert.DeserializeObject<List<Ticket>>(serializedTickets);
+            foreach (Ticket ticket in tickets)
+                ticket.show = _context.Shows.Include(s => s.Movie).Where(s => s.Id == ticket.show.Id).First();
+            _ticketService.PushTickets(tickets);
+            return RedirectToAction("Index", new
+            {
+                serializedTickets = JsonConvert.SerializeObject(tickets.ToList())
+            });
+        }
+
         [HttpGet]
         [Route("/tickets/reservation")]
         public IActionResult Reservation(
@@ -117,7 +189,7 @@ namespace cinema.Controllers
            }
            TempData["myTickets"] = myTicketsId;
 
-            return RedirectToAction("Index", new
+            return RedirectToAction("SeatSelection", new
             {
                 serializedTickets = JsonConvert.SerializeObject(tickets.ToList()) 
             });

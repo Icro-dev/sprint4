@@ -14,6 +14,7 @@ builder.Services.AddScoped<ISeatService, SeatService>();
 builder.Services.AddScoped<IPriceCalculatingService, PriceCalculatingService>();
 builder.Services.AddScoped<IShowService, ShowService>();
 builder.Services.AddScoped<ITimeService, TimeService>();
+builder.Services.AddScoped<IRoomService, RoomService>();
 
 builder.Services.AddScoped<IPaymentAdapter, PaymentAdapter>();
 builder.Services.AddScoped<IMovieService, MovieService>();

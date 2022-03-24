@@ -12,5 +12,6 @@ public interface ITicketService
         int popcorn);
 
     public IEnumerable<Ticket>? GetAllTickets();
+    public void PushTickets(List<Ticket> tickets);
 
 }
