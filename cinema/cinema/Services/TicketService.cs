@@ -32,7 +32,6 @@ public class TicketService : ITicketService
     )
     {
         if (_context.Shows == null || !_context.Shows.Any() )throw new Exception();
-        Console.WriteLine("Show:" + show);
         var theShow = _context.Shows.First(s => s.Id == show);
         var theSeats = _seatService.GetSeats(theShow, quantity);
 
