@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
@@ -15,6 +16,37 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
+    <PackageReference Include="Stripe.net" Version="39.99.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images" />
+    <Folder Include="wwwroot\lib\bootstrap\dist" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\imagesKijkwijzer\12.png" />
+    <None Include="wwwroot\imagesKijkwijzer\16.png" />
+    <None Include="wwwroot\imagesKijkwijzer\18.png" />
+    <None Include="wwwroot\imagesKijkwijzer\6.png" />
+    <None Include="wwwroot\imagesKijkwijzer\AL.png" />
+    <None Include="wwwroot\imagesKijkwijzer\angst.png" />
+    <None Include="wwwroot\imagesKijkwijzer\D.png" />
+    <None Include="wwwroot\imagesKijkwijzer\Discr.png" />
+    <None Include="wwwroot\imagesKijkwijzer\G.png" />
+    <None Include="wwwroot\imagesKijkwijzer\GTG.png" />
+    <None Include="wwwroot\imagesKijkwijzer\mg6.png" />
+    <None Include="wwwroot\imagesKijkwijzer\S.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Error.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Privacy.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Shared\_Layout.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\Shared\_ValidationScriptsPartial.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\_ViewImports.cshtml" />
+    <_ContentIncludedByDefault Remove="Pages\_ViewStart.cshtml" />
   </ItemGroup>
 
 </Project>

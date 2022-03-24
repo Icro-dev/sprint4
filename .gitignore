@@ -3,6 +3,10 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
+# Appsettings
+cinema/cinema/appsettings.Development.json
+cinema/cinema/appsettings.json
+
 # Node artifact files
 node_modules/
 dist/
@@ -48,3 +52,6 @@ Thumbs.db
 *.mov
 *.wmv
 
+# bin
+cinema/cinema/bin/
+cinema/cinema/obj/

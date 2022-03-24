@@ -1,0 +1,162 @@
+﻿@using cinema.Models
+@model IEnumerable<cinema.Models.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Director)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cast)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryOfOrigin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Length)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Poster)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Language)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThreeD)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.Kijkwijzer)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Director)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cast)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountryOfOrigin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Length)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                <img src= "@Html.DisplayFor(modelItem => item.Poster)" alt="Sample Image" style="height:500px;width:300px;"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Language)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThreeD)
+            </td>
+            <td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Kijkwijzer)*@
+                        @{
+                            var Kijkwijzer = item.Kijkwijzer;
+                            List<string> ListKijkwijzer = new List<string>();
+                            string[] KwItems = Kijkwijzer.Split(' ');
+                            foreach (var KwItem in KwItems) {
+                                ListKijkwijzer.Add(KwItem);
+                            } 
+                      
+                            if (ListKijkwijzer.Contains("AL"))
+                            {
+                            <img src ="~/imagesKijkwijzer/AL.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("12"))
+                            {
+                            <img src ="~/imagesKijkwijzer/12.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("GT"))
+                            {
+                            <img src ="~/imagesKijkwijzer/GTG.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("G"))
+                            {
+                            <img src ="~/imagesKijkwijzer/G.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("A"))
+                            {
+                            <img src ="~/imagesKijkwijzer/angst.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("16"))
+                            {
+                            <img src ="~/imagesKijkwijzer/16.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("18"))
+                            {
+                            <img src ="~/imagesKijkwijzer/18.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("6"))
+                            {
+                            <img src ="~/imagesKijkwijzer/6.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("D"))
+                            {
+                            <img src ="~/imagesKijkwijzer/D.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("MG6"))
+                            {
+                            <img src ="~/imagesKijkwijzer/mg6.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("S"))
+                            {
+                            <img src ="~/imagesKijkwijzer/S.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                            if (ListKijkwijzer.Contains("DISCR"))
+                            {
+                            <img src ="~/imagesKijkwijzer/Discr.png" alt="AL" style="height:50px;width:50px;" />   
+                            }
+                        }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Name">Edit</a> | 
+                <a asp-action="Details" asp-route-id="@item.Name">Details</a> | 
+                <a asp-action="Delete" asp-route-id="@item.Name">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
