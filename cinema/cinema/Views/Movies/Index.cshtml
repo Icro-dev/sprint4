@@ -3,96 +3,73 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+
+
+ @section Styles
+{
+    <link rel="stylesheet" href="~/css/movieIndex.css" asp-append-version="true"/>
+}
 
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Director)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cast)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReleaseYear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CountryOfOrigin)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Length)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Poster)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Language)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ThreeD)
-            </th>
-             <th>
-                @Html.DisplayNameFor(model => model.Kijkwijzer)
-            </th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Director)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cast)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CountryOfOrigin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Length)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
+
+<div class="movie-container">
+@foreach (var item in Model) 
+{
+                <div class="one-movie-container">
+                <div class="poster-image">
                 <img src= "@Html.DisplayFor(modelItem => item.Poster)" alt="Sample Image" style="height:500px;width:300px;"/>
-            </td>
-            <td>
+                </div>
+                <div class="movie-info">
+                <div class="border">
+                @Html.DisplayName("Name:")
+                @Html.DisplayFor(modelItem => item.Name)
+                </div>
+                <div class="border">
+                @Html.DisplayName("Description:")
+                @Html.DisplayFor(modelItem => item.Description)
+                </div>
+                <div class="border">
+                @Html.DisplayName("Director:")
+                @Html.DisplayFor(modelItem => item.Director)
+                </div>
+                <div class="border">
+                @Html.DisplayName("Cast:")
+                @Html.DisplayFor(modelItem => item.Cast)
+                </div>
+                <div class="border">
+                @Html.DisplayName("Release Year:")
+                @Html.DisplayFor(modelItem => item.ReleaseYear)
+                </div>
+                <div class="border">
+                @Html.DisplayName("Country Of Origin:")
+                @Html.DisplayFor(modelItem => item.CountryOfOrigin)
+                </div>
+                <div class="border">
+                @Html.DisplayName("Length:")
+                @Html.DisplayFor(modelItem => item.Length)
+                </div>
+                <div class="border">
+                @Html.DisplayName("Genre:")
+                @Html.DisplayFor(modelItem => item.Genre)
+                </div>
+                <div class="border">
+                @Html.DisplayName("Language:")
                 @Html.DisplayFor(modelItem => item.Language)
-            </td>
-            <td>
+                </div>
+                <div class="border">
+                @Html.DisplayName("3D:")
                 @Html.DisplayFor(modelItem => item.ThreeD)
-            </td>
-            <td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.Kijkwijzer)*@
+                </div>
+            
+                <div class="border">
+                @Html.DisplayName("Kijkwijzer:")
                         @{
                             var Kijkwijzer = item.Kijkwijzer;
                             List<string> ListKijkwijzer = new List<string>();
@@ -150,13 +127,15 @@
                             <img src ="~/imagesKijkwijzer/Discr.png" alt="AL" style="height:50px;width:50px;" />   
                             }
                         }
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Name">Edit</a> | 
-                <a asp-action="Details" asp-route-id="@item.Name">Details</a> | 
+                      </div>
+                    
+            
+            
+                <a asp-action="Edit" asp-route-id="@item.Name">Edit</a>  
+                <a asp-action="Details" asp-route-id="@item.Name">Details</a> 
                 <a asp-action="Delete" asp-route-id="@item.Name">Delete</a>
-            </td>
-        </tr>
+                  </div>
+                 </div>
+                      
 }
-    </tbody>
-</table>
+</div>

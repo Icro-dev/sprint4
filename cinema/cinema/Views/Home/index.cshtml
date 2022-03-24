@@ -4,6 +4,11 @@
     ViewData["Title"] = "Homepagina";
 }
 
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/Home.css" asp-append-version="true"/>
+}
+
 <div>
     <link
         rel="stylesheet"
@@ -15,15 +20,19 @@
             @foreach (var movie in @ViewBag.movies)
             {
                 <div class="swiper-slide">
-                    <a asp-controller="Tickets" asp-action="Quantity" asp-route-id="@movie.Name">
-                        <img class="img-fluid" style="width: 100%; object-fit: cover;" alt="@movie.Name" src="@movie.Poster">
-                    </a>
-                    <div class="carousel-caption bg-white text-start p-3 mb-4 rounded">
-                        <h4 class="text-black">@movie.Name</h4>
-                        <p class="text-black">Lengte: @movie.Length uur</p>
-                        <p class="text-black">Genre: @movie.Genre</p>
+                    <div class="slide-container">
+                        <div class="poster-image">
+                        <a asp-controller="Tickets" asp-action="Quantity" asp-route-id="@movie.Name">
+                            <img class="img-fluid" alt="@movie.Name" src="@movie.Poster">
+                        </a>
+                        </div>
+                        <div class="show-info">
+                            <h4>@movie.Name</h4>
+                            <p>Lengte: @movie.Length uur</p>
+                            <p>Genre: @movie.Genre</p>
+                        </div>
                     </div>
-                </div>
+        </div>
             }
         </div>
         <div class="swiper-button-next"></div>

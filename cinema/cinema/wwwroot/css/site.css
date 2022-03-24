@@ -1,20 +1,26 @@
 html {
   font-size: 14px;
+  color:ghostwhite !important;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+        color: ghostwhite;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    color: ghostwhite;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-image: url(../imagesStyling/background.jpg);
+    background-size: cover;
+    color:ghostwhite;
 }
 
 .card.show h5{
@@ -22,4 +28,25 @@ body {
 }
 .paycard_img{
   height: 14rem;
+}
+
+a {
+    color:ghostwhite !important;
+}
+
+.logo {
+    width: 75px !important;
+    height: 56px !important;
+}
+
+footer{
+    max-height:100px;
+}
+
+.footer-container{
+    margin-bottom:0;
+}
+
+h1{
+    color:ghostwhite;
 }
