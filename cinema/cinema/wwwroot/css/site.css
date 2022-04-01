@@ -113,3 +113,6 @@ input[type=text], select {
 .filter-accordion{
     border-radius:5px;
 }
+footer.fixed-bottom{
+    background-color: black;
+}
