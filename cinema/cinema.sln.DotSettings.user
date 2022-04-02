@@ -8,4 +8,5 @@
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::A76C06E8-75C9-4D77-BCD0-3D55C15843AB::net6.0::cinema_testing.PriceCalculationTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+&lt;/SessionState&gt;</s:String>
+	</wpf:ResourceDictionary>
