@@ -1,10 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
-using cinema.Models;
 using cinema.Repositories;
 using cinema.Services;
 using Moq;
-using Stripe;
 using Xunit;
 
 namespace cinema_unit_testing;
