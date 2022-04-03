@@ -1,0 +1,15 @@
+version: '3.3'
+services:  
+    patee-cinema:
+        ports:
+            - '8080:80'
+        container_name: patee
+        image: 'registry.rijk.se/patee-cinema:latest'
+        environment:
+            hostname: ${hostname}
+            username: ${username}
+            password: ${password}
+            database: ${database}
+            StripePubKey: ${StripePubKey}
+            StripeKey: ${StripeKey}
+            AppUrl: ${AppUrl}
