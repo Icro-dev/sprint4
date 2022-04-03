@@ -2,19 +2,20 @@ using System.Diagnostics;
 using System.Text.Json;
 using cinema.Data;
 using cinema.Models;
+using cinema.Repositories;
 
 namespace cinema.Services;
 
 public class SeatService : ISeatService
 {
-    private readonly CinemaContext _context;
+    private readonly ITicketRepository _ticketRepository;
     private readonly IRoomService _roomService;
     private readonly Random _rng = Random.Shared; 
 
-    public SeatService(IRoomService roomService, CinemaContext context)
+    public SeatService(IRoomService roomService, ITicketRepository ticketRepository)
     {
         _roomService = roomService;
-        _context = context;
+        _ticketRepository = ticketRepository;
     }
 
     public int[,]? GetSeats(Show show, int quantity)
@@ -32,7 +33,7 @@ public class SeatService : ISeatService
         var templateArray = JsonSerializer.Deserialize<int[]>(template);
 
         // get the sold tickets for the show
-        var tickets = _context.Tickets.Where(t => t.show.Equals(show));
+        var tickets = _ticketRepository.FindTicketsByShow(show);
         var seatsNum = 0;
         foreach ( var seats in templateArray)
         {
@@ -90,7 +91,7 @@ public class SeatService : ISeatService
         for(int row = 0; row < roomtemplate.Count(); row++)
         {
             List<int> takenrowseats = new List<int>();
-            List<Ticket> rowtickets = _context.Tickets.Where(t => t.show.Equals(show)).Where(t => t.SeatRow.Equals(row + 1)).ToList();
+            List<Ticket> rowtickets = _ticketRepository.FindShowTicketsByRow(show, row);
             foreach (Ticket ticket in rowtickets)
                 takenrowseats.Add(ticket.SeatNr);
             takenseats.Add(takenrowseats);

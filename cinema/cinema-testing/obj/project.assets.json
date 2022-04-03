@@ -9329,32 +9329,34 @@
     ]
   },
   "packageFolders": {
-    "/home/jeroen/.nuget/packages/": {}
+    "C:\\Users\\tramp\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/jeroen/Development/School/macrohard/macrohard-code/cinema/cinema-testing/cinema-testing.csproj",
+      "projectUniqueName": "C:\\school\\macrohard-code\\cinema\\cinema-testing\\cinema-testing.csproj",
       "projectName": "cinema-testing",
-      "projectPath": "/home/jeroen/Development/School/macrohard/macrohard-code/cinema/cinema-testing/cinema-testing.csproj",
-      "packagesPath": "/home/jeroen/.nuget/packages/",
-      "outputPath": "/home/jeroen/Development/School/macrohard/macrohard-code/cinema/cinema-testing/obj/",
+      "projectPath": "C:\\school\\macrohard-code\\cinema\\cinema-testing\\cinema-testing.csproj",
+      "packagesPath": "C:\\Users\\tramp\\.nuget\\packages\\",
+      "outputPath": "C:\\school\\macrohard-code\\cinema\\cinema-testing\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/jeroen/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\tramp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/home/jeroen/Development/School/macrohard/macrohard-code/cinema/cinema/cinema.csproj": {
-              "projectPath": "/home/jeroen/Development/School/macrohard/macrohard-code/cinema/cinema/cinema.csproj"
+            "C:\\school\\macrohard-code\\cinema\\cinema\\cinema.csproj": {
+              "projectPath": "C:\\school\\macrohard-code\\cinema\\cinema\\cinema.csproj"
             }
           }
         }
@@ -9404,7 +9406,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/home/jeroen/.dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

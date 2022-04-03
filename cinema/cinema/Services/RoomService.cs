@@ -1,17 +1,16 @@
-﻿using cinema.Data;
-using cinema.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using cinema.Models;
 using System.Text.Json;
+using cinema.Repositories;
 
 namespace cinema.Services
 {
     public class RoomService : IRoomService
     {
-        CinemaContext _context;
+        private readonly IRoomRepository _roomRepository;
 
-        public RoomService(CinemaContext context)
+        public RoomService(IRoomRepository roomRepository)
         {
-            _context = context;
+            _roomRepository = roomRepository;
         }
 
         public int[] GetRoomTemplate(Room room)
@@ -21,7 +20,7 @@ namespace cinema.Services
 
         public Room GetShowRoom(Show show)
         {
-            return _context.Rooms.Include(r => r.Template).Where(r => r.Id == show.Room).First();
+            return _roomRepository.findRoomByShow(show);
         }
     }
 }

@@ -53,4 +53,8 @@
     <_ContentIncludedByDefault Remove="Views\Maps\Index.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\ICinemaContext.cs" />
+  </ItemGroup>
+
 </Project>
