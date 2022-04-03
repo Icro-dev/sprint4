@@ -3,6 +3,7 @@ using cinema.Models;
 using cinema.Services;
 using Microsoft.EntityFrameworkCore;
 using cinema.Models;
+using cinema.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,8 @@ builder.Services.AddScoped<IRoomService, RoomService>();
 
 builder.Services.AddScoped<IPaymentAdapter, PaymentAdapter>();
 builder.Services.AddScoped<IMovieService, MovieService>();
+
+builder.Services.AddScoped<IShowRepository, ShowRepository>();
 
 // Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("CinemaDbContext");
