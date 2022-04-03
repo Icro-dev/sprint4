@@ -24,10 +24,23 @@ builder.Services.AddScoped<IShowRepository, ShowRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 
+// load .env file
+var root = Directory.GetCurrentDirectory();
+var dotenv = Path.Combine(root, "../../.env");
+DotEnv.Load(dotenv);
+
 // Add DbContext
-var connectionString = builder.Configuration.GetConnectionString("CinemaDbContext");
+
+var env = Environment.GetEnvironmentVariables();
+
+var connectionString = "Data Source="+env["hostname"]+";" +
+                       "User ID="+env["username"]+";" +
+                       "Password="+env["password"]+";" +
+                       "Database="+env["database"]+"";
+
 builder.Services
     .AddDbContext<CinemaContext>(options => options.UseSqlServer(connectionString));
+
 
 var app = builder.Build();
 

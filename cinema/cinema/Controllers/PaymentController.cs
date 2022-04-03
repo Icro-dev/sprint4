@@ -9,16 +9,13 @@ namespace cinema.Controllers;
 
 public class PaymentController : Controller
 {
-    private readonly IConfiguration _config;
     private readonly CinemaContext _context;
-    
-
+    private readonly string? _homeUrl;
     public PaymentController(IConfiguration config, CinemaContext context)
     {
-        _config = config;
         _context = context;
-        StripeConfiguration.ApiKey = _config["StripeKey"];
-
+        StripeConfiguration.ApiKey = Environment.GetEnvironmentVariable("StripeKey");
+        _homeUrl = Environment.GetEnvironmentVariable("AppUrl");
     }
 
     [HttpPost("create-checkout-session")]
@@ -47,11 +44,14 @@ public class PaymentController : Controller
                 },
             },
             Mode = "payment",
-            SuccessUrl = "https://localhost:7184/payment/PaymentSucces?id="+orderid,
-            CancelUrl = "https://localhost:7184/error",
+            SuccessUrl = "https://"+_homeUrl+"/payment/PaymentSuccess?id="+orderid,
+            CancelUrl = "https://"+_homeUrl+"/error",
         };
-
+        
         var service = new SessionService();
+        Console.WriteLine("*********************************************");
+        Console.WriteLine( JsonSerializer.Serialize(options));
+        Console.WriteLine("*********************************************");
         Session session = service.Create(options);
 
         Response.Headers.Add("Location", session.Url);
@@ -59,7 +59,7 @@ public class PaymentController : Controller
     }
 
     [HttpGet]
-    public RedirectToActionResult PaymentSucces(
+    public RedirectToActionResult PaymentSuccess(
         [FromQuery] int id)
     {
         var order = _context.Orders.First(o => o.Id == id);
