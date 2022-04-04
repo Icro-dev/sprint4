@@ -4,7 +4,10 @@ services:
         ports:
             - '80:80'
         container_name: patee
-        image: 'pateecinema/patee-cinema:latest'
+        image: patee-cinema:local
+        build:
+            context: cinema/cinema
+            dockerfile: Dockerfile
         environment:
             hostname: ${hostname}
             username: ${username}
