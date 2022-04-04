@@ -1,24 +1,19 @@
-using System.Diagnostics;
-using cinema.Data;
-using cinema.Migrations;
 using cinema.Models;
-using Microsoft.EntityFrameworkCore;
+using cinema.Repositories;
 
 namespace cinema.Services;
 
 public class ShowService : IShowService
 {
-    private readonly CinemaContext _context;
+    private readonly IShowRepository _showRepository;
 
-    public ShowService(CinemaContext context)
+    public ShowService(IShowRepository showRepository)
     {
-        _context = context;
+        _showRepository = showRepository;
     }
 
     public Dictionary<DateOnly, Dictionary<Movie, List<Show>>> GetShowsPerMoviePerDay(List<Show> showList)
     {
-
-        
         showList.Sort((a,b) => DateTime.Compare(a.StartTime,b.StartTime));
         var dateList = new List<DateOnly>();
         var showDict = new Dictionary<DateOnly, List<Show>>();
@@ -64,7 +59,7 @@ public class ShowService : IShowService
 
     public Show getShowById(int id)
     {
-        return _context.Shows.Include(s => s.Movie).First(s => s.Id == id);
+        return _showRepository.FindShowByIdIncludeMovie(id);
     }
     
 }
