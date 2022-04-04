@@ -23,6 +23,8 @@ builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IShowRepository, ShowRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+
 
 // Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("CinemaDbContext");
