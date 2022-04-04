@@ -18,75 +18,108 @@
 @{
     ShowsFilter? filter = (ShowsFilter?) ViewData["ShowsFilter"];
     //if (filter == null) filter = new ShowsFilter(Model.Keys.ToList());
-    if(filter != null)
+    if (filter != null)
     {
-        <form method="post" asp-controller="Shows" asp-action="Filter">
-            <label for="search">Search</label>
-            <input type="text" id="search" name="search" value="@filter.input">
-            <label for="len">Length</label>
-            <input type="range" id="len" name="len" min="0" max="@filter.maxselectablelength" value="@filter.maxlength">
-            <label for="date">Date</label>
-            <input type="date" id="date" name="date">
-            <label for="threed">3D</label>
-            <input type="checkbox" id="threed" name="threed" checked="@filter.threed">
-            <label>Languages</label>
-            @foreach(string language in filter.languages.Keys){
-                <label for="@language">@language</label>
-                <input type="checkbox" id="@language" name="@language" checked="@filter.languages[language]">
-            }
-            <label>Genres</label>
-            @foreach(string genre in filter.genres.Keys){
-                <label for="@genre">@genre</label>
-                <input type="checkbox" id="@genre" name="@genre" checked="@filter.genres[genre]">
-            }
-            <label>Kijkwijzers</label>
-            @foreach(string kijkwijzer in filter.kijkwijzers.Keys){
-                <label for="@kijkwijzer">@kijkwijzer</label>
-                <input type="checkbox" id="@kijkwijzer" name="@kijkwijzer" checked="@filter.kijkwijzers[kijkwijzer]">
-            }
-            <input type="submit" value="Search">
-        </form>
+        <div class="accordion accordion-flush filter-accordion text-dark" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header border-2 border-light" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Pas de selectie aan.
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+
+                        <form method="post" asp-controller="Shows" asp-action="Filter">
+                            <div class="container">
+                                <div class="row">
+                                    <label for="search">Zoeken</label><br/>
+                                    <input type="text" id="search" name="search" value="@filter.input">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                    <label for="len">Lengte</label>
+                                    <input type="range" id="len" name="len" min="0" max="@filter.maxselectablelength" value="@filter.maxlength">
+                                    <label for="date">Datum</label>
+                                    <input type="date" id="date" name="date">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                    <label for="threed">3D</label>
+                                    <input type="checkbox" id="threed" name="threed" checked="@filter.threed">
+                                    <label>Talen</label>
+                                    @foreach (string language in filter.languages.Keys)
+                                    {
+                                        <label for="@language">@language</label>
+                                        <input type="checkbox" id="@language" name="@language" checked="@filter.languages[language]">
+                                    }
+                                    <label>Genres</label>
+                                    @foreach (string genre in filter.genres.Keys)
+                                    {
+                                        <label for="@genre">@genre</label>
+                                        <input type="checkbox" id="@genre" name="@genre" checked="@filter.genres[genre]">
+                                    }
+                                    <label>Kijkwijzers</label>
+                                    @foreach (string kijkwijzer in filter.kijkwijzers.Keys)
+                                    {
+                                        <label for="@kijkwijzer">@kijkwijzer</label>
+                                        <input type="checkbox" id="@kijkwijzer" name="@kijkwijzer" checked="@filter.kijkwijzers[kijkwijzer]">
+                                    }
+                                    </div>
+                                </div>
+                                <row>
+                                    <div class="col-sm-12">
+                                        <input type="submit" class="btn btn-primary" value="Pas selectie aan">
+                                    </div>
+                                </row>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
 }
 
 <div class="container-fluid">
-    
+
     @foreach (var date in Model.Keys)
     {
         //return if the movies are older than today
         if (date < DateOnly.FromDateTime(DateTime.Now)) continue;
-        
-        <div class="date-row"><h2 class="date-row-date">
-            
-            @date
-        </h2></div>
-        
+
+        <div class="date-row">
+            <h2 class="date-row-date">
+
+                @date
+            </h2>
+        </div>
+
         <div>
             <div class="shows_container">
                 @foreach (var movie in Model[@date].Keys)
                 {
-      
-                        <div class="shows_page_show_card">
-                            <img class="show_image" src="@movie.Poster">
-                            <div class="show_times">
-                                @foreach (var show in Model[@date][@movie])
-                                {
-                                    <form method="get" class="show-button" asp-controller="Tickets" asp-action="Arrangements" >
-                                        <input type="hidden" name="showId" value="@show.Id"/>
-                                        
-                                        <button class="btn btn-primary"  type="submit">
-                                            @TimeOnly.FromDateTime(show.StartTime).Hour.00 in zaal @show.Room
-                                        </button>
-                                        
-                                    </form>
-                                }
-                            </div>
-                        
+                    <div class="shows_page_show_card">
+                        <img class="show_image" src="@movie.Poster">
+                        <div class="show_times">
+                            @foreach (var show in Model[@date][@movie])
+                            {
+                                <form method="get" class="show-button" asp-controller="Tickets" asp-action="Arrangements">
+                                    <input type="hidden" name="showId" value="@show.Id"/>
+
+                                    <button class="btn btn-primary" type="submit">
+                                        @TimeOnly.FromDateTime(show.StartTime).Hour.00 in zaal @show.Room
+                                    </button>
+
+                                </form>
+                            }
+                        </div>
+
                         <form method="get" class="info-button">
                             <button class="btn btn-secondary w-100" asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Name">Film-info</button>
                         </form>
-</div>
-  
+                    </div>
                 }
             </div>
         </div>

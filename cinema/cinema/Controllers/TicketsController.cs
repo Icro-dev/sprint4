@@ -11,6 +11,8 @@ using Stripe;
 
 namespace cinema.Controllers
 {
+
+   
     public class TicketsController : Controller
     {
         private readonly CinemaContext _context;
@@ -23,11 +25,13 @@ namespace cinema.Controllers
 
         private readonly IMovieService _movieService;
 
+        private readonly IRoomService _roomService;
+
         private readonly IConfiguration _config;
 
 
-        public TicketsController(IPriceCalculatingService priceCalculatingService, ITicketService ticketService,
-            IMovieService movieService, CinemaContext context, IShowService showService, IConfiguration config)
+private readonly ISeatService _seatService;        public TicketsController(IPriceCalculatingService priceCalculatingService, ITicketService ticketService,
+            IMovieService movieService, IRoomService roomService, ISeatService seatService, CinemaContext context, IShowService showService, IConfiguration config)
         {
             _ticketService = ticketService;
             _movieService = movieService;
@@ -35,6 +39,8 @@ namespace cinema.Controllers
             _showService = showService;
             _config = config;
             _priceCalculatingService = priceCalculatingService;
+            _roomService = roomService;
+            _seatService = seatService;
         }
 
         [HttpGet]
@@ -83,7 +89,6 @@ namespace cinema.Controllers
             return View();
         }
 
-
         [HttpGet]
         [Route("/tickets/create")]
         public IActionResult Discount(
@@ -97,6 +102,75 @@ namespace cinema.Controllers
             ViewBag.quantity = quantity;
             ViewBag.Arrangement = arrangement;
             return View();
+        }
+
+        [HttpGet]
+        [Route("/tickets/seatselection")]
+        public IActionResult SeatSelection([FromQuery] int orderid)
+        {
+            ViewData["orderid"] = orderid;
+            TicketOrder order = _context.Orders.Where(o => o.Id == orderid).First();
+            int[] ticketids = JsonSerializer.Deserialize<int[]>(order.SerializedTicketIds);
+            List<Ticket> tickets = new List<Ticket>();
+            foreach (int ticketid in ticketids)
+                tickets.Add(_context.Tickets.Include(t => t.show).Where(t => t.Id == ticketid).First());
+            Room room = _roomService.GetShowRoom(tickets[0].show);
+            int[] roomtemplate = _roomService.GetRoomTemplate(room);
+            ViewData["serializedTickets"] = JsonSerializer.Serialize(tickets.ToList());
+            ViewData["roommap"] = roomtemplate;
+            List<List<int>> takenseats = _seatService.GetTakenSeats(tickets[0].show);
+            foreach(Ticket ticket in tickets)
+            {
+                if (takenseats[ticket.SeatRow - 1].Contains(ticket.SeatNr))
+                {
+                    takenseats[ticket.SeatRow - 1].Remove(ticket.SeatNr);
+                }
+            }
+            ViewData["takenseats"] = takenseats;
+            return View(tickets);
+        }
+
+        [HttpPost]
+        [Route("/tickets/seatselection")]
+        public IActionResult SeatSelection(string serializedTickets, int orderid, int seatrow, int seatnr)
+        {
+            ViewData["orderid"] = orderid;
+            List<Ticket> tickets = JsonSerializer.Deserialize<List<Ticket>>(serializedTickets);
+            int[] distances = new int[tickets.Count()];
+            for (int i = 0; i < tickets.Count(); i++)
+            {
+                Ticket ticket = tickets[i];
+                int distance = Math.Abs(ticket.SeatRow - seatrow) + Math.Abs(ticket.SeatNr - seatnr);
+                distances[i] = distance;
+            }
+            Ticket furthest = tickets[Array.IndexOf(distances, distances.Max())];
+            furthest.SeatRow = seatrow;
+            furthest.SeatNr = seatnr;
+            _ticketService.PushTickets(tickets);
+            ViewData["serializedTickets"] = JsonSerializer.Serialize(tickets.ToList());
+            Room room = _roomService.GetShowRoom(tickets[0].show);
+            int[] roomtemplate = _roomService.GetRoomTemplate(room);
+            ViewData["roommap"] = roomtemplate;
+            List<List<int>> takenseats = _seatService.GetTakenSeats(tickets[0].show);
+            foreach (Ticket ticket in tickets)
+            {
+                if (takenseats[ticket.SeatRow - 1].Contains(ticket.SeatNr))
+                {
+                    takenseats[ticket.SeatRow - 1].Remove(ticket.SeatNr);
+                }
+            }
+            ViewData["takenseats"] = takenseats;
+            return View(tickets);
+        }
+
+        [HttpPost]
+        [Route("/tickets/confirmseatselection")]
+        public IActionResult ConfirmSeatSelection(int orderid)
+        {
+            return RedirectToAction("Index", new
+            {
+                id = orderid
+            });
         }
 
         [HttpGet]
@@ -180,35 +254,6 @@ namespace cinema.Controllers
             {
                 id = order.Id
             });
-        }
-
-        [HttpPost]
-        [Route("/tickets/betalen")]
-        public IActionResult Payment(TicketOrder order)
-        {
-            ViewBag.order = order;
-            ViewBag.StripePubKey = _config["StripePubKey"];
-            return View();
-        }
-
-        [HttpPost]
-        public void Pay(string stripeToken, TicketOrder order)
-        {
-            Stripe.StripeConfiguration.SetApiKey(_config["StripePubKey"]);
-            Stripe.StripeConfiguration.ApiKey = _config["StripeKey"];
-
-            var myCharge = new Stripe.ChargeCreateOptions();
-            // always set these properties
-            myCharge.Amount = (long?) (order.Cost * 100);
-            myCharge.Currency = "EUR";
-            myCharge.Description = order.Id.ToString();
-            myCharge.Source = stripeToken;
-            myCharge.Capture = true;
-            var chargeService = new Stripe.ChargeService();
-            Charge stripeCharge = chargeService.Create(myCharge);
-            Console.WriteLine(JsonSerializer.Serialize(stripeCharge));
-
-            RedirectToAction("Create");
         }
     }
 }

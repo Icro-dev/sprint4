@@ -1,51 +1,101 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - cinema</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/bootstrap.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-        @await RenderSectionAsync("Styles", required: false)
+    <link rel="stylesheet" href="~/lib/bootstrap/bootstrap.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    @await RenderSectionAsync("Styles", required: false)
 
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">cinema</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Shows" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Shows" asp-action="Index">Voorstellingen</a>
-                        </li>
-                    </ul>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand logo" href="#">
+                <img src="~/imagesStyling/logo-se.png" alt="logo" class="img-responsive"/>
+            </a>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">cinema</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Shows" asp-action="Index">Voorstellingen</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+<div class="footer-container">
+    <div id="mapssubscribe" class="container-fluid">
+        <div class="row justify-content-evenly align-items-start">
+            <div class="col-4">
+                <input type="text" id="txtSource" placeholder="Vanaf"/>
+
+                <input type="button" value="Route" onclick="GetRoute()" class="button button4"/>
+                <div id="Dropdown">
+                    <b>Ik kom: </b>
+                    <select id="mode">
+                        <option value="DRIVING">Met de auto</option>
+                        <option value="WALKING">Lopend</option>
+                        <option value="BICYCLING">Fietsend</option>
+                        <option value="TRANSIT">Met de OV</option>
+                    </select>
+                </div>
+                <hr/>
+                <div id="dvDistance" style="font-weight:bold; text-align: center">
+                </div>
+                <div id="dvMap">
+                </div>
+                <div id="dvPanel">
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - cinema - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <div class="col-4">
+                <div>
+                    <h4>Aanmelden voor nieuwsbrief</h4>
+                    <form method="post" asp-action="Create" asp-controller="Subscribers">
+                        <input name="email" type="text" placeholder="Email adres">
+                        <input type="submit" value="Aanmelden">
+                    </form>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+</div>
+<footer class="border-top footer text-muted fixed-bottom">
+    <div class="container footer-container">
+        &copy; 2022 - cinema - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        <a class="social-media" href="https://www.facebook.com/avans/">
+            <img src="~/imagesStyling/fb-bw.png" alt="fb" class="img-responsive"/>
+        </a>
+        <a class="social-media" href="https://www.instagram.com/avanshogeschool/?hl=en">
+            <img src="~/imagesStyling/ig-bw.png" alt="ig" class="img-responsive"/>
+        </a>
+        <a class="social-media" href="https://twitter.com/avanshogeschool?lang=en">
+            <img src="~/imagesStyling/tw-bw.png" alt="tw" class="img-responsive"/>
+        </a>
+    </div>
+</footer>
 
 <script src="~/lib/bootstrap/bootstrap.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXagAu3PsqAZ2hW-1CA7HnMY0BjBF87GM&libraries=places">  
+              </script>
+<script src="~/js/site.js" asp-append-version="true"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

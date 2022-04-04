@@ -70,9 +70,16 @@ public class TicketService : ITicketService
             ticket.Arrangements = arrangements;
             tickets.Add(ticket);
         }
-       
         _context.Tickets.AddRange(tickets);
         _context.SaveChanges();
         return tickets;
+    }
+
+    public void PushTickets(List<Ticket> tickets)
+    {
+        foreach (Ticket ticket in tickets)
+            ticket.show = _context.Shows.First(s => s.Id == ticket.show.Id);
+        _context.Tickets.UpdateRange(tickets);
+        _context.SaveChanges();
     }
 }

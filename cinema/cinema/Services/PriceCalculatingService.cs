@@ -1,24 +1,26 @@
 using cinema.Data;
 using cinema.Models;
+using cinema.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace cinema.Services;
 
 public class PriceCalculatingService : IPriceCalculatingService
 {
-    private readonly CinemaContext _context;
 
+    private readonly IShowRepository _showRepository;
+    
     private readonly IMovieService _movieService;
 
-    public PriceCalculatingService(CinemaContext context, IMovieService movieService)
+    public PriceCalculatingService(IMovieService movieService, IShowRepository showRepository)
     {
-        _context = context;
         _movieService = movieService;
+        _showRepository = showRepository;
     }
 
     public double pricePerTicket(int showId)
     {
-        var show = _context.Shows.Include(s => s.Movie).First(s => s.Id == showId);
+        var show = _showRepository.FindShowByIdIncludeMovie(showId);
         var premium = 0.0;
         if (show.ThreeD)
         {
@@ -52,8 +54,7 @@ public class PriceCalculatingService : IPriceCalculatingService
         {
             Arrangements.kinderfeestje => 5.0,
             Arrangements.vip => 4.0,
-            Arrangements.normale => 0,
-            _ => 0
+            Arrangements.normale => 0
         };
     }
 
@@ -61,6 +62,4 @@ public class PriceCalculatingService : IPriceCalculatingService
     {
         return SubTotalCost - Discount + Premium;
     }
-
-    
 }
