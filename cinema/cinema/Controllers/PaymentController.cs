@@ -1,5 +1,6 @@
 using System.Text.Json;
 using cinema.Data;
+using cinema.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Stripe;
@@ -10,13 +11,13 @@ namespace cinema.Controllers;
 public class PaymentController : Controller
 {
     private readonly IConfiguration _config;
-    private readonly CinemaContext _context;
+    private readonly IPaymentRepository _paymentRepository;
     
 
-    public PaymentController(IConfiguration config, CinemaContext context)
+    public PaymentController(IConfiguration config, IPaymentRepository paymentRepository)
     {
         _config = config;
-        _context = context;
+        _paymentRepository = paymentRepository;
         StripeConfiguration.ApiKey = _config["StripeKey"];
 
     }
@@ -24,8 +25,8 @@ public class PaymentController : Controller
     [HttpPost("create-checkout-session")]
     public ActionResult CreateCheckoutSession([FromForm] int orderid)
     {
-        var order = _context.Orders.First(o => o.Id == orderid);
-        var show = _context.Shows.Include(s => s.Movie).First(s => s.Id == order.ShowId);
+        var order = _paymentRepository.GetFirstOrder(orderid);
+        var show = _paymentRepository.GetFirstShow(orderid);
         var cost = (int) order.Cost * 100;
         var options = new SessionCreateOptions
         {
@@ -62,10 +63,7 @@ public class PaymentController : Controller
     public RedirectToActionResult PaymentSucces(
         [FromQuery] int id)
     {
-        var order = _context.Orders.First(o => o.Id == id);
-        order.IsPayed = true;
-        _context.Orders.Update(order);
-        _context.SaveChanges();
+        _paymentRepository.GetUpdatePaymenttOrderSave(id);
         return RedirectToAction("Index", "Tickets", new {id = id});
     }
 }

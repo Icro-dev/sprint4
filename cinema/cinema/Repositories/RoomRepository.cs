@@ -19,4 +19,9 @@ public class RoomRepository : IRoomRepository
         return _context.Rooms.Include(r => r.Template).Where(r => r.Id == show.Room).First();
     }
     
+    public async Task<List<Room>> ListOfAllRooms()
+    {
+        return await _context.Rooms.ToListAsync();
+    }
+    
 }

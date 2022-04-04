@@ -8,22 +8,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cinema.Data;
 using cinema.Models;
+using cinema.Repositories;
 
 namespace cinema.Controllers
 {
     public class RoomsController : Controller
     {
-        private readonly CinemaContext _context;
+        private readonly IRoomRepository _roomRepository;
 
-        public RoomsController(CinemaContext context)
+        public RoomsController(IRoomRepository roomRepository)
         {
-            _context = context;
+            _roomRepository = roomRepository;
         }
 
         // GET: Rooms
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Rooms.ToListAsync());
+            return View(await _roomRepository.ListOfAllRooms());
         }
 
         // GET: Rooms/Details/5

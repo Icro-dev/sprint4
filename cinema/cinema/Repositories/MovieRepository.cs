@@ -13,11 +13,6 @@ public class MovieRepository : IMovieRepository
         _context = cinemaContext;
     }
     
-  //  public List<Movie> Index()
-    //{
-      //  return View(await _context.Movies.ToListAsync());
-    //}
-
     public Task<List<Movie>> ListOfAllMovies()
     {
         return _context.Movies.ToListAsync();
