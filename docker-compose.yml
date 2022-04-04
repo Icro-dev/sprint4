@@ -2,9 +2,9 @@ version: '3.3'
 services:  
     patee-cinema:
         ports:
-            - '8080:80'
+            - '80:80'
         container_name: patee
-        image: 'registry.rijk.se/patee-cinema:latest'
+        image: 'pateecinema/patee-cinema:latest'
         environment:
             hostname: ${hostname}
             username: ${username}
