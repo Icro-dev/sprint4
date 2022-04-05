@@ -2,12 +2,15 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 WORKDIR /app
 
+# copy .env
+COPY .env .
+
 # Copy csproj and restore as distinct layers
-COPY *.csproj ./
+COPY cinema/cinema/*.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
-COPY . ./
+COPY cinema/cinema ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image

@@ -46,9 +46,15 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-
-    SeedData.Initialize(services);
+    //running migrations at startup
+    var db = scope.ServiceProvider.GetRequiredService<CinemaContext>();
+    db.Database.Migrate();
+    //adding seeddata
+    if ((string) env["seeddata"]! ==  "true")
+    {
+        var services = scope.ServiceProvider;
+        SeedData.Initialize(services);
+    }
 }
 
 // Configure the HTTP request pipeline.
