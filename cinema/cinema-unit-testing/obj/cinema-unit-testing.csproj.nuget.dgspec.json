@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj": {}
+    "C:\\Users\\User\\source\\repos\\master\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj": {
+    "C:\\Users\\User\\source\\repos\\master\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj",
+        "projectUniqueName": "C:\\Users\\User\\source\\repos\\master\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj",
         "projectName": "cinema-unit-testing",
-        "projectPath": "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj",
-        "packagesPath": "C:\\Users\\Icrolux\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema-unit-testing\\obj\\",
+        "projectPath": "C:\\Users\\User\\source\\repos\\master\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\source\\repos\\master\\cinema\\cinema-unit-testing\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Icrolux\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema\\cinema.csproj": {
-                "projectPath": "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema\\cinema.csproj"
+              "C:\\Users\\User\\source\\repos\\master\\cinema\\cinema\\cinema.csproj": {
+                "projectPath": "C:\\Users\\User\\source\\repos\\master\\cinema\\cinema\\cinema.csproj"
               }
             }
           }
@@ -91,17 +91,17 @@
         }
       }
     },
-    "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema\\cinema.csproj": {
+    "C:\\Users\\User\\source\\repos\\master\\cinema\\cinema\\cinema.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema\\cinema.csproj",
+        "projectUniqueName": "C:\\Users\\User\\source\\repos\\master\\cinema\\cinema\\cinema.csproj",
         "projectName": "cinema",
-        "projectPath": "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema\\cinema.csproj",
-        "packagesPath": "C:\\Users\\Icrolux\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Icrolux\\source\\repos\\macrohard-code\\cinema\\cinema\\obj\\",
+        "projectPath": "C:\\Users\\User\\source\\repos\\master\\cinema\\cinema\\cinema.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\source\\repos\\master\\cinema\\cinema\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Icrolux\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

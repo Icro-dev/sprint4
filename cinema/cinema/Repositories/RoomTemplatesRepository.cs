@@ -1,27 +1,23 @@
-using System.Linq;
+﻿using System.Linq;
 using cinema.Data;
 using cinema.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace cinema.Repositories;
 
-public class RoomRepository : IRoomRepository
+public class RoomTemplatesRepository : IRoomTemplatesRepository
 {
+    
     private readonly CinemaContext _context;
 
-    public RoomRepository(CinemaContext context)
+    public RoomTemplatesRepository(CinemaContext context)
     {
         _context = context;
     }
 
-    public Room findRoomByShow(Show show)
+    public async Task<List<RoomTemplate>> ListOfAllRoomTemplates()
     {
-        return _context.Rooms.Include(r => r.Template).Where(r => r.Id == show.Room).First();
-    }
-    
-    public async Task<List<Room>> ListOfAllRooms()
-    {
-        return await _context.Rooms.ToListAsync();
+        return await _context.RoomTemplates.ToListAsync();
     }
     
     public Task<Room?> FindRoomById(int id)

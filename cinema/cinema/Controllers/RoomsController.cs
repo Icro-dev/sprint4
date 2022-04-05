@@ -28,15 +28,14 @@ namespace cinema.Controllers
         }
 
         // GET: Rooms/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var room = await _context.Rooms
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var room = await _roomRepository.FindRoomById(id);
             if (room == null)
             {
                 return NotFound();
@@ -60,22 +59,22 @@ namespace cinema.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(room);
-                await _context.SaveChangesAsync();
+                _roomRepository.Add(room);
+                _roomRepository.SaveRoom();
                 return RedirectToAction(nameof(Index));
             }
             return View(room);
         }
 
         // GET: Rooms/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var room = await _context.Rooms.FindAsync(id);
+            var room = await _roomRepository.FindRoomById(id);
             if (room == null)
             {
                 return NotFound();
@@ -99,8 +98,8 @@ namespace cinema.Controllers
             {
                 try
                 {
-                    _context.Update(room);
-                    await _context.SaveChangesAsync();
+                    _roomRepository.UpdateRoom(room);
+                    _roomRepository.SaveRoom();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -119,15 +118,14 @@ namespace cinema.Controllers
         }
 
         // GET: Rooms/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var room = await _context.Rooms
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var room = await _roomRepository.FindRoomById(id);
             if (room == null)
             {
                 return NotFound();
@@ -141,15 +139,15 @@ namespace cinema.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var room = await _context.Rooms.FindAsync(id);
-            _context.Rooms.Remove(room);
-            await _context.SaveChangesAsync();
+            var room = await _roomRepository.FindRoomById(id);
+            _roomRepository.RemoveRoom(room);
+            _roomRepository.SaveRoom();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RoomExists(int id)
+        public bool RoomExists(int id)
         {
-            return _context.Rooms.Any(e => e.Id == id);
+            return _roomRepository.RoomExists(id);
         }
     }
 }
