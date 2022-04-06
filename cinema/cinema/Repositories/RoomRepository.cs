@@ -16,7 +16,7 @@ public class RoomRepository : IRoomRepository
 
     public Room findRoomByShow(Show show)
     {
-        return _context.Rooms.Include(r => r.Template).Where(r => r.Id == show.Room).First();
+        return _context.Rooms.Include(r => r.Template).First(r => r.Id == show.Room);
     }
     
 }
