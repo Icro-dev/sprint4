@@ -31,18 +31,37 @@ builder.Services.AddScoped<IRoomTemplatesRepository, RoomTemplatesRepository>();
 builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
 
 
+// load .env file
+var root = Directory.GetCurrentDirectory();
+var dotenv = Path.Combine(root, "../../.env");
+DotEnv.Load(dotenv);
+
 // Add DbContext
-var connectionString = builder.Configuration.GetConnectionString("CinemaDbContext");
+
+var env = Environment.GetEnvironmentVariables();
+
+var connectionString = "Data Source="+env["hostname"]+";" +
+                       "User ID="+env["username"]+";" +
+                       "Password="+env["password"]+";" +
+                       "Database="+env["database"]+"";
+
 builder.Services
     .AddDbContext<CinemaContext>(options => options.UseSqlServer(connectionString));
+
 
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var services = scope.ServiceProvider;
-
-    SeedData.Initialize(services);
+    //running migrations at startup
+    var db = scope.ServiceProvider.GetRequiredService<CinemaContext>();
+    db.Database.Migrate();
+    //adding seeddata
+    if ((string) env["seeddata"]! ==  "true")
+    {
+        var services = scope.ServiceProvider;
+        SeedData.Initialize(services);
+    }
 }
 
 // Configure the HTTP request pipeline.
@@ -53,7 +72,6 @@ if (!app.Environment.IsDevelopment())
     // app.UseHsts();
 }
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();

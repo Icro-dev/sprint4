@@ -13,13 +13,12 @@ public class PaymentController : Controller
     private readonly IConfiguration _config;
     private readonly IPaymentRepository _paymentRepository;
     
-
+    private readonly string? _homeUrl;
     public PaymentController(IConfiguration config, IPaymentRepository paymentRepository)
     {
-        _config = config;
-        _paymentRepository = paymentRepository;
-        StripeConfiguration.ApiKey = _config["StripeKey"];
-
+        _paymentRepository = paymentRepository; 
+        StripeConfiguration.ApiKey = Environment.GetEnvironmentVariable("StripeKey");
+        _homeUrl = Environment.GetEnvironmentVariable("AppUrl");
     }
 
     [HttpPost("create-checkout-session")]
@@ -48,11 +47,14 @@ public class PaymentController : Controller
                 },
             },
             Mode = "payment",
-            SuccessUrl = "https://localhost:7184/payment/PaymentSucces?id="+orderid,
-            CancelUrl = "https://localhost:7184/error",
+            SuccessUrl = "https://"+_homeUrl+"/payment/PaymentSuccess?id="+orderid,
+            CancelUrl = "https://"+_homeUrl+"/error",
         };
 
         var service = new SessionService();
+        Console.WriteLine("*********************************************");
+        Console.WriteLine( JsonSerializer.Serialize(options));
+        Console.WriteLine("*********************************************");
         Session session = service.Create(options);
 
         Response.Headers.Add("Location", session.Url);
