@@ -82,7 +82,7 @@ public class ShowControllerTests
         // Arrange
         var showRepo = new Mock<IShowRepository>();
         ShowService showService = new ShowService(showRepo.Object);
-        var controller = new ShowsController(showRepo.Object, showService.Object );
+        var controller = new ShowsController(showRepo.Object, showService);
 
         // Act
         var result = controller.Create();

@@ -43,7 +43,8 @@ namespace cinema.Controllers
 
             return View(room);
         }
-
+        [HttpGet]
+        [Route("/Rooms/Create")]
         // GET: Rooms/Create
         public IActionResult Create()
         {
@@ -54,6 +55,7 @@ namespace cinema.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Route("/Rooms/Create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,RoomNr,Wheelchair,ThreeD")] Room room)
         {

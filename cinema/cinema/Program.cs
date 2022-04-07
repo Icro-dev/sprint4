@@ -71,7 +71,7 @@ app.MapControllerRoute(
     pattern: "{controller=RoomTemplates}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
-    name: "Room",
+    name: "Rooms",
     pattern: "{controller=Rooms}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
