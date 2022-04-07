@@ -1,24 +1,24 @@
-using System.Collections;
-using cinema.Data;
 using cinema.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using cinema.Repositories;
 
 namespace cinema.Services;
 
 public class TicketService : ITicketService
 {
-    private readonly CinemaContext _context;
+    private readonly ITicketRepository _ticketRepository;
+    private readonly IShowRepository _showRepository;
     private readonly ISeatService _seatService;
-    public TicketService(CinemaContext context, ISeatService seatService)
+
+    public TicketService(ISeatService seatService, ITicketRepository ticketRepository, IShowRepository showRepository)
     {
-        _context = context;
         _seatService = seatService;
+        _ticketRepository = ticketRepository;
+        _showRepository = showRepository;
     }
 
     public IEnumerable<Ticket>? GetAllTickets()
     {
-        return _context.Tickets;
+        return _ticketRepository.FindAllTickets();
     }
     
     public List<Ticket> CreateTickets(
@@ -31,10 +31,8 @@ public class TicketService : ITicketService
         Arrangements arrangements
     )
     {
-        if (_context.Shows == null || !_context.Shows.Any() )throw new Exception();
-        var theShow = _context.Shows.First(s => s.Id == show);
+        var theShow = _showRepository.FindShowByIdIncludeMovie(show);
         var theSeats = _seatService.GetSeats(theShow, quantity);
-
 
         var tickets = new List<Ticket>();
         
@@ -64,22 +62,25 @@ public class TicketService : ITicketService
                 ticket.Popcorn = true;
             }
 
-            ticket.show = _context.Shows.Include(s => s.Movie).Where(s => s.Id == show).First();
+            ticket.show = theShow;
             ticket.Code = new Random().Next(1, 100000);
             ticket.CodeUsed = false;
             ticket.Arrangements = arrangements;
             tickets.Add(ticket);
         }
-        _context.Tickets.AddRange(tickets);
-        _context.SaveChanges();
+        _ticketRepository.AddRangeTickets(tickets);
+        _ticketRepository.SaveTickets();
         return tickets;
     }
 
     public void PushTickets(List<Ticket> tickets)
     {
         foreach (Ticket ticket in tickets)
-            ticket.show = _context.Shows.First(s => s.Id == ticket.show.Id);
-        _context.Tickets.UpdateRange(tickets);
-        _context.SaveChanges();
+        {
+            ticket.show = _showRepository.FindShowByIdIncludeMovie(ticket.show.Id);
+            
+        }
+        _ticketRepository.UpdateRangeTickets(tickets);
+        _ticketRepository.SaveTickets();
     }
 }
