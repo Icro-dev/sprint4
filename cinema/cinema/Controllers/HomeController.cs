@@ -1,5 +1,6 @@
 using cinema.Data;
 using cinema.Models;
+using cinema.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,11 +11,11 @@ namespace cinema.Controllers;
 public class HomeController : Controller
 {
     
-    private readonly CinemaContext _context;
+    private readonly IHomeRepository homeRepository;
 
-    public HomeController(CinemaContext context)
+    public HomeController(IHomeRepository homeRepository)
     {
-        _context = context;
+        this.homeRepository = homeRepository;
     }
 
     [HttpGet]
@@ -22,7 +23,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         DateTime movieWeek = DateTime.Now.AddDays(8);
-        var movies  =  _context.Shows.Include(s => s.Movie).Where(s => s.StartTime <= movieWeek && s.StartTime >= DateTime.Now).OrderBy(s => s.StartTime).Select(s => s.Movie).Distinct();
+        var movies  =  homeRepository.GetMoviesThatStartWithin8DaysSort();
         ViewBag.Movies = movies;
         return View();
     }
