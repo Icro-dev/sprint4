@@ -1,0 +1,20 @@
+version: '3.3'
+services:  
+    patee-cinema:
+        network_mode: proxy
+        container_name: patee
+        image: patee-cinema:local
+        build:
+            context: .
+            dockerfile: cinema/cinema/Dockerfile
+        environment:
+            hostname: ${hostname}
+            username: ${username}
+            password: ${password}
+            database: ${database}
+            StripePubKey: ${StripePubKey}
+            StripeKey: ${StripeKey}
+            AppUrl: ${AppUrl}
+            VIRTUAL_HOST: ${AppUrl}
+            LETSENCRYPT_HOST: ${AppUrl}
+

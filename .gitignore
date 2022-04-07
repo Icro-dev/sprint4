@@ -56,5 +56,5 @@ Thumbs.db
 cinema/cinema/bin/
 cinema/cinema/obj/
 
-# environment
-cinema/cinema/.env
+# env
+.env
