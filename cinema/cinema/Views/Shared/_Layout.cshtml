@@ -10,7 +10,7 @@
 
 </head>
 <body>
-<header>
+<header class="mb-4">
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
         <div class="container">
             <a class="navbar-brand logo" href="#">
@@ -35,18 +35,18 @@
         </div>
     </nav>
 </header>
-<div class="container">
+<div class="container mt-5">
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
 </div>
-<div class="footer-container">
+<div class="footer-containe mt-5">
     <div id="mapssubscribe" class="container-fluid">
         <div class="row justify-content-evenly align-items-start">
             <div class="col-4">
                 <input type="text" id="txtSource" placeholder="Vanaf"/>
+                <input type="button" value="Route" onclick="GetRoute()" class="btn btn-primary btn-lg"/>
 
-                <input type="button" value="Route" onclick="GetRoute()" class="button button4"/>
                 <div id="Dropdown">
                     <b>Ik kom: </b>
                     <select id="mode">
@@ -69,25 +69,30 @@
                     <h4>Aanmelden voor nieuwsbrief</h4>
                     <form method="post" asp-action="Create" asp-controller="Subscribers">
                         <input name="email" type="text" placeholder="Email adres">
-                        <input type="submit" value="Aanmelden">
+                        <input type="submit" class="btn btn-primary btn-lg" value="Aanmelden">
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<footer class="border-top footer text-muted fixed-bottom">
-    <div class="container footer-container">
-        &copy; 2022 - cinema - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        <a class="social-media" href="https://www.facebook.com/avans/">
-            <img src="~/imagesStyling/fb-bw.png" alt="fb" class="img-responsive"/>
-        </a>
-        <a class="social-media" href="https://www.instagram.com/avanshogeschool/?hl=en">
-            <img src="~/imagesStyling/ig-bw.png" alt="ig" class="img-responsive"/>
-        </a>
-        <a class="social-media" href="https://twitter.com/avanshogeschool?lang=en">
-            <img src="~/imagesStyling/tw-bw.png" alt="tw" class="img-responsive"/>
-        </a>
+<footer class="shadow footer text-muted bg-black py-4 fixed-bottom">
+    <div class="container footer-container text-white d-flex justify-content-between">
+        <div>
+            &copy; 2022 - cinema - <a asp-page="/Privacy" class="text-decoration-none">privacy</a>
+        </div>
+        <div>
+            <a class="social-media text-decoration-none" href="https://www.facebook.com/avans/">
+                <img src="~/imagesStyling/fb-bw.png" alt="fb" class="img-responsive mx-2" style="max-width: 30px"/>
+            </a>
+            <a class="social-media text-decoration-none" href="https://www.instagram.com/avanshogeschool/?hl=en">
+                <img src="~/imagesStyling/ig-bw.png" alt="ig" class="img-responsive mx-2" style="max-width: 30px"/>
+            </a>
+            <a class="social-media text-decoration-none" href="https://twitter.com/avanshogeschool?lang=en">
+                <img src="~/imagesStyling/tw-bw.png" alt="tw" class="img-responsive mx-2" style="max-width: 30px"/>
+            </a>
+        </div>
+
     </div>
 </footer>
 
