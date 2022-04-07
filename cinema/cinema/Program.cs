@@ -23,6 +23,13 @@ builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IShowRepository, ShowRepository>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IHomeRepository, HomeRepository>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IRoomTemplatesRepository, RoomTemplatesRepository>();
+builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
+
 
 // load .env file
 var root = Directory.GetCurrentDirectory();
@@ -83,7 +90,7 @@ app.MapControllerRoute(
     pattern: "{controller=RoomTemplates}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
-    name: "Room",
+    name: "Rooms",
     pattern: "{controller=Rooms}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
