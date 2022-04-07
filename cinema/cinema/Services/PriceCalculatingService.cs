@@ -54,8 +54,7 @@ public class PriceCalculatingService : IPriceCalculatingService
         {
             Arrangements.kinderfeestje => 5.0,
             Arrangements.vip => 4.0,
-            Arrangements.normale => 0,
-            _ => 0
+            Arrangements.normale => 0
         };
     }
 
@@ -63,6 +62,4 @@ public class PriceCalculatingService : IPriceCalculatingService
     {
         return SubTotalCost - Discount + Premium;
     }
-
-    
 }
