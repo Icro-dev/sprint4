@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "../Shared/_Layout";
 }
 
 
@@ -17,8 +17,8 @@
         <button class="print btn btn-secondary mx-3 w-100">
             <strong>Print de tickets</strong>
         </button>
-        <form method="get" class="mx-3 w-100">
-            <button class="print btn btn-secondary" asp-controller="Tickets" asp-action="SeatSelection">Stoelkeuze</button>
+        <form method="get" class="m-3 w-100 px-0">
+            <button class="print btn btn-secondary w-100" asp-controller="Tickets" asp-action="SeatSelection">Stoelkeuze</button>
             <input type="hidden" value="@ViewBag.OrderId" name="orderId">
         </form>
 
@@ -89,7 +89,7 @@
         {
             <div class="col-md-3 mb-4">
                 <div class="card ticket">
-                    <div class="card-body">
+                    <div class="card-body text-black">
                         <h4 class="card-title">@item.show.Movie.Name</h4>
 
                         @if (item.Arrangements == Arrangements.normale)

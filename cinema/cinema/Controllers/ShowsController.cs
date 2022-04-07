@@ -10,26 +10,27 @@ using cinema.Data;
 using cinema.Models;
 using cinema.Services;
 using cinema.Filters;
+using cinema.Repositories;
 
 namespace cinema.Controllers
 {
     public class ShowsController : Controller
     {
-        private readonly CinemaContext _context;
-        private readonly ShowService _showService;
+        private readonly IShowRepository _showRepository;
+        private readonly IShowService _showService;
 
-        public ShowsController(CinemaContext context, IShowService service)
+        public ShowsController(IShowRepository showRepository, IShowService service)
         {
             
-            _context = context;
-            _showService = (ShowService) service;
+            _showRepository = showRepository;
+            _showService = service;
         }
 
         // GET: Shows
         public async Task<IActionResult> Index()
         {
-            
-            var showList =  _context.Shows.Include(s => s.Movie).ToList();
+
+            var showList = _showRepository.ListOfShowsPerDate();
             var showPerMoviePerDateDict = _showService.GetShowsPerMoviePerDay(showList);
 
             ShowsFilter filter = new ShowsFilter(showList);
@@ -39,15 +40,14 @@ namespace cinema.Controllers
         }
 
         // GET: Shows/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var show = await _context.Shows
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var show = await _showRepository.FindShowById(id);
             if (show == null)
             {
                 return NotFound();
@@ -71,23 +71,17 @@ namespace cinema.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(show);
-                await _context.SaveChangesAsync();
-                _context.SaveChanges();
+                _showRepository.Add(show);
+                _showRepository.SaveShow();
                 return RedirectToAction(nameof(Index));
             }
             return View(show);
         }
 
         // GET: Shows/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var show = await _context.Shows.FindAsync(id);
+            var show = await _showRepository.FindShowByIdWithoutFirstOrDefault(id);
             if (show == null)
             {
                 return NotFound();
@@ -111,8 +105,8 @@ namespace cinema.Controllers
             {
                 try
                 {
-                    _context.Update(show);
-                    await _context.SaveChangesAsync();
+                    _showRepository.UpdateShow(show);
+                    _showRepository.SaveShow();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -131,15 +125,9 @@ namespace cinema.Controllers
         }
 
         // GET: Shows/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var show = await _context.Shows
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var show = await _showRepository.FindShowById(id);
             if (show == null)
             {
                 return NotFound();
@@ -153,27 +141,27 @@ namespace cinema.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var show = await _context.Shows.FindAsync(id);
-            _context.Shows.Remove(show);
-            await _context.SaveChangesAsync();
+            var show = await _showRepository.FindShowByIdWithoutFirstOrDefault(id);
+            _showRepository.RemoveShow(show);
+            _showRepository.SaveShow();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ShowExists(int id)
+        public bool ShowExists(int id)
         {
-            return _context.Shows.Any(e => e.Id == id);
+            return _showRepository.ShowExists(id);
         }
 
         //GET: Shows/Daily
         public IActionResult Daily()
         {
-            return View(_context.Shows.Include(s => s.Movie).Where(s => s.StartTime > DateTime.Now).Where(s => s.StartTime.Date == DateTime.Today.Date).ToList());
+            return View(_showRepository.SortedListOfShowsThatStartToday());
         }
 
         [HttpGet, HttpPost, ActionName("Filter")]
         public IActionResult Filter()
         {
-            List<Show> shows = _context.Shows.Include(s => s.Movie).Where(s => s.StartTime > DateTime.Now).ToList();
+            List<Show> shows = _showRepository.ListOfMoviesThatStartSoon();
             ShowsFilter filter = new ShowsFilter(shows);      
             if(Request.Method == HttpMethod.Post.Method)
             {

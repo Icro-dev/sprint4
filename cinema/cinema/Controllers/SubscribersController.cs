@@ -1,18 +1,19 @@
 ﻿using cinema.Data;
 using cinema.Models;
+using cinema.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace cinema.Controllers;
 
 public class SubscribersController : Controller
 {
-    private readonly CinemaContext _context;
+    private readonly ISubscriberRepository _subscriberRepository;
 
-    public SubscribersController(CinemaContext context)
+    public SubscribersController(ISubscriberRepository subscriberRepository)
     {
-        _context = context;
+        _subscriberRepository = subscriberRepository;
     }
-    
+
     [HttpGet]
     [Route("/subscriber")]
     public IActionResult Index()
@@ -27,8 +28,9 @@ public class SubscribersController : Controller
     {
         Subscriber subscriber = new Subscriber();
         subscriber.Email = email;
-        _context.Add(subscriber);
-        _context.SaveChanges();
+        
+        _subscriberRepository.addSubscriber(subscriber);
+        _subscriberRepository.saveSubscriber();
         return View(subscriber);
     }
 }

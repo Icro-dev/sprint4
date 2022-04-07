@@ -8,34 +8,34 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cinema.Data;
 using cinema.Models;
+using cinema.Repositories;
 
 namespace cinema.Controllers
 {
     public class RoomsController : Controller
     {
-        private readonly CinemaContext _context;
+        private readonly IRoomRepository _roomRepository;
 
-        public RoomsController(CinemaContext context)
+        public RoomsController(IRoomRepository roomRepository)
         {
-            _context = context;
+            _roomRepository = roomRepository;
         }
 
         // GET: Rooms
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Rooms.ToListAsync());
+            return View(await _roomRepository.ListOfAllRooms());
         }
 
         // GET: Rooms/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var room = await _context.Rooms
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var room = await _roomRepository.FindRoomById(id);
             if (room == null)
             {
                 return NotFound();
@@ -43,7 +43,8 @@ namespace cinema.Controllers
 
             return View(room);
         }
-
+        [HttpGet]
+        [Route("/Rooms/Create")]
         // GET: Rooms/Create
         public IActionResult Create()
         {
@@ -54,27 +55,28 @@ namespace cinema.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Route("/Rooms/Create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,RoomNr,Wheelchair,ThreeD")] Room room)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(room);
-                await _context.SaveChangesAsync();
+                _roomRepository.Add(room);
+                _roomRepository.SaveRoom();
                 return RedirectToAction(nameof(Index));
             }
             return View(room);
         }
 
         // GET: Rooms/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var room = await _context.Rooms.FindAsync(id);
+            var room = await _roomRepository.FindRoomById(id);
             if (room == null)
             {
                 return NotFound();
@@ -98,8 +100,8 @@ namespace cinema.Controllers
             {
                 try
                 {
-                    _context.Update(room);
-                    await _context.SaveChangesAsync();
+                    _roomRepository.UpdateRoom(room);
+                    _roomRepository.SaveRoom();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -118,15 +120,14 @@ namespace cinema.Controllers
         }
 
         // GET: Rooms/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var room = await _context.Rooms
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var room = await _roomRepository.FindRoomById(id);
             if (room == null)
             {
                 return NotFound();
@@ -140,15 +141,15 @@ namespace cinema.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var room = await _context.Rooms.FindAsync(id);
-            _context.Rooms.Remove(room);
-            await _context.SaveChangesAsync();
+            var room = await _roomRepository.FindRoomById(id);
+            _roomRepository.RemoveRoom(room);
+            _roomRepository.SaveRoom();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RoomExists(int id)
+        public bool RoomExists(int id)
         {
-            return _context.Rooms.Any(e => e.Id == id);
+            return _roomRepository.RoomExists(id);
         }
     }
 }

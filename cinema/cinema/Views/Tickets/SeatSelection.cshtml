@@ -33,15 +33,15 @@
                 }
                 if (selected)
                 {
-                    <div style="width:@seatwidth%;max-height:100%;margin:auto;"><img src ="~/imagesChair/chair_wheelchair_selected.png" style="max-width:100%;max-height:100%;"/> </div>
+                    <div style="width:calc(100%/@roommap.Max());max-height:100%;margin:auto;"><img src ="~/imagesChair/chair_wheelchair_selected.png" style="max-width:100%;max-height:100%;"/> </div>
                 }
                 else if(takenseats[row - 1].Contains(seat))
                 {
-                    <div style="width:@seatwidth%;max-height:100%;margin:auto;"><img src ="~/imagesChair/chair_wheelchair_taken.png" style="max-width:100%;max-height:100%;"/> </div>
+                    <div style="width:calc(100%/@roommap.Max());max-height:100%;margin:auto;"><img src ="~/imagesChair/chair_wheelchair_taken.png" style="max-width:100%;max-height:100%;"/> </div>
                 }
                 else
                 {
-                    <div style="width:@seatwidth%;max-height:100%;margin:auto;">
+                    <div style="width:calc(100%/@roommap.Max());max-height:100%;margin:auto;">
                         <form method="post">
                             <button style="none" asp-controller="Tickets" asp-action="SeatSelection" asp-route-serializedTickets="@ViewData["serializedTickets"]" asp-route-seatrow="@row" asp-route-seatnr="@seat" asp-route-orderid="@orderid"><img src="~/imagesChair/chair_wheelchair.png" style="max-width:100%;max-height:100%;"/></button>
                         </form>
