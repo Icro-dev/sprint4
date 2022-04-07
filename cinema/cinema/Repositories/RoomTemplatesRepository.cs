@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using cinema.Data;
 using cinema.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace cinema.Repositories;
@@ -20,34 +21,35 @@ public class RoomTemplatesRepository : IRoomTemplatesRepository
         return await _context.RoomTemplates.ToListAsync();
     }
     
-    public Task<Room?> FindRoomById(int id)
+    public Task<RoomTemplate?> FindRoomTemplatesById(int id)
     {
-        return _context.Rooms
+        return _context.RoomTemplates
             .FirstOrDefaultAsync(m => m.Id == id);
     }
     
-    public void Add(Room room)
+   
+    public void Add( RoomTemplate roomTemplate)
     {
-        _context.Add(room);
+        _context.Add(roomTemplate);
     }
 
-    public void SaveRoom()
+    public void SaveRoomTemplate()
     { 
         _context.SaveChangesAsync();
     }
     
-    public void UpdateRoom(Room room)
+    public void UpdateRoomTemplate(RoomTemplate roomTemplate)
     {
-        _context.Update(room);
+        _context.Update(roomTemplate);
     }
     
-    public void RemoveRoom(Room room)
+    public void RemoveRoomTemplate(RoomTemplate roomTemplate)
     {
-        _context.Rooms.Remove(room);
+        _context.RoomTemplates.Remove(roomTemplate);
     }
 
-    public bool RoomExists(int id)
+    public bool RoomTemplateExists(int id)
     {
-        return _context.Rooms.Any(e => e.Id == id);
+        return _context.RoomTemplates.Any(e => e.Id == id);
     }
 }

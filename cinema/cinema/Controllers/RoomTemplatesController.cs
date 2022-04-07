@@ -28,15 +28,14 @@ namespace cinema.Controllers
         }
 
         // GET: RoomTemplates/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var roomTemplate = await _context.RoomTemplates
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var roomTemplate = await _roomTemplatesRepository.FindRoomTemplatesById(id);
+            
             if (roomTemplate == null)
             {
                 return NotFound();
@@ -60,22 +59,22 @@ namespace cinema.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(roomTemplate);
-                await _context.SaveChangesAsync();
+                _roomTemplatesRepository.Add(roomTemplate);
+                _roomTemplatesRepository.SaveRoomTemplate();
                 return RedirectToAction(nameof(Index));
             }
             return View(roomTemplate);
         }
 
         // GET: RoomTemplates/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var roomTemplate = await _context.RoomTemplates.FindAsync(id);
+            var roomTemplate = await _roomTemplatesRepository.FindRoomTemplatesById(id);
             if (roomTemplate == null)
             {
                 return NotFound();
@@ -99,8 +98,8 @@ namespace cinema.Controllers
             {
                 try
                 {
-                    _context.Update(roomTemplate);
-                    await _context.SaveChangesAsync();
+                    _roomTemplatesRepository.UpdateRoomTemplate(roomTemplate);
+                    _roomTemplatesRepository.SaveRoomTemplate();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -119,15 +118,14 @@ namespace cinema.Controllers
         }
 
         // GET: RoomTemplates/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var roomTemplate = await _context.RoomTemplates
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var roomTemplate = await _roomTemplatesRepository.FindRoomTemplatesById(id);
             if (roomTemplate == null)
             {
                 return NotFound();
@@ -141,15 +139,15 @@ namespace cinema.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var roomTemplate = await _context.RoomTemplates.FindAsync(id);
-            _context.RoomTemplates.Remove(roomTemplate);
-            await _context.SaveChangesAsync();
+            var roomTemplate = await _roomTemplatesRepository.FindRoomTemplatesById(id);
+            _roomTemplatesRepository.RemoveRoomTemplate(roomTemplate);
+            _roomTemplatesRepository.SaveRoomTemplate();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RoomTemplateExists(int id)
+        public bool RoomTemplateExists(int id)
         {
-            return _context.RoomTemplates.Any(e => e.Id == id);
+            return _roomTemplatesRepository.RoomTemplateExists(id);
         }
     }
 }

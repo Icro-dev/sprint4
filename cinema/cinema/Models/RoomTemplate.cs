@@ -9,6 +9,10 @@ public class RoomTemplate
     {
         Setting = setting;
     }
+    
+    public RoomTemplate()
+    {
+    }
 
     [Key]
     public int Id { get; set; }
