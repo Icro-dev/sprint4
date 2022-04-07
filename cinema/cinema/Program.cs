@@ -28,6 +28,7 @@ builder.Services.AddScoped<IHomeRepository, HomeRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IRoomTemplatesRepository, RoomTemplatesRepository>();
+builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
 
 
 // Add DbContext

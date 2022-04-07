@@ -181,6 +181,7 @@ public class MoviesControllerTests
         // Assert
         Assert.IsType<ViewResult>(result);
     }
+    
     [Fact]
     public async Task EditAdd()
     {
@@ -229,6 +230,20 @@ public class MoviesControllerTests
 
         // Assert
         Assert.IsType<RedirectToActionResult>(result);
+    }
+    
+    [Fact]
+    public async Task EditFail()
+    {
+        // Arrange
+        var movieRepo = new Mock<IMovieRepository>();
+        var controller = new MoviesController(movieRepo.Object);
+        
+        // Act
+        var result = await controller.Edit("Avatar");
+
+        // Assert
+        Assert.IsType<NotFoundResult>(result);
     }
     
     [Fact]

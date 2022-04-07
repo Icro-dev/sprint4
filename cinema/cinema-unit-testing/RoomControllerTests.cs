@@ -155,6 +155,20 @@ public class RoomControllerTests
     }
     
     [Fact]
+    public async Task EditIdFailedTest()
+    {
+        // Arrange
+        var roomRepo = new Mock<IRoomRepository>();
+        var controller = new RoomsController(roomRepo.Object);
+
+        // Act
+        var result = await controller.Edit(1);
+
+        // Assert
+        Assert.IsType<NotFoundResult>(result);
+    }
+    
+    [Fact]
     public async Task EditModelState()
     {
         // Arrange

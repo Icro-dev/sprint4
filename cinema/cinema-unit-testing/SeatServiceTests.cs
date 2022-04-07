@@ -61,6 +61,8 @@ public class SeatServiceTests
         
         Assert.Throws<MissingFieldException>(() => seatService.GetSeats(show, 0));
 
+        roomRepo.Setup(r =>r.findRoomByShow(show)).Returns(new Room());
+
         var expected = typeof(Room);
         var roomTest = roomService.GetShowRoom(show);
 
@@ -68,8 +70,4 @@ public class SeatServiceTests
         
     }
 
-    public void GetTakenSeats()
-    {
-        
-    }
 }

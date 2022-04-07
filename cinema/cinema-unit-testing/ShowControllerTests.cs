@@ -18,21 +18,26 @@ namespace cinema_unit_testing;
 public class ShowControllerTests
 {
     
-    [Fact]
-    public async Task IndexTest()
-    {
-        // Arrange
-        var showRepo = new Mock<IShowRepository>();
-        var showService = new Mock<IShowService>();
-        var controller = new ShowsController(showRepo.Object, showService.Object );
-
-        // Act
-        var result = await controller.Index();
-
-        // Assert
-        Assert.IsType<ViewResult>(result);
-    }
-    
+    // [Fact]
+    // public async Task IndexTest()
+    // {
+    //     // Arrange
+    //     var showRepo = new Mock<IShowRepository>();
+    //     var showService = new Mock<IShowService>();
+    //     var controller = new ShowsController(showRepo.Object, showService.Object);
+    //
+    //     var showsList = new List<Show>();
+    //     showsList.Add(new Show());
+    //     
+    //     showRepo.Setup(s => s.ListOfShowsPerDate()).Returns(showsList);
+    //     
+    //     // Act
+    //     var result = await controller.Index();
+    //
+    //     // Assert
+    //     Assert.IsType<ViewResult>(result);
+    // }
+    //
       public static Show getOneShow()
     {
         var show = new Show();
@@ -135,12 +140,12 @@ public class ShowControllerTests
         showRepo.Setup(s => s.FindShowById(1)).ReturnsAsync(show);
         
         // Act
-        var result = await controller.Edit(1);
+        var result = await controller.Edit(1,show);
         var nonExistentRoom = await controller.Edit(20);
        
         // Assert
-        Assert.IsType<ViewResult>(result);
-        Assert.IsType(typeof (NotFoundResult), nonExistentRoom);
+        Assert.IsType<RedirectToActionResult>(result);
+        Assert.IsType<NotFoundResult>(nonExistentRoom);
     }
     
     [Fact]
@@ -230,6 +235,53 @@ public class ShowControllerTests
         Assert.IsType<RedirectToActionResult>(result);
     }
     
+    
+    [Fact]
+    public async Task EditFailTest()
+    {
+        // Arrange
+        var showRepo = new Mock<IShowRepository>();
+        var showService = new Mock<IShowService>();
+        var controller = new ShowsController(showRepo.Object, showService.Object );
+        
+        // Act
+        var result = await controller.Edit(1);
+
+        // Assert
+        Assert.IsType<NotFoundResult>(result);
+    }
+    
+    
+    // public async Task<IActionResult> Edit(int id, [Bind("Id,ThreeD,Room,StartTime,Break")] Show show)
+    // {
+    //     if (id != show.Id)
+    //     {
+    //         return NotFound();
+    //     }
+    //
+    //     if (ModelState.IsValid)
+    //     {
+    //         try
+    //         {
+    //             _showRepository.UpdateShow(show);
+    //             _showRepository.SaveShow();
+    //         }
+    //         catch (DbUpdateConcurrencyException)
+    //         {
+    //             if (!ShowExists(show.Id))
+    //             {
+    //                 return NotFound();
+    //             }
+    //             else
+    //             {
+    //                 throw;
+    //             }
+    //         }
+    //         return RedirectToAction(nameof(Index));
+    //     }
+    //     return View(show);
+    // }
+
     [Fact]
     public async Task DeleteGet()
     {
@@ -245,8 +297,27 @@ public class ShowControllerTests
         var nonExistentShow = await controller.Details(20);
        
         // Assert
+        Assert.IsNotType<NotFoundResult>(result);
+        Assert.NotNull(result);
         Assert.IsType<ViewResult>(result);
         Assert.IsType(typeof (NotFoundResult), nonExistentShow);
+    }
+    
+    
+    
+    [Fact]
+    public async Task DeleteGetNullTest()
+    {
+        // Arrange
+        var showRepo = new Mock<IShowRepository>();
+        var showService = new Mock<IShowService>();
+        var controller = new ShowsController(showRepo.Object, showService.Object );
+        
+        // Act
+        var result = await controller.Delete(1);
+       
+        // Assert
+        Assert.IsType<NotFoundResult>(result);
     }
     
     [Fact]
@@ -283,5 +354,18 @@ public class ShowControllerTests
         
         // Assert
         Assert.IsType<bool>(result);
+    }
+
+    [Fact]
+    public void DailyTest()
+    {
+        var showRepo = new Mock<IShowRepository>();
+
+        var showService = new ShowService(showRepo.Object);
+        var showController = new ShowsController(showRepo.Object,showService);
+        var result = showController.Daily();
+        Assert.IsType<ViewResult>(result);
+
+        
     }
 }

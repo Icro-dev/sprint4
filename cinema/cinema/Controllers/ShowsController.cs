@@ -17,13 +17,13 @@ namespace cinema.Controllers
     public class ShowsController : Controller
     {
         private readonly IShowRepository _showRepository;
-        private readonly ShowService _showService;
+        private readonly IShowService _showService;
 
         public ShowsController(IShowRepository showRepository, IShowService service)
         {
             
             _showRepository = showRepository;
-            _showService = (ShowService) service;
+            _showService = service;
         }
 
         // GET: Shows
@@ -81,11 +81,6 @@ namespace cinema.Controllers
         // GET: Shows/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var show = await _showRepository.FindShowByIdWithoutFirstOrDefault(id);
             if (show == null)
             {
@@ -132,11 +127,6 @@ namespace cinema.Controllers
         // GET: Shows/Delete/5
         public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var show = await _showRepository.FindShowById(id);
             if (show == null)
             {
