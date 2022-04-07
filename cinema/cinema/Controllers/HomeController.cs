@@ -1,5 +1,6 @@
 using cinema.Data;
 using cinema.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -15,7 +16,7 @@ public class HomeController : Controller
     {
         _context = context;
     }
-    
+
     [HttpGet]
     [Route("/")]
     public IActionResult Index()

@@ -1,9 +1,8 @@
 ﻿using System.Text.Json;
-using cinema.Controllers;
-using cinema.Data;
+using cinema.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace cinema.Models;
+namespace cinema.Data;
 
 public static class SeedData
 {
@@ -200,7 +199,7 @@ public static class SeedData
 
         if (context.Shows != null && !context.Shows.Any())
         {
-            var startDate = new DateTime(2022, 3,17);
+            var startDate = new DateTime(2022, 3,31);
             var times = new int[] {13, 16, 19, 21};
 
             var movies = context.Movies!.ToList();
