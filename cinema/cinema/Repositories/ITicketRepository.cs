@@ -8,5 +8,14 @@ public interface ITicketRepository
 
     public List<Ticket> FindShowTicketsByRow(Show show, int row);
 
+    public List<Ticket> FindAllTickets();
+
+    public void AddRangeTickets(List<Ticket> tickets);
+
+    public void UpdateRangeTickets(List<Ticket> tickets);
+
+    public void SaveTickets();
+    
+    
 
 }
