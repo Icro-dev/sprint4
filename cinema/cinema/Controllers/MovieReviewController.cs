@@ -34,13 +34,13 @@ namespace cinema.Controllers
                 return NotFound();
             }
 
-            var movie = await _movieReviewRepository.FindMovieReviewById(id);
-            if (movie == null)
+            var movieReview = await _movieReviewRepository.FindMovieReviewById(id);
+            if (movieReview == null)
             {
                 return NotFound();
             }
 
-            return View(movie);
+            return View(movieReview);
         }
 
         // GET: MovieReview/Create

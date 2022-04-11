@@ -122,8 +122,7 @@
         </div>
     </div>
     <div style="clear: both"></div>
-    @if (_signInManager.IsSignedIn(User) && User.IsInRole("Bezoeker"))
-    {
-        
-    }
-</div>
+    <a class="btn btn-primary" value="@Html.DisplayFor(model => model.Name)" onclick="location.href='@Url.Action("Index", "MovieReview")'">Reviews</a>
+    
+  </div>
+            

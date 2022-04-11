@@ -6,7 +6,7 @@ public interface IMovieReviewRepository
 {
     public Task<List<MovieReview>> ListOfMovieReviews();
 
-    public Task<MovieReview?> FindMovieReviewById(int id);
+    public Task<List<MovieReview?>> FindMovieReviewById(int id);
 
     public void AddMovieReview(MovieReview movieReview);
 

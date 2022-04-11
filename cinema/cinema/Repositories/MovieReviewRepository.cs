@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace cinema.Repositories;
 
-public class MovieReviewRepository
+public class MovieReviewRepository : IMovieReviewRepository
 {
     private readonly CinemaContext _context;
 
@@ -18,7 +18,12 @@ public class MovieReviewRepository
         return _context.MovieReviews.ToListAsync();
     }
     
-    public Task<MovieReview?> FindMovieReviewById(int id)
+    public IQueryable<MovieReview> FindMovieReviewsByMovie(Movie movie)
+    {
+        return _context.MovieReviews.Include(r => r.MovieName).Where(r => r.MovieName == movie.Name);
+    }
+    
+    public Task<List<MovieReview?>> FindMovieReviewById(int id)
     {
         return _context.MovieReviews
             .FirstOrDefaultAsync(m => m.Id == id);
