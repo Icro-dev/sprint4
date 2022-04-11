@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/jeroen/Development/School/macrohard/macrohard-code-jeroen/cinema/cinema-unit-testing/cinema-unit-testing.csproj": {}
+    "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema-unit-testing/cinema-unit-testing.csproj": {}
   },
   "projects": {
-    "/home/jeroen/Development/School/macrohard/macrohard-code-jeroen/cinema/cinema-unit-testing/cinema-unit-testing.csproj": {
+    "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema-unit-testing/cinema-unit-testing.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/jeroen/Development/School/macrohard/macrohard-code-jeroen/cinema/cinema-unit-testing/cinema-unit-testing.csproj",
+        "projectUniqueName": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema-unit-testing/cinema-unit-testing.csproj",
         "projectName": "cinema-unit-testing",
-        "projectPath": "/home/jeroen/Development/School/macrohard/macrohard-code-jeroen/cinema/cinema-unit-testing/cinema-unit-testing.csproj",
-        "packagesPath": "/home/jeroen/.nuget/packages/",
-        "outputPath": "/home/jeroen/Development/School/macrohard/macrohard-code-jeroen/cinema/cinema-unit-testing/obj/",
+        "projectPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema-unit-testing/cinema-unit-testing.csproj",
+        "packagesPath": "/home/seethe/.nuget/packages/",
+        "outputPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema-unit-testing/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/jeroen/.nuget/NuGet/NuGet.Config"
+          "/home/seethe/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -26,8 +26,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/home/jeroen/Development/School/macrohard/macrohard-code-jeroen/cinema/cinema/cinema.csproj": {
-                "projectPath": "/home/jeroen/Development/School/macrohard/macrohard-code-jeroen/cinema/cinema/cinema.csproj"
+              "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema/cinema.csproj": {
+                "projectPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema/cinema.csproj"
               }
             }
           }
@@ -85,21 +85,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/jeroen/.dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.201/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/jeroen/Development/School/macrohard/macrohard-code-jeroen/cinema/cinema/cinema.csproj": {
+    "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema/cinema.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/jeroen/Development/School/macrohard/macrohard-code-jeroen/cinema/cinema/cinema.csproj",
+        "projectUniqueName": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema/cinema.csproj",
         "projectName": "cinema",
-        "projectPath": "/home/jeroen/Development/School/macrohard/macrohard-code-jeroen/cinema/cinema/cinema.csproj",
-        "packagesPath": "/home/jeroen/.nuget/packages/",
-        "outputPath": "/home/jeroen/Development/School/macrohard/macrohard-code-jeroen/cinema/cinema/obj/",
+        "projectPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema/cinema.csproj",
+        "packagesPath": "/home/seethe/.nuget/packages/",
+        "outputPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/jeroen/.nuget/NuGet/NuGet.Config"
+          "/home/seethe/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -172,7 +172,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/jeroen/.dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.201/RuntimeIdentifierGraph.json"
         }
       }
     }

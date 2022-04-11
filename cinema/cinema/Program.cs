@@ -4,6 +4,8 @@ using cinema.Services;
 using Microsoft.EntityFrameworkCore;
 using cinema.Models;
 using cinema.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +50,24 @@ var connectionString = "Data Source="+env["hostname"]+";" +
 builder.Services
     .AddDbContext<CinemaContext>(options => options.UseSqlServer(connectionString));
 
+builder.Services
+    .AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<CinemaContext>();
+
+builder.Services.ConfigureApplicationCookie(
+    options =>
+    {
+        options.LoginPath = "/Users/Login";
+        
+        options.AccessDeniedPath = "/Users/AccessDenied";
+    });
+
+/*builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});*/
 
 var app = builder.Build();
 
@@ -76,7 +96,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.MapRazorPages();
@@ -96,5 +118,9 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "Shows",
     pattern: "{controller=Shows}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "Users",
+    pattern: "{controller=Users}/{action=Index}/{id?}");
 
 app.Run();

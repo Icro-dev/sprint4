@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using cinema.Data;
 using cinema.Models;
 using cinema.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cinema.Controllers
 {
@@ -44,6 +45,7 @@ namespace cinema.Controllers
             return View(room);
         }
         [HttpGet]
+        [Authorize]
         [Route("/Rooms/Create")]
         // GET: Rooms/Create
         public IActionResult Create()
@@ -55,6 +57,7 @@ namespace cinema.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [Route("/Rooms/Create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,RoomNr,Wheelchair,ThreeD")] Room room)
@@ -69,6 +72,7 @@ namespace cinema.Controllers
         }
 
         // GET: Rooms/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
@@ -88,6 +92,7 @@ namespace cinema.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,RoomNr,Wheelchair,ThreeD")] Room room)
         {
@@ -120,6 +125,7 @@ namespace cinema.Controllers
         }
 
         // GET: Rooms/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
@@ -138,6 +144,7 @@ namespace cinema.Controllers
 
         // POST: Rooms/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
