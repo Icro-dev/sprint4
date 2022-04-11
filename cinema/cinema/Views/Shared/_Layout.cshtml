@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<IdentityUser> _signInManager;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -30,6 +31,14 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Shows" asp-action="Index">Voorstellingen</a>
                     </li>
+                    @if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a asp-action="ListRoles" asp-controller="Administration" class="nav-link">
+                               Manage roles
+                            </a>
+                        </li>
+                    }
                 </ul>
                      <ul class="navbar-nav ml-auto">
                                         @*@{ IsSignedIn(User) - Returns true if the principal has an identity with the application cookie identity }
