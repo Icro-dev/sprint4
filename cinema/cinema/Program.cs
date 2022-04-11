@@ -62,13 +62,6 @@ builder.Services.ConfigureApplicationCookie(
         options.AccessDeniedPath = "/Users/AccessDenied";
     });
 
-/*builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = new AuthorizationPolicyBuilder()
-        .RequireAuthenticatedUser()
-        .Build();
-});*/
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -121,6 +114,10 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "Users",
+    pattern: "{controller=Users}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "MovieReview",
     pattern: "{controller=Users}/{action=Index}/{id?}");
 
 app.Run();

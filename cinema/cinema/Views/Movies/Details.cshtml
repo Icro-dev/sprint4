@@ -1,4 +1,6 @@
-﻿@using cinema.Models
+﻿@inject SignInManager<IdentityUser> _signInManager;
+
+@using cinema.Models
 @model cinema.Models.Movie
 
 @{
@@ -51,73 +53,77 @@
             @Html.DisplayName("ThreeD:")
             <br/>
             @Html.DisplayFor(model => model.ThreeD)
-            <div class="border">
-                @Html.DisplayName("Kijkwijzer")
-                <br/>
-                <div class="kijkwijzer">
-                    @Html.DisplayFor(model => model.Kijkwijzer)
-                </div>
-                @{
-                    var Kijkwijzer = Model.Kijkwijzer;
-                    List<string> ListKijkwijzer = new List<string>();
-                    string[] KwItems = Kijkwijzer.Split(' ');
-                    foreach (var KwItem in KwItems)
-                    {
-                        ListKijkwijzer.Add(KwItem);
-                    }
-
-                    if (ListKijkwijzer.Contains("AL"))
-                    {
-                        <img src="~/imagesKijkwijzer/AL.png" alt="AL" style="height:50px;width:50px;"/>
-                    }
-                    if (ListKijkwijzer.Contains("12"))
-                    {
-                        <img src="~/imagesKijkwijzer/12.png" alt="AL" style="height:50px;width:50px;"/>
-                    }
-                    if (ListKijkwijzer.Contains("GT"))
-                    {
-                        <img src="~/imagesKijkwijzer/GTG.png" alt="AL" style="height:50px;width:50px;"/>
-                    }
-                    if (ListKijkwijzer.Contains("G"))
-                    {
-                        <img src="~/imagesKijkwijzer/G.png" alt="AL" style="height:50px;width:50px;"/>
-                    }
-                    if (ListKijkwijzer.Contains("A"))
-                    {
-                        <img src="~/imagesKijkwijzer/angst.png" alt="AL" style="height:50px;width:50px;"/>
-                    }
-                    if (ListKijkwijzer.Contains("16"))
-                    {
-                        <img src="~/imagesKijkwijzer/16.png" alt="AL" style="height:50px;width:50px;"/>
-                    }
-                    if (ListKijkwijzer.Contains("18"))
-                    {
-                        <img src="~/imagesKijkwijzer/18.png" alt="AL" style="height:50px;width:50px;"/>
-                    }
-                    if (ListKijkwijzer.Contains("6"))
-                    {
-                        <img src="~/imagesKijkwijzer/6.png" alt="AL" style="height:50px;width:50px;"/>
-                    }
-                    if (ListKijkwijzer.Contains("D"))
-                    {
-                        <img src="~/imagesKijkwijzer/D.png" alt="AL" style="height:50px;width:50px;"/>
-                    }
-                    if (ListKijkwijzer.Contains("MG6"))
-                    {
-                        <img src="~/imagesKijkwijzer/mg6.png" alt="AL" style="height:50px;width:50px;"/>
-                    }
-                    if (ListKijkwijzer.Contains("S"))
-                    {
-                        <img src="~/imagesKijkwijzer/S.png" alt="AL" style="height:50px;width:50px;"/>
-                    }
-                    if (ListKijkwijzer.Contains("DISCR"))
-                    {
-                        <img src="~/imagesKijkwijzer/Discr.png" alt="AL" style="height:50px;width:50px;"/>
-                    }
+        </div>
+        <div class="border">
+            @Html.DisplayName("Kijkwijzer")
+            <br/>
+            <div class="kijkwijzer">
+                @Html.DisplayFor(model => model.Kijkwijzer)
+            </div>
+            @{
+                var Kijkwijzer = Model.Kijkwijzer;
+                List<string> ListKijkwijzer = new List<string>();
+                string[] KwItems = Kijkwijzer.Split(' ');
+                foreach (var KwItem in KwItems)
+                {
+                    ListKijkwijzer.Add(KwItem);
                 }
 
-            </div>
+                if (ListKijkwijzer.Contains("AL"))
+                {
+                    <img src="~/imagesKijkwijzer/AL.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("12"))
+                {
+                    <img src="~/imagesKijkwijzer/12.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("GT"))
+                {
+                    <img src="~/imagesKijkwijzer/GTG.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("G"))
+                {
+                    <img src="~/imagesKijkwijzer/G.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("A"))
+                {
+                    <img src="~/imagesKijkwijzer/angst.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("16"))
+                {
+                    <img src="~/imagesKijkwijzer/16.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("18"))
+                {
+                    <img src="~/imagesKijkwijzer/18.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("6"))
+                {
+                    <img src="~/imagesKijkwijzer/6.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("D"))
+                {
+                    <img src="~/imagesKijkwijzer/D.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("MG6"))
+                {
+                    <img src="~/imagesKijkwijzer/mg6.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("S"))
+                {
+                    <img src="~/imagesKijkwijzer/S.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("DISCR"))
+                {
+                    <img src="~/imagesKijkwijzer/Discr.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+            }
+
         </div>
     </div>
     <div style="clear: both"></div>
+    @if (_signInManager.IsSignedIn(User) && User.IsInRole("Bezoeker"))
+    {
+        
+    }
 </div>
