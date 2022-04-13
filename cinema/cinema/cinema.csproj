@@ -65,6 +65,10 @@
 
   <ItemGroup>
     <Compile Remove="Data\ICinemaContext.cs" />
+    <Compile Remove="Migrations\20220411150729_MovieReview.cs" />
+    <Compile Remove="Migrations\20220411150729_MovieReview.Designer.cs" />
+    <Compile Remove="Migrations\20220411201839_MovieReviewMovieName.cs" />
+    <Compile Remove="Migrations\20220411201839_MovieReviewMovieName.Designer.cs" />
   </ItemGroup>
 
 </Project>

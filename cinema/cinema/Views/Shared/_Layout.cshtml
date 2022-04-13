@@ -54,19 +54,19 @@
                      }
                 </ul>
                      <ul class="navbar-nav ml-auto">
-                                        @*@{ IsSignedIn(User) - Returns true if the principal has an identity with the application cookie identity }
-                                        @{ User: is System.Security.ClaimsPrincipal of the current logged in user }*@
+                                     
                                         
-                                        @if (User?.Identity?.IsAuthenticated ?? false) {
+                                        @if (User?.Identity?.IsAuthenticated ?? false) 
+                                        {
                                             <li class="nav-item">
                                                 <form method="post" asp-action="logout" asp-controller="Users">
                                                     <button type="submit">
-                                                        logout @User.Identity.Name<!-- todo stap-11a: laat naam ingelogde gebruiker zien-->
+                                                        logout @User.Identity.Name
                                                     </button>
                                                 </form>
                                             </li>
                                         } else {
-                                            <!--todo lesson 4-6: maak navigatie links aan om te registreren en (latere stap) in te loggen -->
+                                            
                                             <li class="nav-item">
                                                 <a class="nav-link" asp-controller="Users" asp-action="Register">Register</a>
                                             </li>

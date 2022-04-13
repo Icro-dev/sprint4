@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using cinema.Data;
 using cinema.Models;
 using cinema.Services;
@@ -35,17 +36,20 @@ builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
 
 // load .env file
 var root = Directory.GetCurrentDirectory();
-var dotenv = Path.Combine(root, "../../.env");
+Debug.Print(root);
+var dotenv = Path.Combine(root, ".env");
+Debug.Print(dotenv);
 DotEnv.Load(dotenv);
 
 // Add DbContext
 
 var env = Environment.GetEnvironmentVariables();
 
-var connectionString = "Data Source="+env["hostname"]+";" +
+/*var connectionString = "Data Source="+env["hostname"]+";" +
                        "User ID="+env["username"]+";" +
                        "Password="+env["password"]+";" +
-                       "Database="+env["database"]+"";
+                       "Database="+env["database"]+"";*/
+var connectionString = "Data Source=localhost;User ID=sa;Password=Wachtwoord1!;Database=patee";
 
 builder.Services
     .AddDbContext<CinemaContext>(options => options.UseSqlServer(connectionString));
@@ -70,11 +74,10 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<CinemaContext>();
     db.Database.Migrate();
     //adding seeddata
-    if ((string) env["seeddata"]! ==  "true")
-    {
+   
         var services = scope.ServiceProvider;
         SeedData.Initialize(services);
-    }
+    
 }
 
 // Configure the HTTP request pipeline.

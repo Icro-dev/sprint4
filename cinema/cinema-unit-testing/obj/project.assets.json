@@ -11357,32 +11357,34 @@
     ]
   },
   "packageFolders": {
-    "/home/seethe/.nuget/packages/": {}
+    "C:\\Users\\Icrolux\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/cinema-unit-testing/cinema-unit-testing.csproj",
+      "projectUniqueName": "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj",
       "projectName": "cinema-unit-testing",
-      "projectPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/cinema-unit-testing/cinema-unit-testing.csproj",
-      "packagesPath": "/home/seethe/.nuget/packages/",
-      "outputPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/cinema-unit-testing/obj/",
+      "projectPath": "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj",
+      "packagesPath": "C:\\Users\\Icrolux\\.nuget\\packages\\",
+      "outputPath": "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema-unit-testing\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/seethe/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Icrolux\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/cinema/cinema.csproj": {
-              "projectPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/cinema/cinema.csproj"
+            "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema\\cinema.csproj": {
+              "projectPath": "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema\\cinema.csproj"
             }
           }
         }
@@ -11433,14 +11435,11 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
-          "Microsoft.AspNetCore.App": {
-            "privateAssets": "none"
-          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.201/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
