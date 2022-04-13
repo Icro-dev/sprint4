@@ -20,7 +20,7 @@ namespace cinema.Data
         public DbSet<Ticket>? Tickets { get; set; }
         public DbSet<TicketOrder>? Orders { get; set; }
         public DbSet<Subscriber>? Subscribers { get; set; }
-        public DbSet<MovieReview>? MovieReviews { get; set; }
+      
 
     }
 }

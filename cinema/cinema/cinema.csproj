@@ -56,6 +56,11 @@
     <_ContentIncludedByDefault Remove="Views\Maps\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Users\Login.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Users\Register.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MovieReview\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MovieReview\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MovieReview\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MovieReview\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\MovieReview\Index.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using cinema.Data;
 using cinema.Models;
 using cinema.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace cinema.Controllers
 {
@@ -45,6 +46,7 @@ namespace cinema.Controllers
         }
 
         // GET: Movies/Create
+        [Authorize(Roles = "Backoffice-medewerker")]
         public IActionResult Create()
         {
             return View();

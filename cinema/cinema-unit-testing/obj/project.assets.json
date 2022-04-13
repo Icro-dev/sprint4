@@ -11362,11 +11362,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema-unit-testing/cinema-unit-testing.csproj",
+      "projectUniqueName": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/cinema-unit-testing/cinema-unit-testing.csproj",
       "projectName": "cinema-unit-testing",
-      "projectPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema-unit-testing/cinema-unit-testing.csproj",
+      "projectPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/cinema-unit-testing/cinema-unit-testing.csproj",
       "packagesPath": "/home/seethe/.nuget/packages/",
-      "outputPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema-unit-testing/obj/",
+      "outputPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/cinema-unit-testing/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/seethe/.nuget/NuGet/NuGet.Config"
@@ -11381,8 +11381,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema/cinema.csproj": {
-              "projectPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema/cinema.csproj"
+            "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/cinema/cinema.csproj": {
+              "projectPath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/cinema/cinema.csproj"
             }
           }
         }

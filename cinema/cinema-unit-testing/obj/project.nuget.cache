@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "o71h2fGX8/sGUD8UVGtdi4zZSGPlkYnclOI/1brivFCANWDguE1XMHMVnnYxbMwKQICilDEH0OCwU4/C8oIuYg==",
+  "dgSpecHash": "Wob920IRVcZ1gd0slnbFoVfvrz22ycdrBj46YJbOcQ77b3LLEQJvsfz+b6Rv5NSMHwSdLY4XRIvQ4D+SSF4Pcg==",
   "success": true,
-  "projectFilePath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/macrohard-code-sprint-4/cinema/cinema-unit-testing/cinema-unit-testing.csproj",
+  "projectFilePath": "/home/seethe/RiderProjects/macrohard-code-sprint-4/cinema/cinema-unit-testing/cinema-unit-testing.csproj",
   "expectedPackageFiles": [
     "/home/seethe/.nuget/packages/castle.core/4.4.1/castle.core.4.4.1.nupkg.sha512",
     "/home/seethe/.nuget/packages/coverlet.collector/3.1.0/coverlet.collector.3.1.0.nupkg.sha512",

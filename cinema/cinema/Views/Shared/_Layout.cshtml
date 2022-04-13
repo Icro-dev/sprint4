@@ -46,6 +46,12 @@
                             </div>
                         </li>
                     }
+                     @if (_signInManager.IsSignedIn(User) && User.IsInRole("Backoffice-medewerker"))
+                     {
+                         <li class="nav-item">
+                             <a class="nav-link" asp-area="" asp-controller="Movies" asp-action="Create">Film toevoegen</a>
+                         </li>
+                     }
                 </ul>
                      <ul class="navbar-nav ml-auto">
                                         @*@{ IsSignedIn(User) - Returns true if the principal has an identity with the application cookie identity }
