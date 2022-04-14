@@ -62,6 +62,14 @@ namespace cinema.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id, NameOfMovie,UserName,Review,PostTime")] MovieReview movieReview)
         {
+            var reviewUserName = movieReview.UserName;
+            var currentlyLoggedInUser = await _userManager.GetUserAsync(HttpContext.User);
+            var stringOfCLU = currentlyLoggedInUser.ToString();
+            if (reviewUserName != stringOfCLU)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 _movieReviewRepository.Add(movieReview);
@@ -105,7 +113,7 @@ namespace cinema.Controllers
             var stringOfCLU = currentlyLoggedInUser.ToString();
             if(reviewUserName != stringOfCLU)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
 
             if (ModelState.IsValid)
@@ -146,6 +154,14 @@ namespace cinema.Controllers
                 return NotFound();
             }
 
+            var reviewUserName = movieReview.UserName;
+            var currentlyLoggedInUser = await _userManager.GetUserAsync(HttpContext.User);
+            var stringOfCLU = currentlyLoggedInUser.ToString();
+            if (reviewUserName != stringOfCLU)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View(movieReview);
         }
 
@@ -155,6 +171,15 @@ namespace cinema.Controllers
         public async Task<IActionResult> DeleteConfirmed(int Id)
         {
             var movieReview = await _movieReviewRepository.FindMovieReviewEdit(Id);
+
+            var reviewUserName = movieReview.UserName;
+            var currentlyLoggedInUser = await _userManager.GetUserAsync(HttpContext.User);
+            var stringOfCLU = currentlyLoggedInUser.ToString();
+            if (reviewUserName != stringOfCLU)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             _movieReviewRepository.RemovieMovieReview(movieReview);
             _movieReviewRepository.SaveMovieReview();
             return RedirectToAction(nameof(Index));

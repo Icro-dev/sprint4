@@ -14,18 +14,18 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="NameOfMovie" class="control-label"></label>
-                <input asp-for="NameOfMovie" class="form-control" />
+                <label asp-for="NameOfMovie" class="control-label"></label><br />
+                @Html.TextBoxFor(m => m.NameOfMovie, new { @class = "form-control" })  
                 <span asp-validation-for="NameOfMovie" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" />
+                <label asp-for="UserName" class="control-label"></label><br />
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })  
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Review" class="control-label"></label>
-                <input asp-for="Review" class="form-control" />
+                @Html.TextAreaFor(m => m.Review, new { @class = "form-control", @cols = "60", @rows="10" }) 
                 <span asp-validation-for="Review" class="text-danger"></span>
             </div>
             <div class="form-group">
