@@ -24,6 +24,12 @@ public class MovieRepository : IMovieRepository
             .FirstOrDefaultAsync(m => m.Name == id);
     }
 
+    public Movie? FindMovieByIdNonTask(string id)
+    {
+        return _context.Movies
+            .FirstOrDefault(m => m.Name == id);
+    }
+
     public void Add(Movie movie)
     {
         _context.Add(movie);

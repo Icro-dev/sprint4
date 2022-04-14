@@ -17,10 +17,63 @@ namespace cinema.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.2")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("cinema.Models.Abonnement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("AbboName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AbboQR")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Expired")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Abonnement");
+                });
+
+            modelBuilder.Entity("cinema.Models.LostAndFound", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FoundTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LostObject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RetrievedTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LostAndFound");
+                });
 
             modelBuilder.Entity("cinema.Models.Movie", b =>
                 {
@@ -71,6 +124,31 @@ namespace cinema.Migrations
                     b.HasKey("Name");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("cinema.Models.MovieReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("NameOfMovie")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PostTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Review")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MovieReview");
                 });
 
             modelBuilder.Entity("cinema.Models.Room", b =>

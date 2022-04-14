@@ -1,0 +1,158 @@
+﻿@model cinema.ViewModels.MovieReviewMovieViewModel
+
+@{
+    ViewData["Title"] = "ReviewsForMovie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Movies with reviews</h1>
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/movieDetails.css" asp-append-version="true"/>
+}
+
+<h1> @Html.DisplayFor(model => model.Movie.Name) (@Html.DisplayFor(model => model.Movie.ReleaseYear))</h1>
+<div class="container mb-5">
+    <div class="poster-image">
+        <img src="@Html.DisplayFor(model => model.Movie.Poster)" alt="Sample Image" style="height:500px;width:300px;"/>
+    </div>
+    <div class="movie-info">
+        <div class="border">
+            @Html.DisplayName("Description:")
+            <br/>
+            @Html.DisplayFor(model => model.Movie.Description)
+        </div>
+        <div class="border">
+            @Html.DisplayName("Director:")
+            <br/>
+            @Html.DisplayFor(model => model.Movie.Director)
+        </div>
+        <div class="border">
+            @Html.DisplayName("Cast:")
+            <br/>
+            @Html.DisplayFor(model => model.Movie.Cast)
+        </div>
+        <div class="border">
+            @Html.DisplayName("Length:")
+            <br/>
+            @Html.DisplayFor(model => model.Movie.Length)
+        </div>
+        <div class="border">
+            @Html.DisplayName("Genre:")
+            <br/>
+            @Html.DisplayFor(model => model.Movie.Genre)
+        </div>
+        <div class="border">
+            @Html.DisplayName("Language:")
+            <br/>
+            @Html.DisplayFor(model => model.Movie.Language)
+        </div>
+        <div class="border">
+            @Html.DisplayName("ThreeD:")
+            <br/>
+            @Html.DisplayFor(model => model.Movie.ThreeD)
+        </div>
+        <div class="border">
+            @Html.DisplayName("Kijkwijzer")
+            <br/>
+            <div class="kijkwijzer">
+                @Html.DisplayFor(model => model.Movie.Kijkwijzer)
+            </div>
+       @{
+                var Kijkwijzer = Model.Movie.Kijkwijzer;
+                List<string> ListKijkwijzer = new List<string>();
+                string[] KwItems = Kijkwijzer.Split(' ');
+                foreach (var KwItem in KwItems)
+                {
+                    ListKijkwijzer.Add(KwItem);
+                }
+
+                if (ListKijkwijzer.Contains("AL"))
+                {
+                    <img src="~/imagesKijkwijzer/AL.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("12"))
+                {
+                    <img src="~/imagesKijkwijzer/12.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("GT"))
+                {
+                    <img src="~/imagesKijkwijzer/GTG.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("G"))
+                {
+                    <img src="~/imagesKijkwijzer/G.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("A"))
+                {
+                    <img src="~/imagesKijkwijzer/angst.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("16"))
+                {
+                    <img src="~/imagesKijkwijzer/16.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("18"))
+                {
+                    <img src="~/imagesKijkwijzer/18.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("6"))
+                {
+                    <img src="~/imagesKijkwijzer/6.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("D"))
+                {
+                    <img src="~/imagesKijkwijzer/D.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("MG6"))
+                {
+                    <img src="~/imagesKijkwijzer/mg6.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("S"))
+                {
+                    <img src="~/imagesKijkwijzer/S.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+                if (ListKijkwijzer.Contains("DISCR"))
+                {
+                    <img src="~/imagesKijkwijzer/Discr.png" alt="AL" style="height:50px;width:50px;"/>
+                }
+            }
+
+        </div>
+    </div>
+    <div style="clear: both"></div>
+</div>
+
+@{
+ 
+    foreach (var review in @Model.MovieReviews)
+    {
+        <div class="card bg-dark mb-3">
+            <div class="card-header bg-secondary text-white">
+                @review.UserName <span>|</span>
+                @review.PostTime <span>|</span>
+                @review.NameOfMovie <span>|</span>
+            </div>
+            <div class="card-body bg-dark"> 
+                <h5 class="card-title text-white">@review.Review</h5>
+            </div>
+           <div class="card-footer">
+           <div class = "d-flex flex-row">
+                <div class="p-2">
+                <a class="btn btn-primary" asp-action="Edit" asp-controller="MovieReviews" asp-route-id="@review.Id">Edit</a>
+                </div>
+                <div class= "p-2">
+                <form method="post" asp-action="Delete" asp-controller="MovieReviews" asp-route-id="@review.Id">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete your review?')">Delete</button>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    }
+    <a asp-action="Create" asp-controller="Users"
+          class="btn btn-primary mb-3" style="width:auto">
+          Create Review
+    </a>
+}

@@ -89,6 +89,85 @@ public static class SeedData
                 }
             );
 
+        await context.SaveChangesAsync();
+
+        if (context.Abonnement != null && !context.Abonnement.Any())
+            context.Abonnement.AddRange(
+                new Abonnement
+                {
+                    AbboQR = "ynakcv",
+                    StartDate = new DateTime(2022, 04, 13, 19, 00, 00),
+                    ExpireDate = new DateTime(2022, 05, 13, 23, 59, 59),
+                    AbboName = "Piet",
+                    Expired = false
+                },
+                new Abonnement
+                {
+                    AbboQR = "xdpela",
+                    StartDate = new DateTime(2022, 04, 12, 19, 00, 00),
+                    ExpireDate = new DateTime(2022, 05, 12, 23, 59, 59),
+                    AbboName = "Anna",
+                    Expired = false
+                },
+                 new Abonnement
+                 {
+                     AbboQR = "qvetyu",
+                     StartDate = new DateTime(2010, 01, 01, 10, 00, 00),
+                     ExpireDate = new DateTime(2099, 01, 01, 23, 59, 59),
+                     AbboName = "Sven",
+                     Expired = false
+                 }
+                 );
+        await context.SaveChangesAsync();
+
+        if (context.LostAndFound != null && !context.LostAndFound.Any())
+            context.LostAndFound.AddRange(
+                new LostAndFound
+                {
+                  LostObject = "Telefoon",
+                  Description = "Zwarte samsung G13 met een barst rechtsonderin",
+                  FoundTime = new DateTime(2022, 04, 13, 20, 00, 00 )
+                },
+                new LostAndFound
+                {
+                    LostObject = "Portemonee",
+                    Description = "Zwart lederen portemonee met een ABNAMRO bankpas met naam I.Kramer",
+                    FoundTime = new DateTime(2022, 04, 13, 09, 00, 00)
+                },
+                 new LostAndFound
+                 {
+                     LostObject = "AH Bonuskaart",
+                     Description = "nummer 23461094, gloednieuw",
+                     FoundTime = new DateTime(2022, 04, 13, 20, 00, 00)
+                 }
+                 );
+        await context.SaveChangesAsync();
+
+        if (context.MovieReview != null && !context.MovieReview.Any())
+            context.MovieReview.AddRange(
+                new MovieReview
+                {
+                    NameOfMovie = "Avatar",
+                    UserName = "Anna",
+                    Review = "Geweldige film, ik heb in tijden niet zo'n goede film gezien",
+                    PostTime = new DateTime(2022, 04, 13, 16, 00, 00)
+                },
+                new MovieReview
+                {
+                    NameOfMovie = "Avatar",
+                    UserName = "Piet",
+                    Review = "Aardige film, mooie effecten, beetje laagdrempelig plot",
+                    PostTime = new DateTime(2022, 04, 13, 17, 00, 00)
+                },
+                 new MovieReview
+                 {
+                     NameOfMovie = "Joker",
+                     UserName = "Anna",
+                     Review = "Dit is echt een aanrader, beste film in tijden",
+                     PostTime = new DateTime(2022, 04, 13, 13, 00, 00)
+                 }
+                 );
+        await context.SaveChangesAsync();
 
         if (context.Movies != null && !context.Movies.Any())
             context.Movies.AddRange(
@@ -199,7 +278,7 @@ public static class SeedData
 
         if (context.Shows != null && !context.Shows.Any())
         {
-            var startDate = new DateTime(2022, 3,31);
+            var startDate = new DateTime(2022, 4,13);
             var times = new int[] {13, 16, 19, 21};
 
             var movies = context.Movies!.ToList();
@@ -231,6 +310,6 @@ public static class SeedData
             context.Shows.AddRange(showList);
             await context.SaveChangesAsync();
         }
-        
+
     }
 }

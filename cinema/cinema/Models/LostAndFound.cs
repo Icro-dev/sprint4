@@ -6,8 +6,8 @@ namespace cinema.Models
     {
         [Key]
         public int Id { get; set; }
-        public string LostObject { get; set; }
-        public string Description { get; set; }
+        public string? LostObject { get; set; }
+        public string? Description { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FoundTime { get; set; }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj": {}
+    "H:\\macrohardSprint4TEST\\macrohard-code-sprint-4\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj": {}
   },
   "projects": {
-    "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj": {
+    "H:\\macrohardSprint4TEST\\macrohard-code-sprint-4\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj",
+        "projectUniqueName": "H:\\macrohardSprint4TEST\\macrohard-code-sprint-4\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj",
         "projectName": "cinema-unit-testing",
-        "projectPath": "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj",
+        "projectPath": "H:\\macrohardSprint4TEST\\macrohard-code-sprint-4\\cinema\\cinema-unit-testing\\cinema-unit-testing.csproj",
         "packagesPath": "C:\\Users\\Icrolux\\.nuget\\packages\\",
-        "outputPath": "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema-unit-testing\\obj\\",
+        "outputPath": "H:\\macrohardSprint4TEST\\macrohard-code-sprint-4\\cinema\\cinema-unit-testing\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Icrolux\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema\\cinema.csproj": {
-                "projectPath": "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema\\cinema.csproj"
+              "H:\\macrohardSprint4TEST\\macrohard-code-sprint-4\\cinema\\cinema\\cinema.csproj": {
+                "projectPath": "H:\\macrohardSprint4TEST\\macrohard-code-sprint-4\\cinema\\cinema\\cinema.csproj"
               }
             }
           }
@@ -46,7 +46,7 @@
           "dependencies": {
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[16.11.0, )"
+              "version": "[17.1.0, )"
             },
             "Moq": {
               "target": "Package",
@@ -56,7 +56,7 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.1.0, )"
+              "version": "[3.1.2, )"
             },
             "xunit": {
               "target": "Package",
@@ -88,14 +88,14 @@
         }
       }
     },
-    "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema\\cinema.csproj": {
+    "H:\\macrohardSprint4TEST\\macrohard-code-sprint-4\\cinema\\cinema\\cinema.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema\\cinema.csproj",
+        "projectUniqueName": "H:\\macrohardSprint4TEST\\macrohard-code-sprint-4\\cinema\\cinema\\cinema.csproj",
         "projectName": "cinema",
-        "projectPath": "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema\\cinema.csproj",
+        "projectPath": "H:\\macrohardSprint4TEST\\macrohard-code-sprint-4\\cinema\\cinema\\cinema.csproj",
         "packagesPath": "C:\\Users\\Icrolux\\.nuget\\packages\\",
-        "outputPath": "H:\\macrohardSprint4\\macrohard-code-sprint-4\\cinema\\cinema\\obj\\",
+        "outputPath": "H:\\macrohardSprint4TEST\\macrohard-code-sprint-4\\cinema\\cinema\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Icrolux\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -126,31 +126,31 @@
           "dependencies": {
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.2, )"
+              "version": "[6.0.4, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.2, )"
+              "version": "[6.0.4, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.2, )"
+              "version": "[6.0.4, )"
             },
             "Microsoft.EntityFrameworkCore.Proxies": {
               "target": "Package",
-              "version": "[6.0.2, )"
+              "version": "[6.0.4, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.2, )"
+              "version": "[6.0.3, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.2, )"
+              "version": "[6.0.3, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
@@ -158,7 +158,7 @@
             },
             "Stripe.net": {
               "target": "Package",
-              "version": "[39.99.0, )"
+              "version": "[39.104.0, )"
             }
           },
           "imports": [

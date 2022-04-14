@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using cinema.Data;
 using cinema.Models;
 using cinema.Repositories;
+using cinema.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 
 namespace cinema.Controllers
@@ -16,10 +17,12 @@ namespace cinema.Controllers
     public class MoviesController : Controller
     {
         private readonly IMovieRepository _movieRepository;
+        private readonly IMovieReviewRepository _movieReviewRepository;
 
-        public MoviesController(IMovieRepository movieRepository)
+        public MoviesController(IMovieRepository movieRepository, IMovieReviewRepository movieReviewRepository)
         {
             _movieRepository = movieRepository;
+            _movieReviewRepository = movieReviewRepository;
         }
 
         // GET: Movies
@@ -43,6 +46,21 @@ namespace cinema.Controllers
             }
 
             return View(movie);
+        }
+        // GET: Movies/ReviewsForMovie/1
+        public ViewResult ReviewsForMovie(string id)
+        {
+            if (id == null)
+            {
+                return View("NotFound");
+            }
+
+            MovieReviewMovieViewModel movieReviewMovieModel = new MovieReviewMovieViewModel()
+            {
+                Movie = _movieRepository.FindMovieByIdNonTask(id),
+                MovieReviews = _movieReviewRepository.ListOfAllReviewsWithMovieName(id)
+            };
+            return View(movieReviewMovieModel);
         }
 
         // GET: Movies/Create
