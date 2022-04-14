@@ -5,19 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="alert alert-primary" role="alert">
+  @ViewBag.LostObject ligt nu meer dan vijf maanden in de lost and found, handig deze over aan de authoriteiten.
+</div>
 
-
-  @if(@ViewBag.LostObject != null)
-  {<div class="alert alert-primary" role="alert">
-    @ViewBag.LostObject <p>ligt nu meer dan vijf maanden in de lost and found, handig deze over aan de authoriteiten en verwijder het daarna uit het systeem</p>
-    </div>
-  }
-
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table text-white">
     <thead>
         <tr>

@@ -8,10 +8,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cinema.Data;
 using cinema.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace cinema.Controllers
-{
-    public class LostAndFoundsController : Controller
+{ 
+[Authorize(Roles = "Kassamedewerker")]
+public class LostAndFoundsController : Controller
     {
         private readonly CinemaContext _context;
 
@@ -23,6 +26,21 @@ namespace cinema.Controllers
         // GET: LostAndFounds
         public async Task<IActionResult> Index()
         {
+            var LaFList = new List<LostAndFound>();
+            var list = await _context.LostAndFound.ToListAsync();
+            LaFList.AddRange(list);
+
+            foreach(var laf in LaFList)
+            {
+                var lafTime = laf.FoundTime;
+                var lafTimeExceeded = laf.FoundTime.AddMonths(5);
+                var currentTime = DateTime.Now;
+                if(lafTimeExceeded < currentTime)
+                {
+                    ViewBag.LostObject = laf.LostObject;
+                }
+            }
+
             return View(await _context.LostAndFound.ToListAsync());
         }
 
