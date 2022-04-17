@@ -33,6 +33,7 @@ builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 builder.Services.AddScoped<IRoomTemplatesRepository, RoomTemplatesRepository>();
 builder.Services.AddScoped<ISubscriberRepository, SubscriberRepository>();
 builder.Services.AddScoped<IMovieReviewRepository, MovieReviewRepository>();
+builder.Services.AddScoped<IAbonnementRepository, AbonnementRepository>();
 
 
 // load .env file

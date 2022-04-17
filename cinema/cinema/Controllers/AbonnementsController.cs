@@ -8,34 +8,38 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using cinema.Data;
 using cinema.Models;
+using cinema.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace cinema.Controllers
 {
-    public class AbonnementsController : Controller
-    {
-        private readonly CinemaContext _context;
+    [Authorize(Roles = "Kassamedewerker")]
 
-        public AbonnementsController(CinemaContext context)
+    public class AbonnementsController : Controller
         {
-            _context = context;
+        private readonly IAbonnementRepository _abonnementRepository;
+
+        public AbonnementsController(IAbonnementRepository abonnementRepository)
+        {
+                _abonnementRepository = abonnementRepository;
         }
 
         // GET: Abonnements
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Abonnement.ToListAsync());
+            return View(await _abonnementRepository.ListOfAllAbonnements());
         }
 
         // GET: Abonnements/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var abonnement = await _context.Abonnement
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var abonnement = await _abonnementRepository.FindAbonnementById(id);
             if (abonnement == null)
             {
                 return NotFound();
@@ -59,22 +63,22 @@ namespace cinema.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(abonnement);
-                await _context.SaveChangesAsync();
+                _abonnementRepository.Add(abonnement);
+                _abonnementRepository.SaveAbonnement();
                 return RedirectToAction(nameof(Index));
             }
             return View(abonnement);
         }
 
         // GET: Abonnements/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var abonnement = await _context.Abonnement.FindAsync(id);
+            var abonnement = await _abonnementRepository.FindAbonnementByIdAsync(id);
             if (abonnement == null)
             {
                 return NotFound();
@@ -98,8 +102,8 @@ namespace cinema.Controllers
             {
                 try
                 {
-                    _context.Update(abonnement);
-                    await _context.SaveChangesAsync();
+                    _abonnementRepository.UpdateAbonnement(abonnement);
+                    _abonnementRepository.SaveAbonnement();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -118,15 +122,14 @@ namespace cinema.Controllers
         }
 
         // GET: Abonnements/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var abonnement = await _context.Abonnement
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var abonnement = await _abonnementRepository.FindAbonnementById(id);
             if (abonnement == null)
             {
                 return NotFound();
@@ -140,15 +143,15 @@ namespace cinema.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var abonnement = await _context.Abonnement.FindAsync(id);
-            _context.Abonnement.Remove(abonnement);
-            await _context.SaveChangesAsync();
+            var abonnement = await _abonnementRepository.FindAbonnementByIdAsync(id);
+            _abonnementRepository.RemoveAbonnement(abonnement);
+            _abonnementRepository.SaveAbonnement();
             return RedirectToAction(nameof(Index));
         }
 
         private bool AbonnementExists(int id)
         {
-            return _context.Abonnement.Any(e => e.Id == id);
+            return _abonnementRepository.AbonnementExists(id);
         }
     }
 }

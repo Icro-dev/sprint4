@@ -7,7 +7,7 @@
 
 <h1>Details</h1>
 
-<div>
+<div class = "abonnement">
     <h4>Abonnement</h4>
     <hr />
     <dl class="row">
@@ -43,7 +43,25 @@
         </dd>
     </dl>
 </div>
+ <button class="print btn btn-secondary">
+            <strong>Print</strong>
+        </button>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+    <script language="javascript">
+        
+        var htmlEnd =
+                '</body>' +
+                '</html>';
+        var abonnement = document.querySelector('.abonnement');
+        document.querySelector('.print').addEventListener('click', function (){
+                             var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+                                           WinPrint.document.write(abonnement.innerHTML + htmlEnd);
+                                           WinPrint.document.close();
+                                           WinPrint.focus();
+                                           WinPrint.print();
+                        });
+    </script>

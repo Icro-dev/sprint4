@@ -58,6 +58,12 @@
                              <a class="nav-link" asp-area="" asp-controller="LostAndFounds" asp-action="Index">Verloren voorwerpen</a>
                          </li>
                      }
+                           @if (_signInManager.IsSignedIn(User) && User.IsInRole("Kassamedewerker"))
+                     {
+                         <li class="nav-item">
+                             <a class="nav-link" asp-area="" asp-controller="Abonnements" asp-action="Index">Abonnementen</a>
+                         </li>
+                     }
                 </ul>
                      <ul class="navbar-nav ml-auto">
                                      
