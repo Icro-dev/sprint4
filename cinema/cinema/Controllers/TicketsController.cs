@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols;
 using System.Text.Json;
 using Stripe;
+using cinema.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace cinema.Controllers
 {
@@ -29,8 +32,8 @@ namespace cinema.Controllers
 
         private readonly IConfiguration _config;
 
-
-private readonly ISeatService _seatService;        public TicketsController(IPriceCalculatingService priceCalculatingService, ITicketService ticketService,
+        private readonly ISeatService _seatService;       
+        public TicketsController(IPriceCalculatingService priceCalculatingService, ITicketService ticketService,
             IMovieService movieService, IRoomService roomService, ISeatService seatService, CinemaContext context, IShowService showService, IConfiguration config)
         {
             _ticketService = ticketService;
@@ -94,13 +97,15 @@ private readonly ISeatService _seatService;        public TicketsController(IPri
         public IActionResult Discount(
             [FromQuery] int showId,
             [FromQuery] int quantity,
-            [FromQuery] Arrangements arrangement)
+            [FromQuery] Arrangements arrangement,
+            [FromQuery] bool abonnement)
         {
             ViewBag.show = showId;
             ViewBag.price = _priceCalculatingService.pricePerTicket(showId);
-            ViewBag.totalPrice = _priceCalculatingService.ticketCost(quantity, showId);
+            ViewBag.totalPrice = _priceCalculatingService.ticketCost(quantity, showId, abonnement);
             ViewBag.quantity = quantity;
             ViewBag.Arrangement = arrangement;
+            ViewBag.abonnement = abonnement;
             return View();
         }
 
@@ -178,6 +183,7 @@ private readonly ISeatService _seatService;        public TicketsController(IPri
         public IActionResult Reservation(
             [FromQuery] int showId,
             [FromQuery] int quantity,
+            [FromQuery] bool abonnement,
             [FromQuery] int childDiscount,
             [FromQuery] int studentDiscount,
             [FromQuery] int seniorDiscount,
@@ -189,24 +195,24 @@ private readonly ISeatService _seatService;        public TicketsController(IPri
             ViewBag.showId = showId;
             ViewBag.movieName = _showService.getShowById(showId).Movie.Name;
             ViewBag.threeD = _showService.getShowById(showId).ThreeD;
+            ViewBag.abonnement = abonnement;
             ViewBag.childDiscount = childDiscount;
             ViewBag.studentDiscount = studentDiscount;
             ViewBag.seniorDiscount = seniorDiscount;
             ViewBag.popcorn = popcorn;
-
-
             ViewBag.Arrangement = arrangement;
 
-            var totalCost = _priceCalculatingService.ticketCost(quantity, showId);
+            var totalCost = _priceCalculatingService.ticketCost(quantity, showId, abonnement);
             var discount = _priceCalculatingService.Discount(childDiscount, studentDiscount, seniorDiscount);
             var premium = _priceCalculatingService.Premium(popcorn);
             var arrangementCost = _priceCalculatingService.ArrangementCost(arrangement);
+            var arrangementTotal = arrangementCost * quantity;
 
             ViewBag.arrangementCost = arrangementCost;
             ViewBag.totalCost = totalCost;
             ViewBag.Discount = discount;
             ViewBag.Popcorn = premium;
-            ViewBag.OrderCost = _priceCalculatingService.OrderCost(discount, premium, totalCost, arrangementCost);
+            ViewBag.OrderCost = _priceCalculatingService.OrderCost(discount, premium, totalCost, arrangementTotal);
             return View();
         }
 

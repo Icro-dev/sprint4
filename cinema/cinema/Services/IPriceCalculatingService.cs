@@ -3,7 +3,7 @@ namespace cinema.Services;
 public interface IPriceCalculatingService
 {
     public double pricePerTicket(int showId);
-    public double ticketCost(int quantity, int showId);
+    public double ticketCost(int quantity, int showId, bool abonnement);
     
     public double Discount(int ChildDiscount, int StudentDiscount, int SeniorDiscount);
 

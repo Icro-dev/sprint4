@@ -27,7 +27,9 @@ else
 <p>Popcorn: <strong>+ € @ViewBag.popcorn </strong></p>
 <p>Korting: <strong>- €@ViewBag.discount </strong></p>
 <hr>
+<p>Abonnement: <strong>- @ViewBag.abonnement </strong></p>
 <h5>Totaal te betalen <strong>€ @ViewBag.OrderCost</strong></h5> <br>
+
 
 <form method="post" asp-action="create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -39,6 +41,7 @@ else
     <input type="hidden" value="@ViewBag.seniorDiscount" name="seniorDiscount">
     <input type="hidden" value="@ViewBag.popcorn" name="popcorn">
     <input type="hidden" value="@ViewBag.OrderCost" name="orderCost">
+    <input type="hidden" value="@ViewBag.abonnement" name="abonnement">
     <div class="form-group">
         <input type="submit" value="Bestellen" class="btn btn-primary"/>
     </div>

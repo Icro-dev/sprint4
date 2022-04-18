@@ -2,6 +2,8 @@ using cinema.Data;
 using cinema.Models;
 using cinema.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace cinema.Services;
 
@@ -11,6 +13,7 @@ public class PriceCalculatingService : IPriceCalculatingService
     private readonly IShowRepository _showRepository;
     
     private readonly IMovieService _movieService;
+
 
     public PriceCalculatingService(IMovieService movieService, IShowRepository showRepository)
     {
@@ -33,8 +36,14 @@ public class PriceCalculatingService : IPriceCalculatingService
         return 8.5 + premium;
     }
 
-    public double ticketCost(int quantity, int showId)
+    public double ticketCost(int quantity, int showId, bool abonnement)
     {
+        if(abonnement == true)
+        {
+           int aboQuantity = quantity - 1;
+            return pricePerTicket(showId) * aboQuantity;
+        }
+
         return pricePerTicket(showId) * quantity;
     }
 
@@ -60,6 +69,6 @@ public class PriceCalculatingService : IPriceCalculatingService
 
     public double OrderCost(double Discount, double Premium, double SubTotalCost, double arrangementCost)
     {
-        return SubTotalCost - Discount + Premium;
+        return SubTotalCost - Discount + Premium + arrangementCost;
     }
 }

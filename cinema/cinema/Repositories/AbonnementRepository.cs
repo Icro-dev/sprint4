@@ -2,8 +2,8 @@
 using cinema.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace cinema.Repositories
-{
+namespace cinema.Repositories;
+
     public class AbonnementRepository : IAbonnementRepository
     {
 
@@ -17,6 +17,13 @@ namespace cinema.Repositories
         public async Task<List<Abonnement>> ListOfAllAbonnements()
         {
             return await _context.Abonnement.ToListAsync();
+        }
+
+        public async Task<Abonnement?> FindAbonnementByName(string username)
+        {
+            return await _context.Abonnement
+                .FirstOrDefaultAsync(a => a.AbboName == username);
+         
         }
 
         public Task<Abonnement?> FindAbonnementById(int id)
@@ -56,4 +63,4 @@ namespace cinema.Repositories
             return _context.Abonnement.Any(e => e.Id == id);
         }
     }
-}
+
