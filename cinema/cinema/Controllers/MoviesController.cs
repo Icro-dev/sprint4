@@ -81,8 +81,9 @@ namespace cinema.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Backoffice-medewerker")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,Director,Cast,ReleaseYear,CountryOfOrigin,Length,Genre,Poster,Language,ThreeD")] Movie movie)
+        public async Task<IActionResult> Create([Bind("Name,Description,Director,Cast,ReleaseYear,CountryOfOrigin,Length,Genre,Poster,Language,Kijkwijzer,ThreeD")] Movie movie)
         {
             if (ModelState.IsValid)
             {
