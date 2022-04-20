@@ -29,14 +29,14 @@ namespace cinema.Controllers
         }
 
         // GET: Abonnements
-
+        [Authorize(Roles = "Kassamedewerker")]
         public async Task<IActionResult> Index()
         {
             return View(await _abonnementRepository.ListOfAllAbonnements());
         }
 
         // GET: Abonnements/Details/5
-
+        [Authorize(Roles = "Kassamedewerker")]
         public async Task<IActionResult> Details(int id)
         {
             if (id == null)
@@ -57,9 +57,7 @@ namespace cinema.Controllers
             BitmapByteQRCode qrCode = new BitmapByteQRCode(qrCodeData);
             byte[] qrCodeAsBitmapByteArr = qrCode.GetGraphic(20);
 
-            //From here on, you can implement your platform-dependent byte[]-to-image code 
-
-            //e.g. Windows 10 - Full .NET Framework
+            // Byte to image
             Bitmap bmp;
             using (var ms = new MemoryStream(qrCodeAsBitmapByteArr))
             {
@@ -80,8 +78,9 @@ namespace cinema.Controllers
             }
         }
 
-        // GET: Abonnements/Myabonnement/name
+        // GET: Abonnements/Myabonnement/{username}
         [HttpGet]
+        [Authorize(Roles = "Bezoeker")]
         [Route("/Abonnements/Myabonnement/{username}")]
         public async Task<IActionResult> Myabonnement(string username)
         {
@@ -91,7 +90,6 @@ namespace cinema.Controllers
             }
 
             var abonnement =  _abonnementRepository.AbonnementByName(username);
-            /*var abonnement = await _abonnementRepository.FindAbonnementById(id);*/
             if (abonnement == null)
             {
                 return NotFound();
@@ -120,7 +118,7 @@ namespace cinema.Controllers
 
 
         // GET: Abonnements/Create
-        
+        [Authorize(Roles = "Kassamedewerker")]
         public IActionResult Create()
         {
             return View();
@@ -130,7 +128,7 @@ namespace cinema.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        
+        [Authorize(Roles = "Kassamedewerker")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,AbboQR,StartDate,ExpireDate,AbboName,Expired")] Abonnement abonnement)
         {
@@ -144,7 +142,7 @@ namespace cinema.Controllers
         }
 
         // GET: Abonnements/Edit/5
-       
+        [Authorize(Roles = "Kassamedewerker")]
         public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
@@ -164,7 +162,7 @@ namespace cinema.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        
+        [Authorize(Roles = "Kassamedewerker")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,AbboQR,StartDate,ExpireDate,AbboName,Expired")] Abonnement abonnement)
         {
@@ -197,7 +195,7 @@ namespace cinema.Controllers
         }
 
         // GET: Abonnements/Delete/5
-       
+        [Authorize(Roles = "Kassamedewerker")]
         public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
@@ -216,6 +214,7 @@ namespace cinema.Controllers
         
         // POST: Abonnements/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Kassamedewerker")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

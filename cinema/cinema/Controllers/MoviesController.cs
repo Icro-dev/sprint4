@@ -55,6 +55,13 @@ namespace cinema.Controllers
                 return View("NotFound");
             }
 
+            //check if the movie exists
+            var movie = _movieRepository.FindMovieByIdNonTask(id);
+            if (movie == null)
+            {
+                return View("NotFound");
+            }
+
             MovieReviewMovieViewModel movieReviewMovieModel = new MovieReviewMovieViewModel()
             {
                 Movie = _movieRepository.FindMovieByIdNonTask(id),
