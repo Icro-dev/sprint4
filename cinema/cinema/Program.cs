@@ -125,4 +125,8 @@ app.MapControllerRoute(
     name: "MovieReviews",
     pattern: "{controller=MovieReviews}/{action=Index}/{id?}");
 
+app.MapControllerRoute(
+    name: "Abonnements",
+    pattern: "{controller=Abonnements}/{action=Index}/{id?}");
+
 app.Run();

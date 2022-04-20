@@ -7,7 +7,7 @@ namespace cinema.Repositories
 
         Task<Abonnement?> FindAbonnementById(int id);
 
-        Task<Abonnement?> FindAbonnementByName(string username);
+        Abonnement AbonnementByName(string username);
 
         void Add(Abonnement abonnement);
 

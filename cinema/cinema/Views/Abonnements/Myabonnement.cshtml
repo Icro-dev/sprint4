@@ -1,33 +1,19 @@
 ﻿@model cinema.Models.Abonnement
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Myabonnement";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Mijn abonnement</h1>
 
-<div>
-    <h4 class="abonnement">Abonnement</h4>
-    <div class="abonnement">
-       <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(@ViewBag.qrImage))" width="300" /><br />
-       @Html.DisplayNameFor(model => model.StartDate)<br />
-       @Html.DisplayFor(model => model.StartDate)<br />
-       @Html.DisplayNameFor(model => model.AbboName)<br />
-       @Html.DisplayFor(model => model.AbboName)<br />
-       @Html.DisplayNameFor(model => model.ExpireDate)
-       @Html.DisplayFor(model => model.ExpireDate)<br />
-       @Html.DisplayNameFor(model => model.Expired)
-       @Html.DisplayFor(model => model.Expired)<br />
+<div class = "abonnement">
+    <h4>Abonnement</h4>
+    <div>
+       <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(@ViewBag.qrImage))" width="300" />
     </div>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AbboQR)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AbboQR)
-        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.StartDate)
         </dt>
@@ -57,10 +43,6 @@
  <button class="print btn btn-secondary">
             <strong>Print</strong>
         </button>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
 
     <script language="javascript">
         

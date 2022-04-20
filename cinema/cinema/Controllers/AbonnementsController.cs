@@ -11,27 +11,32 @@ using cinema.Models;
 using cinema.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using QRCoder;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 
 namespace cinema.Controllers
 {
-    [Authorize(Roles = "Kassamedewerker")]
 
     public class AbonnementsController : Controller
-        {
+    {
         private readonly IAbonnementRepository _abonnementRepository;
 
         public AbonnementsController(IAbonnementRepository abonnementRepository)
         {
-                _abonnementRepository = abonnementRepository;
+            _abonnementRepository = abonnementRepository;
         }
 
         // GET: Abonnements
+
         public async Task<IActionResult> Index()
         {
             return View(await _abonnementRepository.ListOfAllAbonnements());
         }
 
         // GET: Abonnements/Details/5
+
         public async Task<IActionResult> Details(int id)
         {
             if (id == null)
@@ -45,19 +50,87 @@ namespace cinema.Controllers
                 return NotFound();
             }
 
+            var aboQR = abonnement.AbboQR;
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(aboQR, QRCodeGenerator.ECCLevel.Q);
+            BitmapByteQRCode qrCode = new BitmapByteQRCode(qrCodeData);
+            byte[] qrCodeAsBitmapByteArr = qrCode.GetGraphic(20);
+
+            //From here on, you can implement your platform-dependent byte[]-to-image code 
+
+            //e.g. Windows 10 - Full .NET Framework
+            Bitmap bmp;
+            using (var ms = new MemoryStream(qrCodeAsBitmapByteArr))
+            {
+                Bitmap qrCodeImage = new Bitmap(ms);
+                ViewBag.qrImage = BitmapToBytes(qrCodeImage);
+            }
+
+
             return View(abonnement);
         }
 
+        private static Byte[] BitmapToBytes(Bitmap img)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+                return stream.ToArray();
+            }
+        }
+
+        // GET: Abonnements/Myabonnement/name
+        [HttpGet]
+        [Route("/Abonnements/Myabonnement/{username}")]
+        public async Task<IActionResult> Myabonnement(string username)
+        {
+            if (username == null)
+            {
+                return NotFound();
+            }
+
+            var abonnement =  _abonnementRepository.AbonnementByName(username);
+            /*var abonnement = await _abonnementRepository.FindAbonnementById(id);*/
+            if (abonnement == null)
+            {
+                return NotFound();
+            }
+
+            var aboQR = abonnement.AbboQR;
+
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(aboQR, QRCodeGenerator.ECCLevel.Q);
+            BitmapByteQRCode qrCode = new BitmapByteQRCode(qrCodeData);
+            byte[] qrCodeAsBitmapByteArr = qrCode.GetGraphic(20);
+
+            //From here on, you can implement your platform-dependent byte[]-to-image code 
+
+            //e.g. Windows 10 - Full .NET Framework
+            Bitmap bmp;
+            using (var ms = new MemoryStream(qrCodeAsBitmapByteArr))
+            {
+                Bitmap qrCodeImage = new Bitmap(ms);
+                ViewBag.qrImage = BitmapToBytes(qrCodeImage);
+            }
+
+
+            return View(abonnement);
+        }
+
+
         // GET: Abonnements/Create
+        
         public IActionResult Create()
         {
             return View();
         }
-
+        
         // POST: Abonnements/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,AbboQR,StartDate,ExpireDate,AbboName,Expired")] Abonnement abonnement)
         {
@@ -71,6 +144,7 @@ namespace cinema.Controllers
         }
 
         // GET: Abonnements/Edit/5
+       
         public async Task<IActionResult> Edit(int id)
         {
             if (id == null)
@@ -85,11 +159,12 @@ namespace cinema.Controllers
             }
             return View(abonnement);
         }
-
+        
         // POST: Abonnements/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,AbboQR,StartDate,ExpireDate,AbboName,Expired")] Abonnement abonnement)
         {
@@ -122,6 +197,7 @@ namespace cinema.Controllers
         }
 
         // GET: Abonnements/Delete/5
+       
         public async Task<IActionResult> Delete(int id)
         {
             if (id == null)
@@ -137,7 +213,7 @@ namespace cinema.Controllers
 
             return View(abonnement);
         }
-
+        
         // POST: Abonnements/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

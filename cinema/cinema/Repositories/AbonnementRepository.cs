@@ -19,14 +19,57 @@ namespace cinema.Repositories;
             return await _context.Abonnement.ToListAsync();
         }
 
-        public async Task<Abonnement?> FindAbonnementByName(string username)
+  /*      public Task<Abonnement?> FindAbonnementByName(string username)
         {
-            return await _context.Abonnement
-                .FirstOrDefaultAsync(a => a.AbboName == username);
-         
-        }
+        *//*return await _context.Abonnement.FirstOrDefaultAsync(a => a.AbboName == username);*//*
+        return (Task<Abonnement?>)_context.Abonnement.Where(a => a.AbboName == username);
 
-        public Task<Abonnement?> FindAbonnementById(int id)
+
+        }*/
+
+    public Abonnement AbonnementByName(string username)
+    {
+        var result = _context.Abonnement.ToList().FindAll(ab => FindAbonement(ab, username));
+        if(result == null)
+        {
+            var emptyAbonnement = new Abonnement();
+            return emptyAbonnement;
+        }
+        if(result.Count > 1)
+        {
+            var emptyAbonnement = new Abonnement();
+            return emptyAbonnement;
+        }    
+        else 
+        {
+            Abonnement abo = new Abonnement(); 
+            foreach (var item in result)
+            {
+                abo.AbboName = item.AbboName;
+                abo.AbboQR = item.AbboQR;
+                abo.Expired = item.Expired;
+                abo.ExpireDate = item.ExpireDate;
+                abo.StartDate = item.StartDate;
+                    
+            }
+            return abo;
+        }
+    }
+
+    private static bool FindAbonement(Abonnement ab, string username)
+    {
+        if (ab.AbboName == username)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+
+    public Task<Abonnement?> FindAbonnementById(int id)
         {
             return _context.Abonnement
                 .FirstOrDefaultAsync(m => m.Id == id);
